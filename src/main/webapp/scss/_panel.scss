@@ -1,0 +1,192 @@
+.sidebar-content {
+  @include themify($themes) {
+    background: themed('sidebarPanelBg');
+    box-shadow: calculateRem(-1px) 0 calculateRem(5px) themed('commonShadow');
+  }
+  position: absolute;
+  top: 0;
+  right: -100%;
+  z-index: 9;
+  width: calc(100% - #{calculateRem($sidebarWidth)});
+  max-width: calculateRem(500px);
+  transition: right .5s ease, width .5s ease;
+  height: 100%;
+  
+  @media only screen and (min-width: $smallWidth) {
+    right: calculateRem(-(500px - $sidebarWidth));
+  }
+  @media only screen and (min-width: $mediumWidth) {
+    width: calc(100% - #{calculateRem($sidebarDesktopWidth)});
+    right: calculateRem(-(500px - $sidebarDesktopWidth));
+  }
+  &.active {
+    right: #{calculateRem($sidebarWidth)};
+    @media only screen and (min-width: $mediumWidth) {
+      right: #{calculateRem($sidebarDesktopWidth)};
+    }
+    .panel-toggle-btn {
+      i {
+        transform: rotate(180deg);
+      }
+    }
+  }
+  .panel-toggle-btn {
+    position: absolute;
+    right: 100%;
+    top: calculateRem(97px);
+    border: 0 none;
+    padding: calculateRem(14px) calculateRem(10px);
+    font-size: calculateRem(22px);
+    z-index: -1;
+    opacity: 0.7;
+    transition: opacity .3s ease;
+    display: none;
+    @include themify($themes) {
+      background: themed('standardBg');
+      box-shadow: 0 0 5px themed('commonShadow');
+      border-right: calculateRem(1px) themed('standardBorder') solid;
+    }
+    &:hover,
+    &:focus,
+    &:active {
+      opacity: 1;
+    }
+    @media only screen and (min-width: $smallWidth) {
+      display: block;
+    }
+    i {
+      transition: transform .5s ease;
+    }
+    
+  }
+  .sidebar-pane {
+    @include themify($themes) {
+      background: themed('sidebarPanelBg');
+    }
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    overflow: auto;
+    display: none;
+    position: relative;
+    z-index: 1;
+    &.active {
+      display: block;
+    }
+    .sidebar-pane-title {
+      @include themify($themes) {
+        background: themed('themeColor');
+        color: themed('textInverseColor');
+      }
+      padding: calculateRem(40px) calculateRem(15px);
+      h1, 
+      h2 {
+        margin: 0;
+        font-size: 1rem;
+        font-weight: bold;
+        text-transform: uppercase;
+      }
+      h1 {
+        position: relative;
+        .fa,
+        .ogi {
+          font-size: 2.1rem;
+          line-height: 0;
+          position: relative;
+          top: calculateRem(5px);
+          margin-right: calculateRem(10px);
+        }
+        .ogi {
+          top: calculateRem(8px);
+        }
+        .menuLayerCounter {
+          font-size: calculateRem(13px);
+          margin-right: 10px;
+          &:before {
+            @include themify($themes) {
+              background: themed('textInverseColor');
+              border-color: themed('themeColor');
+            }
+          }
+          &:after {
+            @include themify($themes) {
+              background: transparentize(themed('textInverseColor'), 0.5);
+            }
+          }
+          &.loading {
+            &:before {
+              background-size: 1.3rem;
+            }
+          }
+          span {
+            @include themify($themes) {
+              color: themed('themeColor');
+            }
+          }
+        }
+      }
+    }
+    .sidebar-pane-content {
+      height: calc(100% - 98px);
+      overflow: auto;
+    }
+  }
+  
+  .sidebar-pane-subpane {
+    @include themify($themes) {
+      background: themed('standardBg');
+      box-shadow: -3px 0 20px themed('commonShadow');
+    }
+    position: fixed;
+    top: 0;
+    right: -100%;
+    z-index: 5;
+    width: calc(100% - #{calculateRem($sidebarWidth)});
+    height: 100%;
+    transition: right .5s ease;
+    max-width: 460px;
+    &.active {
+      right: calculateRem($sidebarWidth);
+    }
+    @media only screen and (min-width: $mediumWidth) {
+      width: calc(100% - #{calculateRem($sidebarDesktopWidth)});
+      &.active {
+        right: calculateRem($sidebarDesktopWidth);
+      }
+    }
+    .sidebar-pane-title {
+      padding-right: calculateRem(50px);
+      position: relative;
+      h2 {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+    }
+    .sidebar-pane-content {
+      height: calc(100% - #{calculateRem(79px)});
+      overflow: auto;
+    }
+    .closeSubpanel {
+      @include themify($themes) {
+        color: themed('textInverseColor');
+      }
+      background: transparent;
+      border: 0 none;
+      position: absolute;
+      top: 50%;
+      right: calculateRem(5px);
+      font-size: 2rem;
+      margin-top: calculateRem(-21px);
+      transition: color .3s ease;
+      padding: calculateRem(5px) calculateRem(10px);
+      &:hover,
+      &:active,
+      &:focus {
+        @include themify($themes) {
+          color: darken(themed('textInverseColor'), 20%);
+        }
+      }
+    }
+  }
+}

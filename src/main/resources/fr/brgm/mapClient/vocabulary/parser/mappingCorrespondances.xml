@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<digester-rules>
+
+    <pattern value="correspondances">
+        <object-create-rule classname="java.util.HashMap"/>
+
+        <pattern value="vocabulary">
+            <call-method-rule methodname="put" paramcount="2"/>
+            <call-param-rule paramnumber="0" attrname="urn_fragment"/>
+            <call-param-rule paramnumber="1" attrname="name"/>
+        </pattern>
+
+    </pattern>
+
+</digester-rules>

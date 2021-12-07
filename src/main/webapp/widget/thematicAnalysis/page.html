@@ -1,0 +1,127 @@
+<p class="bg-info no-analysis" style="display: none">
+	<i class="fa fa-info-circle"></i>
+	<span data-i18n="analysis.unavailable">Thematic analysis is unavailable in globe view.</span>
+</p>
+<div class="active-analysis">
+	<div class="clearfix analysis-title">
+		<h2 class="pull-left" data-i18n="analysis.statistics">Statistics</h2>
+		<div class="pull-right">
+			<button type="button" class="btn btn-default download-wdl-btn">
+				<i class="fa fa-download"></i> 
+				<span data-i18n="analysis.downloadGeosciml">Download GeoSciML</span>
+			</button>
+			<div class="dropdown colors-dropdown">
+				<button class="btn btn-dropdown dropdown-toggle" type="button" id="colors-dropdown-__ID__" title="Choose a color"
+					data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" data-i18n="[title]analysis.chooseColorTitle">
+					<span class="color-choice" data-value="B6FF00" style="background: #B6FF00">
+						<span class="sr-only">B6FF00</span>
+					</span>
+					<i class="fa fa-angle-down"></i>
+				</button>
+				<ul class="dropdown-menu" aria-labelledby="colors-dropdown-__ID__">
+	
+				</ul>
+			</div>
+		</div>
+	
+	</div>
+	
+	<div class="panel-group" id="analysis-accordion__ID__" role="tablist" aria-multiselectable="true">
+
+		<!-- ERML -->
+		<div id="commodityAnalysisPanel-__ID__" class="analysis-panel panel panel-default">
+			<div class="panel-heading active" role="tab" id="commodityHeading__ID__">
+				<h4 class="panel-title">
+					<a role="button" data-toggle="collapse" data-parent="#analysis-accordion__ID__" href="#commodityAccordion__ID__"
+					   aria-expanded="true" aria-controls="commodityAccordion__ID__" data-i18n="analysis.commodityFilter">
+						Filter by commodity
+					</a>
+				</h4>
+			</div>
+			<div id="commodityAccordion__ID__" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="commodityHeading__ID__">
+				<div class="panel-body">
+					<input type="text" id="portrayalCommodity__ID__Search" class="form-control" placeholder="Filter by commodity" data-i18n="[placeholder]analysis.commodityFilter" />
+					<div id="portrayalCommodity__ID__Result"></div>
+				</div>
+			</div>
+		</div>
+		<div id="mineralOccurenceAnalysisPanel-__ID__" class="analysis-panel panel panel-default">
+			<div class="panel-heading" role="tab" id="mineralOccurenceHeading__ID__">
+				<h4 class="panel-title">
+					<a class="collapsed" role="button" data-toggle="collapse" data-parent="#analysis-accordion__ID__"
+					   href="#mineralOccurenceAccordion__ID__" aria-expanded="false" aria-controls="mineralOccurenceAccordion__ID__" data-i18n="analysis.mineralOccurenceFilter">
+						Filter by mineral occurence type
+					</a>
+				</h4>
+			</div>
+			<div id="mineralOccurenceAccordion__ID__" class="panel-collapse collapse" role="tabpanel" aria-labelledby="mineralOccurenceHeading__ID__">
+				<div class="panel-body">
+					<input type="text" id="portrayalMineralOccurence__ID__Search" class="form-control" placeholder="Filter by mineral occurence" data-i18n="[placeholder]analysis.mineralOccurenceFilter" />
+					<div id="portrayalMineralOccurence__ID__Result"></div>
+				</div>
+			</div>
+		</div>
+
+
+		<!-- GEOSCIML -->
+		<div id="lithologyAnalysisPanel-__ID__" class="analysis-panel panel panel-default">
+			<div class="panel-heading active" role="tab" id="lithoHeading__ID__">
+				<h4 class="panel-title">
+					<a role="button" data-toggle="collapse" data-parent="#analysis-accordion__ID__" href="#lithoAccordion__ID__" 
+						aria-expanded="true" aria-controls="lithoAccordion__ID__" data-i18n="analysis.lithoFilter">
+						Filter by lithology
+					</a>
+				</h4>
+			</div>
+			<div id="lithoAccordion__ID__" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="lithoHeading__ID__">
+				<div class="panel-body">
+					<input type="text" id="portrayalLitho__ID__Search" class="form-control" placeholder="Filter by lithology" data-i18n="[placeholder]analysis.lithoFilter" />
+					<div id="portrayalLitho__ID__Result"></div>
+				</div>
+			</div>
+		</div>
+		<div id="ageAnalysisPanel-__ID__" class="analysis-panel panel panel-default">
+			<div class="panel-heading" role="tab" id="ageHeading__ID__">
+				<h4 class="panel-title">
+					<a class="collapsed" role="button" data-toggle="collapse" data-parent="#analysis-accordion__ID__" 
+						href="#ageAccordion__ID__" aria-expanded="false" aria-controls="ageAccordion__ID__" data-i18n="analysis.ageFilter">
+						Filter by age
+					</a>
+				</h4>
+			</div>
+			<div id="ageAccordion__ID__" class="panel-collapse collapse" role="tabpanel" aria-labelledby="ageHeading__ID__">
+				<div class="panel-body">
+					<input type="text" id="portrayalAge__ID__Search" class="form-control" placeholder="Filter by age" data-i18n="[placeholder]analysis.ageFilter" />
+					<div id="portrayalAge__ID__Result"></div>
+				</div>
+			</div>
+		</div>
+
+
+	</div>
+	<div class="clearfix form-group">
+		<button class="btn btn-default pull-left reset-btn" data-i18n="analysis.resetBtn">Reset</button>
+		<div class="pull-right">
+			<button class="btn btn-primary portrayal-btn" data-i18n="analysis.portrayalBtn">Portrayal</button>
+			<button class="btn btn-primary statistics-btn" data-i18n="analysis.statisticsBtn">Statistics</button>
+		</div>
+	</div>
+	
+	<div id="__ID__wfsTools">
+		<div id="wfstools__ID__Loading" class="loading"></div>
+		<div id="wfstools__ID__-win-content" class="statistics-content" style="display: none">
+			<div id="wfstools__ID__CBox" class="form-group">
+				<label for="wfstools__ID__CBoxOptions" data-i18n="analysis.statisticsFilter">Please choose a field:</label>
+				<select id="wfstools__ID__CBoxOptions" name="wfstools__ID__CBox" class="form-control cbox-options"></select>
+			</div>
+			<div id="wfstools__ID__-win-content-info" class="data-table-container">
+				<table id="wfstools__ID__-statsTable">
+					<thead><tr><td></td></tr></thead>
+					<tbody><tr><td></td></tr></tbody>
+				</table>
+	
+			</div>
+		</div>
+	
+	</div>
+</div>

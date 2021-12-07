@@ -1,0 +1,90 @@
+// break points bootstrap
+$smallWidth: 768px;
+$mediumWidth: 992px;
+$largeWidth: 1200px;
+
+// sizes
+$sidebarWidth: 60px;
+$sidebarDesktopWidth: 80px;
+
+$appSplashBg: #3A3952;
+$appLoaderBg: #2c3691;
+$appLoaderBorder: white;
+$commonShadow: rgba(0,0,0,0.5);
+
+$themes: (
+  1gg: (
+    // common colors
+    themeColor: #0093FF,
+    themeDarkenColor: #02568E,
+
+    // background colors
+    standardBg: white,
+    greyBg: #eee,
+
+    baseSelectorLabelBg: #ebebeb,
+    bottomControlsBg: rgba(255,255,255,0.9),
+    controlBtnBg: white,
+    disabledRadioBg: #b8b8b8,
+    gfiTableHeaderBg: #E0ECFF,
+    gfiWfsTableHeadBg: #ececec,
+    headerBrandBg: #28aae1,
+    headerBrandBorderBg: white,
+    infoBlockBg: #d1ecf1,
+    mapBg: #040A14,
+    opacityBarBg: #C3DAFF,
+    sidebarBg: #3A3952,
+    sidebarPanelBg: white,
+    srsItemHoverBg: #0093FF,
+    switchActiveBg: #20F33D,
+    switchBg: #ccc,
+    switchBtnBg: white,
+    quickHelpBg: rgba(0,0,0,0.65),
+    addBtnDisabledBg: #d0d0d0,
+
+    // border colors
+    standardBorder: #ddd,
+    standardDarkenBorder: #aaa,
+    errorBorder: #ce4848,
+
+    controlBtnBorder: rgba(188,188,203,0.9),
+    infoBlockBorder: #bee5eb,
+    infoBlockBtnBorder: #bee5eb,
+    infoBlockBtnHoverBorder: #8ab3b9,
+    overviewBoxBorder: red,
+    overviewMapBorder: white,
+    popoverArrowBorder: rgba(0,0,0,0.1),
+    srsItemSeparatorBorder: #bababa,
+
+    // text colors
+    textColor: #444,
+    textInverseColor: white,
+    textThemeColor: #3B86FF,
+    textThemeDarkenColor: #225BB7,
+    errorColor: #b21e1e,
+
+    bottomControlColor: #707070,
+    dataTableTextColor: #7c7c7c,
+    defColor: #909090,
+    defTitleColor: #727272,
+    dropdownArrowColor: #666,
+    headerBrandColor: #28aae1,
+    infoBlockColor: #0c5460,
+    iconBtnColor: #bcbccb,
+    treeArrowColor: #A4AFB7,
+    linkColor: #0093FF,
+    linkHoverColor: #02568E,
+    linkIconColor: #D1E3FF,
+    navtabColor: #B0AFBA,
+    navtabHoverColor: #4D4F5C,
+    navtabActiveColor: #3B86FF,
+    sidebarItemColor: #9D9CA9,
+    thematicOptionColor: #000,
+    thematicOptionDisabledColor: rgba(0,0,0,0.5),
+    gazetteerHelpTitleColor: black,
+    gazetteerIconColor: #727272,
+
+    // shadows
+    commonShadow: rgba(0,0,0,0.5)
+  )
+);

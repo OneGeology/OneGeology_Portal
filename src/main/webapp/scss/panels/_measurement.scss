@@ -1,0 +1,35 @@
+#measurement {
+  padding: calculateRem(15px) calculateRem(30px);
+  .draw-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0 calculateRem(-30px);
+    li {
+      @include themify($themes) {
+        border-bottom-color: themed('standardBorder');
+      }
+      border-bottom: thin solid;
+      display: block;
+      padding: calculateRem(3px) calculateRem(30px);
+      &:last-child {
+        border-bottom: 0 none;
+      }
+    }
+  }
+  .geom-choice {
+    width: auto;
+    display: inline-block;
+    margin-left: calculateRem(10px);
+    padding: calculateRem(3px) calculateRem(12px);
+    height: auto;
+  }
+  .clear-btn {
+    padding: calculateRem(3px) calculateRem(25px);
+    margin-bottom: calculateRem(3px);
+    margin-left: calculateRem(15px);
+  }
+  .info-text {
+    font-weight: bold;
+    font-size: 0.8125rem;
+  }
+}

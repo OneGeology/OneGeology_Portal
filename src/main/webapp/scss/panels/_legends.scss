@@ -1,0 +1,9 @@
+#legends {
+  .layerSwitcherLegend {
+    & + .layerSwitcherLegend {
+      @include themify($themes) {
+        border-top: calculateRem(1px) solid themed('standardBorder');
+      }
+    }
+  }
+}

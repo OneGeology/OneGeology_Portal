@@ -1,0 +1,145 @@
+{
+	//define the map object
+	map: {
+		//define the init parameters
+		//you can use all the OpenLayers parameters
+		olParameters: {
+			div: "map",
+			scales: [
+				150000000, 125000000, 100000000, 75000000, 50000000, 25000000,
+				10000000, 3993576.05, 1996788.03, 998394.012,
+				499197.006, 249598.503, 99839.4012, 50000,
+				25000, 10000, 5000
+			],
+			units: "m"
+		},
+		//initial context URL
+		//to use an external context use the proxy
+		
+		//map tools
+		//exple : mapoverview, mouseposition, scaleline, ...
+		tools: [
+			
+		]
+	},
+	//define the toolbar list
+	toolBars: [
+		{
+			//div where the toolbar will be created
+			div:"toolbar",
+			//tool list
+			//a tool must inherit from OpenLayers.Control
+			//a tool is define by a className and a parameters
+			tools: [
+
+			]
+		},
+		{
+			div:"widgetToolbar",
+			tools: [
+				{
+					className: "WidgetLauncherLeft",
+					parameters: {
+						widgetName: "layerswitcher",
+						widgetTitle: "Active Layers properties"
+					}
+				}
+			]
+		},
+		{
+			div:"widgetToolbar",
+			tools: [
+				{
+					className: "WidgetLauncherLeft",
+					parameters: {
+						widgetName: "layerOneGeology",
+						widgetTitle: "Active Layers properties"
+					}
+				}
+			]
+		},
+		{
+			div:"widgetToolbar",
+			tools: [
+				{
+					className: "WidgetLauncherLeft",
+					parameters: {
+						widgetName: "gazetteer",
+						widgetTitle: "Go to location"
+					}
+				}
+			]
+		},
+		{
+			div:"widgetToolbar",
+			tools: [
+				{
+					className: "WidgetLauncherLeft",
+					parameters: {
+						widgetName: "externalOGC",
+						widgetTitle: "Get layers from external service (WMS,WCS)"
+					}
+				}
+			]
+		},
+		{
+			div:"widgetToolbar",
+			tools: [
+				{
+					className: "WidgetLauncherLeft",
+					parameters: {
+						widgetName: "thematicAnalysis"
+					}
+				}
+			]
+		}
+	],
+	//define the widget list
+	widgets: [
+		{
+			name: "gazetteer",
+			div: "gazetteer",
+			useCSS: true
+		},
+		{
+			name: "thematicAnalysis",
+			div: "thematicAnalysis",
+			useCSS: true
+		},
+		{
+			name: "layerswitcher",
+			div:"layerswitcher",
+			useCSS: true
+		}, 
+		{
+			name: "layerOneGeology",
+			div:"layerOneGeology",
+			useCSS: true
+		},
+		{
+			name: "externalOGC",
+			div: "externalOGC",
+			useCSS: true
+		},
+		{
+			name: "exportContext",
+			div: "exportContext",
+			useCSS: true
+		},
+		{
+			name: "measurement",
+			div: "measurement",
+			useCSS: true
+		},
+		{
+			name: "help",
+			div: "help",
+			useCSS: true
+		},
+		{
+			name: "generateUrl",
+			div: "generateUrl",
+			useCSS: true
+		}
+	]
+}

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<digester-rules>
+
+    <pattern value="*/rdf:RDF">
+        <object-create-rule classname="java.util.ArrayList"/>
+    </pattern>
+
+    <pattern value="*/skos:Concept">
+        <object-create-rule classname="fr.brgm.mapClient.vocabulary.parser.Concept"/>
+
+        <set-properties-rule>
+            <alias attr-name="rdf:about" prop-name="rdfAbout"/>
+        </set-properties-rule>
+        <pattern value="skos:prefLabel">
+            <call-method-rule methodname="addPrefLabel" paramcount="2"/>
+            <call-param-rule paramnumber="0" attrname="xml:lang"/>
+            <call-param-rule paramnumber="1"/>
+        </pattern>
+        <pattern value="skos:broader">
+            <call-method-rule methodname="setBroader" paramcount="1"/>
+            <call-param-rule paramnumber="0" attrname="rdf:resource"/>
+        </pattern>
+        <pattern value="skos:exactMatch">
+            <call-method-rule methodname="addExactMatch" paramcount="1"/>
+            <call-param-rule paramnumber="0" attrname="rdf:resource"/>
+        </pattern>
+        <pattern value="skos:narrower">
+            <call-method-rule methodname="addFils" paramcount="1"/>
+            <call-param-rule paramnumber="0" attrname="rdf:resource"/>
+        </pattern>
+        <pattern value="skos:notation">
+            <call-method-rule methodname="addNotation" paramcount="2"/>
+            <call-param-rule paramnumber="0" attrname="xml:lang"/>
+            <call-param-rule paramnumber="1"/>
+        </pattern>
+        <pattern value="skos:definition">
+            <call-method-rule methodname="addDefinition" paramcount="2"/>
+            <call-param-rule paramnumber="0" attrname="xml:lang"/>
+            <call-param-rule paramnumber="1"/>
+        </pattern>
+        <pattern value="geosciml:to_Ma">
+            <call-method-rule methodname="addAgeTo" paramcount="2"/>
+            <call-param-rule paramnumber="0" attrname="xml:lang"/>
+            <call-param-rule paramnumber="1"/>
+        </pattern>
+        <pattern value="geosciml:from_Ma">
+            <call-method-rule methodname="addAgeFrom" paramcount="2"/>
+            <call-param-rule paramnumber="0" attrname="xml:lang"/>
+            <call-param-rule paramnumber="1"/>
+        </pattern>
+        <pattern value="skos:historyNote">
+            <call-method-rule methodname="addHistoryNote" paramcount="2"/>
+            <call-param-rule paramnumber="0" attrname="xml:lang"/>
+            <call-param-rule paramnumber="1"/>
+        </pattern>
+        <pattern value="geosciml:SeeAlso">
+            <call-method-rule methodname="addSeeAlso" paramcount="2"/>
+            <call-param-rule paramnumber="0" attrname="xml:lang"/>
+            <call-param-rule paramnumber="1"/>
+        </pattern>
+        <pattern value="skos:related">
+            <call-method-rule methodname="addRelated" paramcount="1"/>
+            <call-param-rule paramnumber="0" attrname="rdf:resource"/>
+        </pattern>
+        <pattern value="skos:altLabel">
+            <call-method-rule methodname="addAltLabel" paramcount="2"/>
+            <call-param-rule paramnumber="0" attrname="xml:lang"/>
+            <call-param-rule paramnumber="1"/>
+        </pattern>
+        <set-next-rule methodname="add"/>
+    </pattern>
+
+</digester-rules>

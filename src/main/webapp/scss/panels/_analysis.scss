@@ -1,0 +1,191 @@
+.layerAnalysis {
+  .analysis-title {
+    margin-bottom: calculateRem(20px);
+    h2 {
+      @include themify($themes) {
+        color: themed('textColor');
+      }
+      margin: 0;
+      font-size: 0.9rem;
+      font-weight: bold;
+      padding-top: calculateRem(9px);
+    }
+    .btn-default {
+      padding: calculateRem(5px) calculateRem(10px);
+      font-size: 0.6875rem;
+    }
+  }
+  .colors-dropdown {
+    display: inline-block;
+    margin-left: calculateRem(10px);
+    margin-top: calculateRem(10px);
+    .btn-dropdown {
+      @include themify($themes) {
+        color: themed('iconBtnColor');
+        border-color: themed('standardBorder');
+      }
+      padding: 0 calculateRem(18px) 0 calculateRem(10px);
+      border: thin solid;
+      background: transparent;
+      height: calculateRem(28px);
+      line-height: 1;
+      position: relative;
+      &:hover,
+      &:active,
+      &:focus {
+        @include themify($themes) {
+          color: themed('textColor');
+          border-color: themed('standardDarkenBorder');
+        }
+      }
+      i{
+        position: absolute;
+        right: calculateRem(4px);
+        top: calculateRem(6px);
+        font-size: 0.9rem;
+      }
+    }
+    .color-choice {
+      display: inline-block;
+      width: calculateRem(40px);
+      height: calculateRem(18px);
+      position: relative;
+      top: calculateRem(1px);
+      &.bordered {
+        @include themify($themes) {
+          border-color: themed('standardBorder');
+        }
+        border: thin solid;
+      }
+    }
+    .dropdown-menu {
+      padding: calculateRem(5px);
+      width: calculateRem(168px);
+      min-width: 0;
+      left: auto;
+      right: 0;
+      li {
+        padding: calculateRem(3px);
+        float: left;
+      }
+      a {
+        display: block;
+        width: calculateRem(25px);
+        height: calculateRem(25px);
+        min-width: 0;
+        padding: 0;
+        cursor: pointer;
+        position: relative;
+        &.bordered {
+          @include themify($themes) {
+            border-color: themed('standardBorder');
+          }
+          border: thin solid;
+        }
+        &.checked {
+          &:before {
+            @include fontawesome-like("\f00c");
+            @include themify($themes) {
+              color: themed('textInverseColor');
+              text-shadow: calculateRem(1px) calculateRem(0px) calculateRem(10px) themed('commonShadow');
+            }
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            margin-top: calculateRem(-6px);
+            margin-left: calculateRem(-6px);
+            font-size: calculateRem(12px);
+          }
+        }
+      }
+    }
+  }
+  .data-table-container {
+    width: 100%;
+    overflow: auto;
+  }
+  .cbox-options {
+    display: inline-block;
+    padding: calculateRem(3px) calculateRem(15px);
+    height: auto;
+    width: auto;
+  }
+  .statistics-content {
+    .form-group {
+      label {
+        margin-bottom: 0;
+        margin-right: calculateRem(10px);
+      }
+    }
+  }
+  .jstree {
+    position: relative;
+  }
+  .dataTable {
+    border-collapse: collapse;
+    border-bottom: 0 none;
+    margin-bottom: calculateRem(10px);
+    td,
+    th {
+      @include themify($themes) {
+        border-bottom-color: themed('standardBorder');
+        color: themed('dataTableTextColor');
+      }
+      padding: calculateRem(3px) calculateRem(8px);
+      border-bottom: calculateRem(1px) solid;
+      font-size: calculateRem(12px);
+    }
+    thead {
+      td,
+      th {
+        font-weight: bold;
+        padding-right: calculateRem(20px);
+      }
+    }
+  }
+  .dataTables_paginate {
+    margin-bottom: calculateRem(15px);
+  }
+  .paginate_button {
+    border: 0 none;
+    cursor: pointer;
+    &:hover,
+    &:active,
+    a:focus {
+      @include themify($themes) {
+        color: themed('textColor') !important; /* override !important of the lib */
+      }
+      border: 0 none;
+      background: transparent;
+      text-decoration: underline !important; /* override !important of the lib */
+      box-shadow: none;
+    }
+    &.current {
+      @include themify($themes) {
+        background: themed('greyBg');
+      }
+      cursor: default;
+      &:hover,
+      &:active,
+      a:focus {
+        @include themify($themes) {
+          background: themed('greyBg');
+        }
+        text-decoration: none !important; /* override !important of the lib */
+      }
+    }
+    &.disabled {
+      cursor: default;
+      opacity: .7;
+      &:hover,
+      &:active,
+      a:focus {
+        @include themify($themes) {
+          color: themed('textColor') !important; /* override !important of the lib */
+        }
+        text-decoration: none !important; /* override !important of the lib */
+        opacity: .7;
+      }
+    }
+  }
+}

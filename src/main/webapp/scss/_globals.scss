@@ -1,0 +1,441 @@
+@charset "ISO-8859-1";
+* {
+  outline: 0;
+}
+
+html,
+body {
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+html {
+  font-size: 100%;
+}
+
+body {
+  @include themify($themes) {
+    background: themed("mapBg");
+  }
+  font-family: Roboto;
+  font-size: 1rem;
+  @media only screen and (min-width: $mediumWidth) {
+    font-size: calculateRem(14px);
+  }
+}
+
+a {
+  cursor: pointer;
+  outline: 0;
+  &:hover,
+  &:active,
+  &:focus {
+    outline: 0;
+  }
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    margin: 0;
+    -webkit-appearance: none;
+  }
+}
+
+dt {
+  @include themify($themes) {
+    color: themed("defTitleColor");
+    border-color: themed("standardBorder");
+  }
+  padding: 0 0 calculateRem(2px);
+  border-bottom: thin solid;
+  margin-bottom: calculateRem(3px);
+}
+dd {
+  @include themify($themes) {
+    color: themed("defColor");
+  }
+  font-size: calculateRem(14px);
+  margin-bottom: calculateRem(10px);
+}
+
+.clear {
+  clear: both;
+}
+
+.standard-link {
+  background: transparent;
+  border: 0 none;
+  padding: 0;
+  @include themify($themes) {
+    color: themed("linkColor");
+  }
+  transition: color 0.25s ease;
+  i {
+    @include themify($themes) {
+      color: themed("linkIconColor");
+    }
+    transition: color 0.25s ease;
+  }
+  &:hover,
+  &:active,
+  &:focus {
+    @include themify($themes) {
+      color: themed("linkHoverColor");
+      i {
+        color: themed("linkHoverColor");
+      }
+    }
+  }
+}
+
+.menuLayerCounter {
+  font-weight: bold;
+  position: relative;
+  display: inline-block;
+  line-height: 2.7272em;
+  text-align: center;
+  width: 2.8em;
+  &:before {
+    @include themify($themes) {
+      background: themed("sidebarItemColor");
+      border-color: themed("sidebarBg");
+    }
+    content: " ";
+    position: absolute;
+    width: 2.7272em;
+    height: 2.7272em;
+    z-index: 2;
+    top: 50%;
+    left: 50%;
+    margin-left: -1.3636em;
+    margin-top: -1.3636em;
+    border-radius: 0.3636em;
+    border: 0.1818em solid;
+  }
+  &:after {
+    @include themify($themes) {
+      background: themed("sidebarItemColor");
+    }
+    content: " ";
+    width: 2.5454em;
+    height: 2.5454em;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 1;
+    margin-left: -0.909em;
+    margin-top: -1.6363em;
+    border-radius: 0.3636em;
+  }
+  span {
+    @include themify($themes) {
+      color: themed("sidebarBg");
+    }
+    display: inline-block;
+    position: relative;
+    z-index: 5;
+    font-size: 1.4em;
+    line-height: 1.8em;
+    top: calculateRem(1px);
+    width: 100%;
+    height: 100%;
+    &.loading {
+      background-size: 1.4em;
+      color: transparent !important;
+    }
+  }
+}
+
+.tree-list {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  font-size: calculateRem(15px);
+  @media only screen and (min-width: $mediumWidth) {
+    font-size: calculateRem(14px);
+  }
+  ul {
+    list-style-type: none;
+    margin: 0;
+    display: none;
+    padding: calculateRem(1px) 0 0 calculateRem(10px);
+    @media only screen and (min-width: $mediumWidth) {
+      padding-left: calculateRem(20px);
+    }
+  }
+  li {
+    padding: 0 0 calculateRem(1px);
+    &:last-child {
+      padding-bottom: 0;
+    }
+    @media only screen and (min-width: $mediumWidth) {
+      padding: 0;
+    }
+    &.classic-checkbox {
+      @include themify($themes) {
+        border-bottom-color: themed("standardBorder");
+      }
+      border-bottom: calculateRem(1px) solid;
+      padding: calculateRem(3px) 0;
+      &:last-child {
+        border-bottom: 0 none;
+      }
+      @media only screen and (min-width: $mediumWidth) {
+        padding: 0;
+        border: 0 none;
+        &.select-all-checkbox {
+          border-bottom-width: calculateRem(1px);
+          border-bottom-style: solid;
+          padding-bottom: calculateRem(5px);
+          margin-bottom: calculateRem(5px);
+        }
+      }
+    }
+  }
+  .item-title {
+    @include themify($themes) {
+      color: themed("textThemeColor");
+      background: themed("greyBg");
+    }
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    min-height: calculateRem(32px);
+    min-height: calculateRem(42px);
+    padding: 0 calculateRem(10px);
+    @media only screen and (min-width: $mediumWidth) {
+      @include themify($themes) {
+        background: 0 none;
+      }
+      min-height: 0;
+      font-weight: bold;
+      padding: calculateRem(3px) 0;
+    }
+    .fa {
+      margin-right: calculateRem(10px);
+    }
+  }
+  label {
+    display: flex;
+    margin-left: calculateRem(-4px);
+    min-height: calculateRem(38px);
+    align-items: center;
+    @media only screen and (min-width: $mediumWidth) {
+      min-height: 0;
+      padding: calculateRem(3px) 0;
+    }
+  }
+}
+
+.loading {
+  display: none;
+  background: url("../images/loading.gif") no-repeat center center;
+  width: calculateRem(32px);
+  height: calculateRem(32px);
+  margin: 0 auto;
+  &.main-loader {
+    @include themify($themes) {
+      background-color: themed("standardBg");
+      box-shadow: 0 0 calculateRem(10px) themed("commonShadow");
+    }
+    height: calculateRem(54px);
+    width: calculateRem(54px);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: calculateRem(-27px);
+    margin-left: calculateRem(-27px);
+    border-radius: calculateRem(100px);
+    z-index: 999;
+  }
+}
+
+#toast-container {
+  & > div {
+    width: auto;
+    max-width: calculateRem(400px);
+    font-size: 0.8125rem;
+  }
+}
+
+.toast-message {
+  ul {
+    padding-left: calculateRem(20px);
+  }
+}
+
+.toast-bottom-right {
+  right: #{calculateRem($sidebarWidth + 15px)};
+  bottom: 9px;
+  @media only screen and (min-width: $mediumWidth) {
+    right: #{calculateRem($sidebarDesktopWidth + 15px)};
+  }
+}
+
+.full-screen-loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 9999;
+  .upper,
+  .lower {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 50%;
+    background: $appSplashBg;
+  }
+  .upper {
+    bottom: 50%;
+    transition: bottom 1s ease, margin-bottom 1s ease;
+    z-index: 2;
+    box-shadow: 0 calculateRem(5px) calculateRem(10px) $commonShadow;
+    .image-loader {
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      box-shadow: 0 0 calculateRem(20px) $commonShadow;
+      background: $appLoaderBg;
+      overflow: hidden;
+      width: calculateRem(200px);
+      height: calculateRem(200px);
+      border-radius: calculateRem(100px);
+      margin-top: calculateRem(-100px);
+      margin-left: calculateRem(-100px);
+      text-align: right;
+      border: $appLoaderBorder calculateRem(3px) solid;
+      img {
+        height: calculateRem(190px);
+        position: absolute;
+        top: calculateRem(5px);
+        right: 0;
+        -webkit-animation: loading-image 8s infinite linear; /* Safari 4+ */
+        -moz-animation: loading-image 8s infinite linear; /* Fx 5+ */
+        -o-animation: loading-image 8s infinite linear; /* Opera 12+ */
+        animation: loading-image 8s infinite linear; /* IE 10+, Fx 29+ */
+      }
+    }
+  }
+  .lower {
+    top: 50%;
+    transition: top 1s ease;
+    z-index: 1;
+  }
+  &.loaded {
+    .upper {
+      bottom: 100%;
+      margin-bottom: calculateRem(103px);
+    }
+    .lower {
+      top: 100%;
+    }
+  }
+}
+
+@-webkit-keyframes loading-image {
+  0% {
+    right: 0;
+  }
+  100% {
+    right: calculateRem(-372px);
+  }
+}
+@-moz-keyframes loading-image {
+  0% {
+    right: 0;
+  }
+  100% {
+    right: calculateRem(-372px);
+  }
+}
+@-o-keyframes loading-image {
+  0% {
+    right: 0;
+  }
+  100% {
+    right: calculateRem(-372px);
+  }
+}
+@keyframes loading-image {
+  0% {
+    right: 0;
+  }
+  100% {
+    right: calculateRem(-372px);
+  }
+}
+
+.copy-btn {
+  @include themify($themes) {
+    color: themed("textThemeColor");
+  }
+  background: transparent;
+  border: 0 none;
+  transition: all 0.5s ease;
+  position: absolute;
+  top: calculateRem(-14px);
+  right: calculateRem(-15px);
+  padding: calculateRem(15px);
+  font-size: 1rem;
+  &:before {
+    position: relative;
+    z-index: 1;
+  }
+  &:after {
+    content: " ";
+    display: block;
+    position: absolute;
+    top: calculateRem(13px);
+    left: calculateRem(11px);
+    width: calculateRem(20px);
+    height: calculateRem(20px);
+    border-radius: calculateRem(20px);
+    @include themify($themes) {
+      border: transparent calculateRem(10px) solid;
+    }
+  }
+  &:hover,
+  &:active,
+  &:focus {
+    @include themify($themes) {
+      color: themed("textThemeDarkenColor");
+    }
+  }
+  &.ok {
+    &:after {
+      @include themify($themes) {
+        border-color: themed("switchActiveBg");
+        border-width: 0;
+      }
+      transition: all 0.5s ease;
+    }
+  }
+}
+
+.tooltip {
+  .tootip-inner {
+    min-width: calculateRem(100px);
+  }
+}
+
+.squared-type {
+  display: inline-block;
+  text-transform: uppercase;
+  font-size: 0.7em;
+  padding: 0.1em 0.3em;
+  border-radius: calculateRem(3px);
+  position: relative;
+  top: -0.15em;
+  @include themify($themes) {
+    border: calculateRem(1px) solid themed("textColor");
+  }
+}
+
+.word-break {
+  word-break: break-all;
+}

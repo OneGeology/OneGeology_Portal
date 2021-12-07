@@ -1,0 +1,276 @@
+#help {
+  .icon-prefix {
+    @include themify($themes) {
+      color: themed("textThemeColor");
+    }
+    font-size: 1.2em;
+    position: absolute;
+    left: 0;
+  }
+  .help-links {
+    margin-bottom: calculateRem(20px);
+    a {
+      display: block;
+      padding: calculateRem(9px) 0;
+      @media only screen and (min-width: $mediumWidth) {
+        padding-top: calculateRem(3px);
+        padding-bottom: calculateRem(3px);
+      }
+      &.with-icon-prefix {
+        padding-left: calculateRem(22px);
+        position: relative;
+      }
+      &:hover,
+      &:active,
+      &:focus {
+        .icon-prefix {
+          @include themify($themes) {
+            color: themed("textThemeDarkenColor");
+          }
+        }
+      }
+    }
+  }
+  .fa-github {
+    top: calculateRem(8px);
+    @media only screen and (min-width: $mediumWidth) {
+      top: calculateRem(3px);
+    }
+  }
+  .fa-envelope {
+    top: calculateRem(10px);
+    @media only screen and (min-width: $mediumWidth) {
+      top: calculateRem(5px);
+    }
+  }
+  .bg-info {
+    margin-top: calculateRem(15px);
+    p {
+      @include themify($themes) {
+        color: themed("infoBlockColor");
+      }
+      margin-bottom: calculateRem(5px);
+    }
+    .btn {
+      @include themify($themes) {
+        color: themed("infoBlockColor");
+        background-color: themed("standardBg");
+        border-color: themed("infoBlockBtnBorder");
+      }
+      transition: all 0.25s ease;
+      &:hover,
+      &:active,
+      &:focus {
+        @include themify($themes) {
+          background: themed("greyBg");
+          border-color: themed("infoBlockBtnHoverBorder");
+        }
+      }
+    }
+  }
+  .btn-quick-help-container {
+    .btn {
+      margin-right: calculateRem(10px);
+      margin-bottom: calculateRem(10px);
+    }
+    .btn-quick-help {
+      display: none;
+      @media only screen and (min-width: $smallWidth) {
+        display: inline-block;
+      }
+    }
+  }
+  .wms-validator {
+    .validator-loader {
+      display: block;
+      margin: 0 auto;
+    }
+    .alert {
+      padding-left: calculateRem(50px);
+      position: relative;
+      .fa {
+        position: absolute;
+        left: calculateRem(15px);
+        font-size: 1.9em;
+        top: 0.45em;
+      }
+    }
+    .wms-validator-results {
+      padding-left: calculateRem(15px);
+      .result-category {
+        font-weight: bold;
+        margin-bottom: calculateRem(10px);
+        ul {
+          padding-left: calculateRem(15px);
+        }
+        li {
+          font-weight: normal;
+        }
+      }
+    }
+  }
+}
+
+.quick-help {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 9998;
+  @include themify($themes) {
+    background: themed("quickHelpBg");
+  }
+  p {
+    @include themify($themes) {
+      color: themed("textInverseColor");
+    }
+    font-size: 1rem;
+    max-width: calculateRem(310px);
+    width: 100%;
+    position: absolute;
+    margin: 0;
+  }
+  .arrow {
+    position: absolute;
+    width: calculateRem(90px);
+  }
+  .dataset-help {
+    position: absolute;
+    top: 0;
+    right: calculateRem(60px);
+    width: 100%;
+    @media only screen and (min-width: $mediumWidth) {
+      right: calculateRem(80px);
+    }
+    &:after {
+      content: " ";
+      position: absolute;
+      top: calculateRem(1px);
+      right: 0;
+      width: 0;
+      height: calculateRem(90px);
+      border-radius: calculateRem(50px);
+      @include themify($themes) {
+        border: calculateRem(3px) solid themed("textInverseColor");
+        background: themed("textInverseColor");
+      }
+    }
+    .arrow {
+      top: calculateRem(18px);
+      right: calculateRem(10px);
+    }
+    .dataset-help-text {
+      text-align: right;
+      right: calculateRem(35px);
+      top: calculateRem(118px);
+    }
+  }
+  .background-help {
+    position: absolute;
+    top: calculateRem(56px);
+    left: calculateRem(474px);
+    width: 100%;
+    display: none;
+    @media only screen and (min-width: $mediumWidth) {
+      display: block;
+    }
+    &:after {
+      content: " ";
+      position: absolute;
+      top: calculateRem(1px);
+      left: 0;
+      width: calculateRem(270px);
+      height: 0;
+      border-radius: calculateRem(50px);
+      @include themify($themes) {
+        border: calculateRem(3px) solid themed("textInverseColor");
+        background: themed("textInverseColor");
+      }
+    }
+    .arrow {
+      left: calculateRem(10px);
+      top: calculateRem(10px);
+      transform: rotate(90deg);
+    }
+    .background-help-text {
+      left: calculateRem(-142px);
+      top: calculateRem(73px);
+      width: calculateRem(140px);
+      text-align: right;
+    }
+  }
+  .controls-help {
+    position: absolute;
+    top: calculateRem(76px);
+    left: calculateRem(55px);
+    width: 100%;
+    @media only screen and (min-width: $mediumWidth) {
+      left: calculateRem(64px);
+      top: calculateRem(104px);
+    }
+    &:after {
+      content: " ";
+      position: absolute;
+      top: calculateRem(1px);
+      left: 0;
+      width: 0;
+      height: calculateRem(169px);
+      border-radius: calculateRem(50px);
+      @include themify($themes) {
+        border: calculateRem(3px) solid themed("textInverseColor");
+        background: themed("textInverseColor");
+      }
+      @media only screen and (min-width: $mediumWidth) {
+        height: calculateRem(226px);
+      }
+    }
+    .arrow {
+      left: calculateRem(10px);
+      top: calculateRem(100px);
+      @media only screen and (min-width: $mediumWidth) {
+        top: calculateRem(158px);
+      }
+    }
+    .controls-help-text {
+      left: calculateRem(38px);
+      top: calculateRem(197px);
+      @media only screen and (min-width: $mediumWidth) {
+        top: calculateRem(255px);
+      }
+    }
+  }
+  .help-help {
+    position: absolute;
+    bottom: 0;
+    right: calculateRem(60px);
+    width: 100%;
+    @media only screen and (min-width: $mediumWidth) {
+      right: calculateRem(80px);
+    }
+    &:after {
+      content: " ";
+      position: absolute;
+      bottom: calculateRem(1px);
+      right: 0;
+      width: 0;
+      height: calculateRem(90px);
+      border-radius: calculateRem(50px);
+      @include themify($themes) {
+        border: calculateRem(3px) solid themed("textInverseColor");
+        background: themed("textInverseColor");
+      }
+    }
+    .arrow {
+      bottom: calculateRem(18px);
+      right: calculateRem(10px);
+      transform: rotate(180deg);
+    }
+    .help-help-text {
+      text-align: right;
+      right: calculateRem(35px);
+      bottom: calculateRem(118px);
+    }
+  }
+}

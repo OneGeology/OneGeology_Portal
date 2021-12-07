@@ -1,0 +1,28 @@
+#exportContext {
+  padding: calculateRem(15px) calculateRem(30px);
+  .export-label,
+  h2 {
+    @include themify($themes) {
+      color: themed("textColor");
+      border-bottom-color: themed("standardBorder");
+    }
+    display: block;
+    padding: 0 0 calculateRem(7px);
+    border-bottom: thin solid;
+    margin-bottom: calculateRem(13px);
+    font-weight: bold;
+    line-height: 1.4em;
+  }
+  h2 {
+    font-size: calculateRem(16px);
+    @media only screen and (min-width: $mediumWidth) {
+      font-size: calculateRem(14px);
+    }
+  }
+  .classic-radio {
+    display: inline-block;
+    label {
+      min-width: calculateRem(100px);
+    }
+  }
+}

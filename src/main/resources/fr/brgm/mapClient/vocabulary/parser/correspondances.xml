@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<correspondances>
+    <vocabulary urn_fragment="StratChart" name="1GE_Ages"/>
+    <vocabulary urn_fragment="ContactType" name="1GE_ContactType"/>
+    <vocabulary urn_fragment="EventEnvironment" name="1GE_EventEnvironment"/>
+    <vocabulary urn_fragment="EventProcess" name="1GE_EventProcess"/>
+    <vocabulary urn_fragment="FaultType" name="1GE_FaultType"/>
+    <vocabulary urn_fragment="FeatureObservationMethod" name="1GE_FeatureObservationMethod"/>
+    <vocabulary urn_fragment="GeologicUnitMorphology" name="1GE_GeologicUnitMorphology"/>
+    <vocabulary urn_fragment="GeologicUnitPartRole" name="1GE_GeologicUnitPartRole"/>
+    <vocabulary urn_fragment="SimpleLithology" name="1GE_Lithology"/>
+    <vocabulary urn_fragment="MappedFeatureObservationMethod" name="1GE_MappedFeatureObservationMethod"/>
+    <vocabulary urn_fragment="MetamorphicFacies" name="1GE_MetamorphicFacies"/>
+    <vocabulary urn_fragment="MetamorphicGrade" name="1GE_MetamorphicGrade"/>
+    <vocabulary urn_fragment="OrogenicEvent" name="1GE_Orogenic_Events"/>
+    <vocabulary urn_fragment="ProportionTerm" name="1GE_ProportionTerm"/>
+    <vocabulary urn_fragment="OGC" name="1GE_OGC"/>
+    <vocabulary urn_fragment="getFeatureTerms" name="1GE_label_GF"/>
+</correspondances>

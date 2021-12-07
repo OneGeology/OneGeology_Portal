@@ -1,0 +1,100 @@
+.sidebar-tabs {
+  @include themify($themes) {
+    background: themed('sidebarBg');
+  }
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 10;
+  padding: calculateRem(10px) 0;
+  width: calculateRem($sidebarWidth);
+  @media only screen and (min-width: $mediumWidth) {
+    width: calculateRem($sidebarDesktopWidth);
+  }
+  ul {
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+    width: calculateRem($sidebarWidth);
+    @media only screen and (min-width: $mediumWidth) {
+      width: calculateRem($sidebarDesktopWidth);
+    }
+    & + ul {
+      position: absolute;
+      bottom: calculateRem(10px);
+    }
+  }
+  li {
+    height: auto;
+    border: 0 none;
+    &.active,
+    &:hover {
+      background: transparent;
+    }
+    a {
+      @include themify($themes) {
+        color: themed('sidebarItemColor');
+      }
+      display: block;
+      font-size: calculateRem(11px);
+      padding: calculateRem(10px) 0;
+      height: auto;
+      line-height: 1em;
+      text-transform: uppercase;
+      text-align: center;
+      &:hover,
+      &:focus {
+        text-decoration: none;
+      }
+      @media only screen and (min-width: $mediumWidth) {
+        font-size: calculateRem(13px);
+      }
+      .fa,
+      .ogi,
+      .menuLayerCounter {
+        margin-bottom: calculateRem(10px);
+        display: block;
+      }
+      .ogi {
+        font-size: calculateRem(34px);
+      }
+      .fa {
+        font-size: calculateRem(30px);
+      }
+      .menuLayerCounter {
+        font-size: calculateRem(11px);
+        margin-left: auto;
+        margin-right: auto;
+      }
+      &:hover,
+      &:active,
+      &:focus {
+        @include themify($themes) {
+          color: themed('textInverseColor');
+        }
+        .menuLayerCounter {
+          &:before {
+            @include themify($themes) {
+              background: themed('textInverseColor');
+            }
+          }
+        }
+      }
+    }
+    &.active {
+      a {
+        @include themify($themes) {
+          color: themed('textInverseColor');
+        }
+        .menuLayerCounter {
+          &:before {
+            @include themify($themes) {
+              background: themed('textInverseColor');
+            }
+          }
+        }
+      }
+    }
+  }
+}

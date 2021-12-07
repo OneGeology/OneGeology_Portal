@@ -1,0 +1,117 @@
+<div class="panel-group" id="import-accordion" role="tablist" aria-multiselectable="true">
+  <div class="panel panel-default">
+    <div class="panel-heading active" role="tab" id="import-from-url-header">
+      <h4 class="panel-title">
+        <a role="button" data-toggle="collapse" data-parent="#import-accordion" href="#import-from-url"
+          aria-expanded="true" aria-controls="import-accordion" data-i18n="import.urlImportTitle">
+          Import from URL
+        </a>
+      </h4>
+    </div>
+    <div id="import-from-url" class="panel-collapse collapse in" role="tabpanel"
+      aria-labelledby="import-from-url-header">
+      <div class="panel-body">
+        <form class="import-form" novalidate>
+          <div class="form-group">
+            <label for="import-url" class="sr-only" data-i18n="import.urlLabel">URL</label>
+            <input id="import-url" class="externalOGCSearchInput form-control" placeholder="Url"
+              data-i18n="[placeholder]import.urlPlaceholder" />
+          </div>
+          <div class="form-group clearfix text-right">
+            <div class="classic-radio text-left hidden-xs hidden-sm">
+              <input type="radio" name="OGCChoice" id="OGCChoiceWMS" checked />
+              <label for="OGCChoiceWMS" data-i18n="import.WMS">WMS</label>
+            </div>
+            <div class="form-group classic-radio text-left hidden-xs hidden-sm">
+              <input type="radio" name="OGCChoice" id="OGCChoiceWFS" />
+              <label for="OGCChoiceWFS" data-i18n="import.WFS">WFS</label>
+            </div>
+            <div class="form-group classic-radio text-left hidden-xs hidden-sm">
+              <input type="radio" name="OGCChoice" id="OGCChoiceWCS" />
+              <label for="OGCChoiceWCS" data-i18n="import.WCS">WCS</label>
+            </div>
+            <button type="submit" class="btn btn-primary" data-i18n="import.importBtn">Import</button>
+          </div>
+        </form>
+
+        <p class="bg-info no-import" style="display: none">
+          <i class="fa fa-info-circle"></i>
+          <span data-i18n="import.unavailableWCS">WCS import is unavailable in globe view.</span>
+        </p>
+
+        <div class="loadingResultsOGC loading" style="display:none;"></div>
+
+        <dl class="externalOGCMetadata layerInfos">
+          <dt data-i18n="import.serverTitle">Server title</dt>
+          <dd id="OGCServerTitle"></dd>
+          <dt data-i18n="import.abstract">Abstract</dt>
+          <dd id="OGCServerAbstract"></dd>
+          <dt data-i18n="import.accessConstraint">Access Constraint</dt>
+          <dd id="OGCServerConstraint"></dd>
+        </dl>
+
+        <div class="externalOGCResult"></div>
+
+        <button class="btn btn-primary btn-block add-button" data-i18n="import.importLayersBtn">
+          Import selected layers
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="panel panel-default hidden-xs hidden-sm">
+    <div class="panel-heading" role="tab" id="import-from-wmc-header">
+      <h4 class="panel-title">
+        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#import-accordion"
+          href="#import-from-wmc" aria-expanded="false" aria-controls="import-accordion"
+          data-i18n="import.WMCImportTitle">
+          Import from WMC file
+        </a>
+      </h4>
+    </div>
+    <div id="import-from-wmc" class="panel-collapse collapse" role="tabpanel" aria-labelledby="import-from-wmc-header">
+      <div class="panel-body">
+        <p class="bg-info no-import" style="display: none">
+          <i class="fa fa-info-circle"></i>
+          <span data-i18n="import.unavailableWMC">WMC import is unavailable in globe view.</span>
+        </p>
+        <form class="active-import import-wmc-form" novalidate>
+          <!-- Nav tabs -->
+          <ul class="nav nav-tabs main-tabs" role="tablist">
+            <li role="presentation" class="active">
+              <a href="#import-wmc-url-tab" aria-controls="import-wmc-url-tab" role="tab" data-toggle="tab"
+                data-i18n="import.importWmcByUrl">
+                By url
+              </a>
+            </li>
+            <li role="presentation">
+              <a href="#import-wmc-file-tab" aria-controls="import-wmc-file-tab" role="tab" data-toggle="tab"
+                data-i18n="import.importWmcByFile">
+                By file
+              </a>
+            </li>
+          </ul>
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="import-wmc-url-tab">
+              <label for="import-wmc-url" class="sr-only" data-i18n="import.urlLabel">URL</label>
+              <input id="import-wmc-url" class="form-control" placeholder="Url"
+                data-i18n="[placeholder]import.urlPlaceholder" />
+            </div>
+            <div role="tabpanel" class="tab-pane" id="import-wmc-file-tab">
+              <div class="classic-file">
+                <input type="file" id="import-file" accept=".xml">
+                <label for="import-file">
+                  <span class="classic-file-btn" data-i18n="common.chooseFile"></span>
+                  <span class="classic-no-file" data-i18n="common.noFileDelected"></span>
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="text-right submit-wmc-zone">
+            <img src="images/loading.gif" id="import-loader" class="import-loader" />
+            <button type="submit" class="btn btn-primary" data-i18n="import.importBtn">Import</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,91 @@
+.import-layer-pane {
+  .import-form {
+    .btn {
+      width: 100%;
+      @media only screen and (min-width: $smallWidth) {
+        width: auto;
+      }
+    }
+  }
+  .classic-radio {
+    display: inline-block;
+    width: 48%;
+    @media only screen and (min-width: $smallWidth) {
+      width: auto;
+      min-width: calculateRem(70px);
+    }
+    label {
+      width: 100%;
+      padding-top: calculateRem(10px);
+      padding-bottom: calculateRem(10px);
+    }
+  }
+  .tree-list {
+    li {
+      position: relative;
+    }
+  }
+  .externalOGCMetadata, 
+  .externalOGCResult, 
+  .add-button {
+    display: none;
+  }
+  .externalOGCResult {
+    margin-bottom: calculateRem(15px);
+    .classic-radio {
+      label {
+        width: calculateRem(150px);
+      }
+    }
+  }
+  .add-button {
+    padding: calculateRem(14px);
+    white-space: normal;
+  }
+  .bbox-coord {
+    font-size: calculateRem(13px);
+    b {
+      display: inline-block;
+      width: calculateRem(45px);
+      @media only screen and (min-width: $mediumWidth) {
+        width: calculateRem(38px);
+      }
+    }
+  }
+  .extent-btn {
+    margin-right: calculateRem(15px);
+  }
+  .loading {
+    margin-bottom: calculateRem(20px);
+  }
+  .import-wmc-form {
+    margin: calculateRem(-15px) calculateRem(-15px) 0;
+    .tab-pane {
+      padding-left: calculateRem(15px);
+      padding-right: calculateRem(15px);
+    }
+    .submit-wmc-zone {
+      padding: 0 calculateRem(15px);
+    }
+  }
+  .import-kml-form {
+    margin-top: calculateRem(10px);
+  }
+  .import-loader {
+    display: none;
+    margin-right: calculateRem(5px);
+  }
+  .import-url-label {
+    @include themify($themes) {
+      color: themed('defTitleColor');
+      border-bottom-color: themed('standardBorder');
+    }
+    display: block;
+    font-size: calculateRem(14px);
+    padding: 0 0 calculateRem(7px);
+    border-bottom: thin solid;
+    margin-bottom: calculateRem(13px);
+    font-weight: bold;
+    line-height: 1.4em;
+  }
+}

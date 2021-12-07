@@ -1,0 +1,84 @@
+#generateUrl {
+  .presentation {
+    margin: calculateRem(15px);
+    p:last-child {
+      margin: 0;
+    }
+  }
+  h2,
+  .title-like {
+    font-size: calculateRem(16px);
+    @media only screen and (min-width: $mediumWidth) {
+      font-size: calculateRem(14px);
+    }
+    @include themify($themes) {
+      color: themed("textColor");
+      border-bottom-color: themed("standardBorder");
+    }
+    display: block;
+    padding: 0 0 calculateRem(7px);
+    border-bottom: thin solid;
+    margin: 0 0 calculateRem(13px);
+    font-weight: bold;
+    line-height: 1.4em;
+    &.link-title {
+      margin-left: calculateRem(20px);
+      margin-right: calculateRem(20px);
+    }
+  }
+  .share-link {
+    position: relative;
+    margin: calculateRem(15px) calculateRem(20px);
+    padding-right: calculateRem(31px);
+    word-break: break-all;
+  }
+  .set-extent-instructions {
+    max-width: 50%;
+  }
+  .trosace {
+    background-image: url("../images/layerSwitcher/rosace.png");
+    background-position: center center;
+    background-repeat: no-repeat;
+    height: calculateRem(76px);
+    width: calculateRem(145px);
+    position: relative;
+    span {
+      position: absolute;
+    }
+    .tnorth,
+    .tsouth {
+      width: 100%;
+      left: 0;
+      text-align: center;
+    }
+    .tnorth {
+      top: 0;
+    }
+    .tsouth {
+      bottom: 0;
+    }
+    .teast,
+    .twest {
+      top: 50%;
+      margin-top: calculateRem(-8px);
+    }
+    .twest {
+      left: 0;
+    }
+    .teast {
+      right: 0;
+    }
+  }
+  .generate-url-from-layers {
+    .btn-group {
+      width: 100%;
+    }
+    .dropdown-menu {
+      li {
+        a {
+          white-space: normal;
+        }
+      }
+    }
+  }
+}

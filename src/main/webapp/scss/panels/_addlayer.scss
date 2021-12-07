@@ -1,0 +1,139 @@
+.add-layer-pane {
+  .filterButtons {
+    .btn{
+      width: 48%;
+      &:first-child {
+        margin-right: 2%;
+      }
+      @media only screen and (min-width: $smallWidth) {
+        width: auto;
+      }
+    }
+  }
+  .filterForm {
+    margin-bottom: calculateRem(20px);
+    .extent-filter {
+      width: 100%;
+      @media only screen and (min-width: $smallWidth) {
+        width: auto;
+        float: left;
+        margin-bottom: calculateRem(15px);
+      }
+      label {
+        padding-top: calculateRem(10px);
+        padding-bottom: calculateRem(10px);
+        width: 100%;
+      }
+    }
+    .no-right-padding{
+      padding-right: 0;
+    }
+    fieldset {
+      @include themify($themes) {
+        border-color: themed('standardBorder');
+      }
+      border: thin solid;
+      padding: calculateRem(13px) calculateRem(10px) calculateRem(8px);
+      position: relative;
+      margin-top: calculateRem(20px);
+      display: none;
+      legend {
+        @include themify($themes) {
+          background: themed('standardBg');
+        }
+        display: inline-block;
+        position: absolute;
+        padding: 0 calculateRem(5px);
+        top: calculateRem(-10px);
+        left: calculateRem(10px);
+        border: 0 none;
+        margin: 0;
+        font-size: inherit;
+        font-weight: bold;
+        width: auto;
+      }
+      .form-group {
+        margin-bottom: calculateRem(7px);
+      }
+    }
+  }
+  .addLayerTab {
+    margin: 0;
+    position: relative;
+    .nav-tabs {
+      margin: 0;
+      padding: 0;
+      li {
+        width: 49%;
+        &:first-child {
+          margin-right: 2%;
+        }
+        @media only screen and (min-width: $smallWidth) {
+          width: auto;
+          &:first-child {
+            margin-right: calculateRem(10px);
+          }
+        }
+        a {
+          @include themify($themes) {
+            background: themed('standardBg');
+            border-color: themed('standardBorder');
+          }
+          border: calculateRem(1px) solid;
+          border-radius: calculateRem(5px) calculateRem(5px) 0 0;
+          padding-left: calculateRem(10px);
+          padding-right: calculateRem(10px);
+          margin-right: 0;
+          &:hover,
+          &:active,
+          &:focus {
+            @include themify($themes) {
+              border-color: themed('standardBorder');
+            }
+            border: calculateRem(1px) solid;
+          }
+          @media only screen and (min-width: $smallWidth) {
+            padding-left: calculateRem(20px);
+            padding-right: calculateRem(20px);
+            br {
+              display: none;
+            }
+          }
+        }
+        &.active {
+          a {
+            @include themify($themes) {
+              border-bottom-color: themed('standardBg');
+              background: themed('standardBg');
+            }
+          }
+        }
+      }
+    }
+    .tab-pane {
+      padding-left: 0;
+      padding-right: 0;
+    }
+  }
+  .nb-results {
+    font-style: italic;
+    font-size: calculateRem(12px);
+    margin-bottom: calculateRem(15px);
+    @media only screen and (min-width: $smallWidth) {
+      float: right;
+      margin: 0;
+    }
+  }
+  .thematic-keywords {
+    option {
+      @include themify($themes) {
+        color: themed('thematicOptionColor');
+      }
+      &:disabled {
+        @include themify($themes) {
+          color: themed('thematicOptionDisabledColor');
+        }
+      }
+    }
+  }
+}

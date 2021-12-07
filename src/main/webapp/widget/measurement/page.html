@@ -1,0 +1,23 @@
+<p class="bg-info no-measurement" style="display: none">
+    <i class="fa fa-info-circle"></i>
+    <span data-i18n="measure.unavailable">Measurement tools are unavailable on globe view.</span>
+</p>
+<div class="active-measurement">
+    <div class="form-group clearfix">
+        <div class="pull-left">
+            <label for="geom-choice" data-i18n="measure.measureTypeLabel">Measurement type</label>
+            <select id="geom-choice" class="form-control geom-choice">
+                <option selected value="LineString" data-i18n="measure.length">Length</option>
+                <option value="Polygon" data-i18n="measure.area">Area</option>
+            </select>
+        </div>
+        <button class="btn btn-default clear-btn pull-right" data-i18n="measure.clearBtn">Clear measures</button>
+    </div>
+    <p class="info-text" data-i18n="measure.instructionsBlock">
+        Click on the map to start drawing lines or polygon. To enable free drawing, maintain Shift+Click pressed during moving your mouse.
+    </p>
+    
+    <ul class="draw-list">
+    
+    </ul>
+</div>

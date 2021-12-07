@@ -1,0 +1,579 @@
+.wrapper {
+  position: relative;
+  height: 100%;
+}
+
+#map {
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: calc(100% - #{calculateRem($sidebarWidth)});
+  position: absolute;
+  @media only screen and (min-width: $mediumWidth) {
+    width: calc(100% - #{calculateRem($sidebarDesktopWidth)});
+  }
+}
+
+#olMap,
+#csMap {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  &.active {
+    z-index: 1;
+  }
+}
+
+#csMap {
+  .cesium-credit-textContainer,
+  .cesium-credit-expand-link {
+    display: none !important;
+  }
+}
+
+.oneg-controls {
+  position: absolute;
+  z-index: 5;
+  .ol-control {
+    position: static;
+  }
+}
+
+.oneg-bottom-controls {
+  @include themify($themes) {
+    background: themed("bottomControlsBg");
+    box-shadow: 0 0 5px themed("commonShadow");
+  }
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  z-index: 6;
+
+  @media only screen and (min-width: $mediumWidth) {
+    left: auto;
+    right: 50%;
+    border-top-left-radius: calculateRem(5px);
+    border-top-right-radius: calculateRem(5px);
+    width: auto;
+    margin-right: calculateRem(-337px);
+    &.cs-mode {
+      border-top-left-radius: calculateRem(5px);
+      margin-right: calculateRem(-92px);
+      .ol-mouse-position {
+        min-width: calculateRem(125px);
+      }
+    }
+  }
+  .oneg-control {
+    @include themify($themes) {
+      color: themed("bottomControlColor");
+    }
+    float: left;
+  }
+  .scale-line-control {
+    margin: calculateRem(10px) 0;
+    display: block;
+    float: left;
+    @media only screen and (min-width: $mediumWidth) {
+      margin-top: calculateRem(5px);
+      margin-bottom: calculateRem(5px);
+    }
+  }
+  .ol-scale-line {
+    background-color: transparent;
+    position: static;
+    .ol-scale-line-inner {
+      @include themify($themes) {
+        color: themed("bottomControlColor");
+        border-color: themed("bottomControlColor");
+      }
+      font-size: calculateRem(12px);
+      margin: 0 0 0 calculateRem(5px);
+      @media only screen and (min-width: $mediumWidth) {
+        font-size: calculateRem(10px);
+      }
+    }
+  }
+  .ol-mouse-position {
+    background-color: transparent;
+    position: static;
+    padding: calculateRem(10px) calculateRem(3px);
+    min-width: calculateRem(185px);
+    font-size: calculateRem(14px);
+    @media only screen and (min-width: $mediumWidth) {
+      padding-top: calculateRem(7px);
+      padding-bottom: calculateRem(7px);
+      font-size: calculateRem(11px);
+    }
+  }
+  .go-to-coord-control {
+    float: right;
+    position: relative;
+    right: calculateRem(40px);
+    @media only screen and (min-width: $smallWidth) {
+      right: 0;
+      float: left;
+    }
+    span {
+      padding: calculateRem(13px);
+      cursor: pointer;
+      &:hover {
+        @include themify($themes) {
+          color: themed("textColor");
+        }
+      }
+      @media only screen and (min-width: $mediumWidth) {
+        padding: calculateRem(8px);
+      }
+    }
+    small {
+      display: block;
+      margin-top: calculateRem(5px);
+    }
+    .popover-content,
+    .popover-title {
+      padding-left: calculateRem(8px);
+      padding-right: calculateRem(8px);
+    }
+    .popover-title {
+      font-size: 1rem;
+      @media only screen and (min-width: $mediumWidth) {
+        font-size: calculateRem(14px);
+      }
+    }
+    .popover.top {
+      width: calculateRem(225px);
+      margin-left: calculateRem(-69px);
+      .arrow {
+        margin-left: calculateRem(60px);
+      }
+      @media only screen and (min-width: $smallWidth) {
+        margin-left: 0;
+        .arrow {
+          margin-left: calculateRem(-11px);
+        }
+      }
+    }
+  }
+  .projection-control {
+    float: right;
+    position: relative;
+    left: calculateRem(40px);
+    @media only screen and (min-width: $smallWidth) {
+      left: 0;
+    }
+    .srs-button {
+      padding: calculateRem(10px);
+      font-weight: bold;
+      border: 0 none;
+      background: none;
+      &:active,
+      &:focus,
+      &:hover {
+        @include themify($themes) {
+          color: themed("textColor");
+        }
+        border: 0 none;
+      }
+    }
+    .srs-container {
+      @include themify($themes) {
+        background: themed("standardBg");
+        box-shadow: 0 0 calculateRem(10px) themed("commonShadow");
+      }
+      display: none;
+      position: absolute;
+      width: calculateRem(245px);
+      bottom: calculateRem(52px);
+      right: calculateRem(5px);
+      border-radius: calculateRem(4px);
+      &:after {
+        @include themify($themes) {
+          border-top-color: themed("standardBg");
+        }
+        content: " ";
+        position: absolute;
+        top: 100%;
+        right: calculateRem(9px);
+        width: 0;
+        height: 0;
+        border: calculateRem(10px) solid transparent;
+      }
+      &.active {
+        display: block;
+      }
+      @media only screen and (min-width: $smallWidth) {
+        display: block;
+        position: relative;
+        bottom: 0;
+        right: 0;
+        @include themify($themes) {
+          background: none;
+          box-shadow: none;
+        }
+        width: auto;
+        &:after {
+          border: 0 none;
+        }
+      }
+    }
+    .dropup {
+      display: inline-block;
+      width: 100%;
+      @media only screen and (min-width: $smallWidth) {
+        width: calculateRem(260px);
+      }
+    }
+    label {
+      margin-bottom: 0;
+      font-weight: bold;
+      @media only screen and (min-width: $mediumWidth) {
+        font-size: calculateRem(12px);
+      }
+    }
+    .dropdown-toggle {
+      @include themify($themes) {
+        color: themed("bottomControlColor");
+      }
+      border: 0 none;
+      border-radius: calculateRem(4px);
+      background: transparent;
+      outline: 0;
+      cursor: pointer;
+      width: 100%;
+      font-size: calculateRem(13px);
+      text-transform: uppercase;
+      padding: calculateRem(10px) calculateRem(20px) calculateRem(10px) calculateRem(10px);
+      text-align: left;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      @media only screen and (min-width: $smallWidth) {
+        padding-top: calculateRem(12px);
+        padding-bottom: calculateRem(12px);
+        border-radius: 0;
+      }
+      @media only screen and (min-width: $mediumWidth) {
+        font-size: calculateRem(12px);
+        padding-top: calculateRem(7px);
+        padding-bottom: calculateRem(7px);
+        border-top-right-radius: calculateRem(4px);
+      }
+      .fa {
+        @include themify($themes) {
+          color: themed("dropdownArrowColor");
+        }
+        right: calculateRem(8px);
+        position: absolute;
+        font-size: 1rem;
+        top: 50%;
+        margin-top: calculateRem(-9px);
+      }
+    }
+    .dropdown-menu {
+      left: auto;
+      right: 0;
+      margin-bottom: calculateRem(1px);
+      max-width: 100%;
+      padding: 0;
+      a {
+        font-size: calculateRem(14px);
+        padding: calculateRem(10px);
+        white-space: normal;
+        @media only screen and (min-width: $mediumWidth) {
+          font-size: calculateRem(13px);
+          padding-top: calculateRem(4px);
+          padding-bottom: calculateRem(4px);
+        }
+        &:hover,
+        &:active,
+        &:focus {
+          @include themify($themes) {
+            color: themed("textInverseColor");
+            background-color: themed("srsItemHoverBg");
+          }
+        }
+      }
+      li {
+        @include themify($themes) {
+          border-bottom-color: themed("srsItemSeparatorBorder");
+        }
+        border-bottom: calculateRem(1px) solid;
+        &:first-child {
+          a {
+            border-top-left-radius: calculateRem(4px);
+            border-top-right-radius: calculateRem(4px);
+          }
+        }
+        &:last-child {
+          border-bottom: 0 none;
+          a {
+            border-bottom-left-radius: calculateRem(4px);
+            border-bottom-right-radius: calculateRem(4px);
+          }
+        }
+        @media only screen and (min-width: $mediumWidth) {
+          border-bottom: 0 none;
+        }
+      }
+    }
+    &.scales-zoom-control {
+      @include themify($themes) {
+        background: themed("bottomControlsBg");
+        box-shadow: 0 -5px 5px -5px themed("commonShadow"), 5px 0 5px -5px themed("commonShadow"),
+          -5px 0 5px -5px themed("commonShadow");
+      }
+      position: absolute;
+      left: 0;
+      bottom: 100%;
+      min-width: calculateRem(95px);
+      border-top-right-radius: calculateRem(5px);
+      float: none;
+      @media only screen and (min-width: $mediumWidth) {
+        @include themify($themes) {
+          box-shadow: none;
+          background: none;
+        }
+        border-top-right-radius: 0;
+        position: relative;
+        bottom: 0;
+        float: left;
+      }
+      .srs-button {
+        width: 100%;
+      }
+      .srs-container {
+        right: auto;
+        left: calculateRem(5px);
+        @media only screen and (min-width: $smallWidth) {
+          left: 0;
+          padding-left: calculateRem(5px);
+        }
+        &:after {
+          right: auto;
+          left: calculateRem(9px);
+        }
+      }
+      .dropup {
+        @media only screen and (min-width: $smallWidth) {
+          width: calculateRem(120px);
+        }
+        @media only screen and (min-width: $mediumWidth) {
+          width: calculateRem(110px);
+        }
+      }
+      .dropdown-menu {
+        min-width: 0;
+        width: 100%;
+        max-height: 70vh;
+        overflow: auto;
+      }
+    }
+  }
+}
+
+.oneg-top-controls,
+.oneg-right-controls {
+  .ol-control {
+    background: transparent;
+    padding: 0;
+    border-radius: 0;
+    button {
+      @include themify($themes) {
+        border-color: themed("controlBtnBorder");
+        color: themed("iconBtnColor");
+        background: themed("controlBtnBg");
+      }
+      border: thin solid;
+      transition: color 0.3s ease;
+      margin: 0;
+      border-radius: 0;
+      width: calculateRem(39px);
+      height: calculateRem(37px);
+      &:active,
+      a:hover,
+      a:focus {
+        @include themify($themes) {
+          color: themed("textColor");
+        }
+      }
+    }
+  }
+}
+
+.oneg-top-controls {
+  right: calculateRem(10px);
+  top: calculateRem(13px);
+  @media only screen and (min-width: $smallWidth) {
+    position: relative;
+    right: auto;
+    top: auto;
+    margin-top: calculateRem(17px);
+    margin-left: calculateRem(19px);
+    float: left;
+  }
+  @media only screen and (min-width: $mediumWidth) {
+    margin-top: calculateRem(22px);
+  }
+  .ol-search-control {
+    button {
+      border-right: 0 none;
+      border-top-left-radius: calculateRem(3px);
+      border-bottom-left-radius: calculateRem(3px);
+    }
+  }
+  .ol-background-selector-control {
+    button {
+      border-top-right-radius: calculateRem(3px);
+      border-bottom-right-radius: calculateRem(3px);
+    }
+  }
+}
+
+.oneg-right-controls {
+  left: calculateRem(12px);
+  top: calculateRem(60px);
+  @media only screen and (min-width: $smallWidth) {
+    top: calculateRem(78px);
+  }
+  @media only screen and (min-width: $mediumWidth) {
+    left: calculateRem(20px);
+    top: calculateRem(105px);
+  }
+  .ol-search-control {
+    button {
+      border-bottom: 0 none;
+      border-top-left-radius: calculateRem(3px);
+      border-top-right-radius: calculateRem(3px);
+    }
+  }
+  .ol-background-selector-control {
+    margin-bottom: calculateRem(20px);
+    button {
+      border-bottom-left-radius: calculateRem(3px);
+      border-bottom-right-radius: calculateRem(3px);
+    }
+  }
+  .ol-globe-control {
+    button {
+      @include themify($themes) {
+        @include btn-gradient-control();
+      }
+      margin-top: calculateRem(20px);
+      border: 0 none;
+      border-radius: calculateRem(3px);
+      font-size: 1.1rem;
+    }
+  }
+  .ol-zoom {
+    .ol-zoom-in,
+    .ol-zoom-out {
+      font-size: 0.8rem;
+    }
+    .ol-zoom-in {
+      border-bottom: 0 none;
+      border-top-left-radius: calculateRem(3px);
+      border-top-right-radius: calculateRem(3px);
+    }
+    .ol-zoom-out {
+      position: relative;
+      top: calculateRem(37px);
+      border-bottom-left-radius: calculateRem(3px);
+      border-bottom-right-radius: calculateRem(3px);
+    }
+  }
+  .ol-zoom-extent {
+    button {
+      border-bottom: 0 none;
+      position: relative;
+      top: calculateRem(-37px);
+      margin-bottom: calculateRem(20px);
+      font-size: 0.9rem;
+    }
+  }
+  .ol-full-screen {
+    display: none;
+    @media only screen and (min-width: $mediumWidth) {
+      display: block;
+    }
+    button {
+      font-size: 1.3rem;
+      border-radius: calculateRem(3px);
+    }
+  }
+}
+
+.ol-overviewmap {
+  display: none;
+  left: calculateRem(20px);
+  bottom: calculateRem(59px);
+  padding: 0;
+  margin: 0;
+  border-radius: 0;
+  @media only screen and (min-width: $mediumWidth) {
+    display: block;
+  }
+  button {
+    @include btn-gradient-control();
+    margin: 0;
+    width: calculateRem(39px);
+    height: calculateRem(37px);
+    border-radius: 0;
+    .fa {
+      transform: rotate(-45deg);
+    }
+  }
+  &:not(.ol-collapsed) {
+    button {
+      bottom: 0;
+      left: 0;
+    }
+  }
+  .ol-overviewmap-map {
+    @include themify($themes) {
+      border-color: themed("overviewMapBorder");
+    }
+    margin: 0;
+  }
+}
+
+.ol-overviewmap-box {
+  @include themify($themes) {
+    border-color: themed("overviewBoxBorder");
+  }
+  border: calculateRem(2px) solid;
+}
+
+.ol-attribution.ol-uncollapsible {
+  &:not(.ol-collapsed) {
+    @include themify($themes) {
+      background: themed("bottomControlsBg");
+      box-shadow: 0 0 5px themed("commonShadow");
+    }
+  }
+  padding: 5px;
+  margin: 0;
+  border-top-left-radius: 0;
+  border-bottom-right-radius: 4px;
+  height: auto;
+  left: auto;
+  bottom: calculateRem(42px);
+  right: 0;
+  width: auto;
+  max-height: 75vh;
+  transform-origin: 50% 50%;
+  transform: rotate(180deg);
+  writing-mode: vertical-rl;
+  @media only screen and (min-width: $mediumWidth) {
+    bottom: 0;
+  }
+  ul {
+    padding: 0.5em 0;
+  }
+}
+
+.ol-dragbox {
+  border: 2px solid #ff3333;
+  background: rgba(255, 255, 255, 0.5);
+}

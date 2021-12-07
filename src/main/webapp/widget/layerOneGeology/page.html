@@ -1,0 +1,75 @@
+<form class="filterForm" novalidate>
+  <div class="row">
+    <div class="col-xs-12 col-sm-6 form-group">
+      <label class="sr-only" for="freeTxt" data-i18n="addlayer.keywordsLabel">Keywords</label>
+      <input id="freeTxt" class="form-control" name="freeTxt" placeholder="Keywords" data-i18n="[placeholder]addlayer.keywordsLabel" disabled />
+    </div>
+    <div class="col-xs-12 col-sm-6 form-group">
+      <label class="sr-only" for="thematicKeywords" data-i18n="addlayer.thematicLabel">Thematic keywords</label>
+      <select id="thematicKeywords" class="form-control thematic-keywords" name="thematicKeywords" disabled></select>
+    </div>
+  </div>
+  <div class="clearfix">
+    <div class="classic-checkbox extent-filter">
+      <input type="checkbox" name="filterOnBBOX" id="filterOnBBOX" disabled>
+      <label for="filterOnBBOX" data-i18n="addlayer.limitToExtentLabel">Limit on the current extent</label>
+    </div>
+    <div class="nb-results" id="nbResultsFound"></div>
+  </div>
+  <div class="filterButtons">
+    <button type="submit" class="btn btn-primary" data-i18n="addlayer.searchBtn" disabled>Search</button>
+    <button type="button" class="btn btn-primary btn-link" id="resetSearch" data-i18n="addlayer.resetBtn" disabled>Reset</button>
+    <button type="button" class="btn btn-primary btn-link hidden-xs" id="advancedSearch" data-i18n="addlayer.advSearchBtn" disabled>Advanced search</button>
+  </div>
+  <fieldset id="advancedOptions" class="hidden-xs">
+    <legend data-i18n="addlayer.advancedSearch">Advanced search</legend>
+    <div class="classic-checkbox form-group">
+      <input type="checkbox" name="wfsDefined" id="wfsDefined">
+      <label for="wfsDefined" data-i18n="addlayer.advSearchWFS">WMS layer for which WFS is defined</label>
+    </div>
+    <div class="classic-checkbox form-group">
+      <input type="checkbox" name="wmsPortrayalGeosciml" id="wmsPortrayalGeosciml">
+      <label for="wmsPortrayalGeosciml" data-i18n="addlayer.advSearchGeosciml">WMS which are portrayable (GeoSciMl)</label>
+    </div>
+    <div class="classic-checkbox form-group">
+      <input type="checkbox" name="wmsPortrayalErml" id="wmsPortrayalErml">
+      <label for="wmsPortrayalErml" data-i18n="addlayer.advSearchErml">WMS which are portrayable (Erml-Lite)</label>
+    </div>
+    <div class="classic-checkbox">
+      <input type="checkbox" name="wcsSearch" id="wcsSearch">
+      <label for="wcsSearch" data-i18n="addlayer.advSearchWCS">WCS</label>
+    </div>
+  </fieldset>
+</form>
+
+
+
+
+<div class="addLayerTab">
+  <ul class="nav nav-tabs clearfix" role="tablist">
+    <li role="presentation" class="active">
+      <a href="#layer1GGAreaResult" aria-controls="layer1GGAreaResult" role="tab" data-toggle="tab">
+        <span data-i18n="addlayer.geographicTab">Geographic</span> <br /><span data-i18n="addlayer.geographicTab2">area</span>
+      </a>
+    </li>
+    <li role="presentation">
+      <a href="#layer1GGThematicResult" aria-controls="layer1GGThematicResult" role="tab" data-toggle="tab">
+        <span data-i18n="addlayer.thematicTab">Thematic</span><br />&nbsp;
+      </a>
+    </li>
+  </ul>
+
+  <div class="tab-content">
+    <div role="tabpanel" class="tab-pane active" id="layer1GGAreaResult">
+
+    </div>
+    <div role="tabpanel" class="tab-pane" id="layer1GGThematicResult">
+
+    </div>
+  </div>
+  <div id="loadingGetRecords" class="loading"></div>
+</div>
+
+<div class="bottom-button-container">
+  <button class="btn btn-primary btn-block add-button" data-i18n="addlayer.add" disabled>Add selected layers</button>
+</div>

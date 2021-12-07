@@ -1,0 +1,246 @@
+.switch-checkbox {
+  input[type="checkbox"] {
+    display: none;
+    &:checked + label {
+      &:before {
+        @include themify($themes) {
+          background: themed("switchActiveBg");
+        }
+      }
+      &:after {
+        right: calculateRem(2px);
+      }
+    }
+  }
+  label {
+    cursor: pointer;
+    margin: 0;
+    font-weight: normal;
+    padding-right: calculateRem(45px);
+    position: relative;
+    &:before {
+      @include themify($themes) {
+        background: themed("switchBg");
+      }
+      content: " ";
+      border-radius: calculateRem(15px);
+      margin-top: calculateRem(-10px);
+      position: absolute;
+      top: 50%;
+      right: 0;
+      transition: all 0.3s ease;
+      height: calculateRem(20px);
+      width: calculateRem(35px);
+    }
+    &:after {
+      @include themify($themes) {
+        background: themed("switchBtnBg");
+      }
+      content: " ";
+      border-radius: calculateRem(20px);
+      margin-top: calculateRem(-8px);
+      position: absolute;
+      top: 50%;
+      right: calculateRem(17px);
+      transition: all 0.3s ease;
+      height: calculateRem(16px);
+      width: calculateRem(16px);
+    }
+  }
+}
+
+.classic-checkbox {
+  label {
+    cursor: pointer;
+    font-weight: normal;
+    margin: 0;
+    min-width: 50%;
+    padding-left: calculateRem(25px);
+    position: relative;
+    &:before {
+      content: " ";
+      border: thin solid;
+      @include themify($themes) {
+        border-color: themed("standardBorder");
+      }
+      border-radius: calculateRem(4px);
+      margin-top: calculateRem(-10px);
+      position: absolute;
+      top: 50%;
+      left: 0;
+      height: calculateRem(18px);
+      width: calculateRem(18px);
+    }
+    &:after {
+      @include fontawesome-like("\f00c");
+      @include themify($themes) {
+        color: themed("themeColor");
+      }
+      position: absolute;
+      left: calculateRem(3px);
+      top: 50%;
+      transition: all 0.3s ease;
+      transform: scale(0);
+      opacity: 0;
+      margin-top: calculateRem(-7px);
+      font-size: calculateRem(12px);
+    }
+  }
+  input[type="checkbox"] {
+    display: none;
+    &:checked {
+      & + label {
+        &:after {
+          transform: scale(1);
+          opacity: 1;
+        }
+      }
+    }
+    &:disabled {
+      & + label {
+        opacity: 0.8;
+      }
+    }
+  }
+}
+
+.classic-radio {
+  label {
+    cursor: pointer;
+    font-weight: normal;
+    margin: 0;
+    min-width: 50%;
+    padding-left: calculateRem(25px);
+    position: relative;
+    &:before {
+      @include themify($themes) {
+        border-color: themed("standardBorder");
+      }
+      content: " ";
+      border: calculateRem(2px) solid;
+      border-radius: calculateRem(18px);
+      margin-top: calculateRem(-10px);
+      position: absolute;
+      top: 50%;
+      left: 0;
+      height: calculateRem(18px);
+      width: calculateRem(18px);
+      transition: all 0.3s ease;
+    }
+    &:after {
+      @include themify($themes) {
+        background: themed("themeColor");
+      }
+      content: " ";
+      position: absolute;
+      left: calculateRem(4px);
+      top: 50%;
+      transition: all 0.3s ease;
+      transform: scale(0);
+      opacity: 0;
+      margin-top: calculateRem(-6px);
+      width: calculateRem(10px);
+      height: calculateRem(10px);
+      border-radius: calculateRem(10px);
+    }
+  }
+  input[type="radio"] {
+    display: none;
+    &:checked {
+      & + label {
+        &:before {
+          @include themify($themes) {
+            border-color: themed("themeColor");
+          }
+        }
+        &:after {
+          transform: scale(1);
+          opacity: 1;
+        }
+      }
+    }
+    &:disabled {
+      & + label {
+        &:after {
+          @include themify($themes) {
+            background: themed("disabledRadioBg");
+          }
+        }
+      }
+      &:checked {
+        & + label {
+          &:before {
+            @include themify($themes) {
+              border-color: themed("disabledRadioBg");
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.classic-file {
+  label {
+    @include themify($themes) {
+      border-color: themed("standardBorder");
+    }
+    border: thin solid;
+    border-radius: calculateRem(5px);
+    cursor: pointer;
+    width: 100%;
+    padding: calculateRem(8px) calculateRem(20px) calculateRem(8px) calculateRem(135px);
+    position: relative;
+    &.error {
+      @include themify($themes) {
+        border-color: themed("errorBorder");
+        color: themed("errorColor");
+      }
+    }
+    .classic-file-btn {
+      @include themify($themes) {
+        border-color: themed("textThemeColor");
+        color: themed("textThemeColor");
+      }
+      content: "Choose file";
+      display: inline-block;
+      margin-right: calculateRem(20px);
+      padding: calculateRem(8px) calculateRem(20px);
+      border-top-left-radius: calculateRem(5px);
+      border-bottom-left-radius: calculateRem(5px);
+      transition: all 0.3s ease;
+      position: absolute;
+      left: calculateRem(-1px);
+      top: calculateRem(-1px);
+      border: thin solid;
+    }
+    &:hover {
+      .classic-file-btn {
+        @include themify($themes) {
+          border-color: themed("textThemeDarkenColor");
+          color: themed("textThemeDarkenColor");
+        }
+      }
+    }
+  }
+  input[type="file"] {
+    display: none;
+  }
+}
+
+.btn-link {
+  @include themify($themes) {
+    border-color: transparent;
+  }
+  &:hover,
+  &:active,
+  &:focus,
+  &:active:hover,
+  &:active:focus {
+    @include themify($themes) {
+      border-color: transparent;
+    }
+    box-shadow: none;
+    text-decoration: underline;
+  }
+}

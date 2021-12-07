@@ -1,0 +1,13 @@
+{
+  "dayInterval": "30",
+  "monitoring": [
+   {
+      "name": "http://geology.data.vic.gov.au/services/onegeology/DPI_Bedrock_and_Superficial_Geology/wms?SERVICE=WMS&",
+      "sla": "96.505"
+    },
+    {
+      "name": "http://geogis.kiev.ua/arcgis/services/OneGeology/GIU_EN_Bedrock_Age/MapServer/WmsServer?",
+      "sla": "96.415"
+    }
+  ]
+}

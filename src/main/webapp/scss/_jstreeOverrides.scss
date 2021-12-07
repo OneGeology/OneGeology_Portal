@@ -1,0 +1,107 @@
+.jstree {
+  .jstree-node {
+    position: relative;
+    padding-left: calculateRem(15px);
+    margin-left: calculateRem(8px);
+    background: 0 0 none;
+  }
+  .jstree-icon {
+    &.jstree-ocl {
+      @include fontawesome-like("");
+      @include themify($themes) {
+        color: themed('treeArrowColor');
+      }
+      background: 0 0 none;
+      font-size: 1rem;
+      width: calculateRem(14px);
+      text-align: left;
+      position: absolute;
+      top: calculateRem(4px);
+      left: 0;
+    }
+  }
+  .jstree-open {
+    & > .jstree-ocl {
+      &:before {
+        content: "\f0d7";
+      }
+    }
+  }
+  .jstree-closed {
+    & > .jstree-ocl {
+      &:before {
+        content: "\f0da";
+      }
+    }
+  }
+  .jstree-anchor {
+    line-height: 1.2em;
+    padding: calculateRem(6px) 0 calculateRem(6px) calculateRem(25px);
+    min-height: calculateRem(22px);
+    white-space: normal;
+    position: relative;
+    height: auto;
+    & > .jstree-undetermined {
+      &:after {
+        transition: none;
+        content: "\f068";
+        left: calculateRem(4px);
+        font-size: calculateRem(12px);
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+  }
+  .jstree-checkbox {
+    background: 0 0 none;
+    position: absolute;
+    left: calculateRem(3px);
+    top: calculateRem(2px);
+    &:before {
+      @include themify($themes) {
+        border-color: themed('standardBorder');
+      }
+      content: " ";
+      border: thin solid;
+      border-radius: calculateRem(4px);
+      margin-top: calculateRem(-10px);
+      position: absolute;
+      top: 50%;
+      left: 0;
+      height: calculateRem(18px);
+      width: calculateRem(18px);
+    }
+    &:after {
+      @include fontawesome-like("\f00c");
+      @include themify($themes) {
+        color: themed('textThemeColor');
+      }
+      position: absolute;
+      left: calculateRem(3px);
+      top: 50%;
+      transition: opacity .3s ease, transform .3s ease;
+      transform: scale(0);
+      opacity: 0;
+      margin-top: calculateRem(-6px);
+      font-size: calculateRem(12px);
+    }
+  }
+  .jstree-clicked,
+  .jstree-hovered {
+    background: transparent;
+    box-shadow: none;
+  }
+  .jstree-clicked {
+    & > .jstree-checkbox {
+      &:after {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+  }
+  .jstree-search {
+    @include themify($themes) {
+      color: themed('textThemeColor');
+    }
+  }
+}

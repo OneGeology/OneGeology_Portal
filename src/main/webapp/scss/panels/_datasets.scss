@@ -1,0 +1,96 @@
+#menu-datasets {
+  .layerswitcher {
+    height: 100%;
+  }
+  .sidebar-pane-title {
+    position: relative;
+    padding-top: calculateRem(31px);
+    padding-bottom: calculateRem(31px);
+    .switch-checkbox {
+      position: absolute;
+      bottom: 0;
+      right: calculateRem(10px);
+      @media only screen and (min-width: $smallWidth) {
+        position: relative;
+        height: 0;
+        right: 0;
+        top: calculateRem(-6px);
+      }
+      label {
+        font-size: 1rem;
+        padding-top: calculateRem(11px);
+        padding-bottom: calculateRem(11px);
+        @media only screen and (min-width: $mediumWidth) {
+          font-size: calculateRem(14px);
+        }
+      }
+    }
+  }
+  .layer-management {
+    height: 100%;
+    .tab-content {
+      height: calc(100% - #{calculateRem(44px + 83px)});
+      overflow: auto;
+      &.without-bottom-button {
+        height: calc(100% - #{calculateRem(44px)});
+      }
+      @media only screen and (min-width: $smallWidth) {
+        &.without-bottom-button {
+          height: calc(100% - #{calculateRem(49px)});
+        }
+      }
+      @media only screen and (min-width: $mediumWidth) {
+        height: calc(100% - #{calculateRem(48px + 81px)});
+        &.without-bottom-button {
+          height: calc(100% - #{calculateRem(48px)});
+        }
+      }
+      .tab-content {
+        height: calc(100% - #{calculateRem(134px)});
+      }
+    }
+    .main-tabs {
+      @media only screen and (min-width: $smallWidth) {
+        padding-top: calculateRem(5px);
+      }
+      @media only screen and (min-width: $mediumWidth) {
+        font-size: calculateRem(15px);
+      }
+    }
+  }
+  .bottom-button-container {
+    @include themify($themes) {
+      background: themed('standardBg');
+      border-top-color: themed('standardBorder');
+    }
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    padding: calculateRem(15px) calculateRem(15px) 1px;
+    border-top: thin solid;
+    @media only screen and (min-width: $smallWidth) {
+      padding-left: calculateRem(30px);
+      padding-right: calculateRem(30px);
+    }
+    .btn {
+      padding: calculateRem(14px);
+      border-radius: calculateRem(10px);
+      margin-bottom: calculateRem(15px);
+      @include themify($themes) {
+        &:disabled {
+          background: themed('addBtnDisabledBg');
+          color: themed('textColor');
+          border-color: themed('standardDarkenBorder');
+        }
+      }
+    }
+  }
+  .layerswitcher-pane {
+    padding: 0;
+    @media only screen and (min-width: $mediumWidth) {
+      padding-top: calculateRem(15px);
+      padding-bottom: calculateRem(15px);
+    }
+  }
+}

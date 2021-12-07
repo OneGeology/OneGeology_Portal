@@ -1,0 +1,122 @@
+<?xml version="1.0"?>
+<digester-rules>
+
+    <!-- Resource -->
+
+    <pattern value="*/ViewContext">
+        <object-create-rule classname="fr.brgm.mapClient.utils.layerTree.LayerList"/>
+    </pattern>
+
+    <pattern value="*/General/BoundingBox">
+        <object-create-rule classname="fr.brgm.mapClient.business.ows.Enveloppe"/>
+        <set-properties-rule>
+            <alias attr-name="minx" prop-name="minX"/>
+        </set-properties-rule>
+        <set-properties-rule>
+            <alias attr-name="miny" prop-name="minY"/>
+        </set-properties-rule>
+        <set-properties-rule>
+            <alias attr-name="maxx" prop-name="maxX"/>
+        </set-properties-rule>
+        <set-properties-rule>
+            <alias attr-name="maxy" prop-name="maxY"/>
+        </set-properties-rule>
+        <set-properties-rule>
+            <alias attr-name="SRS" prop-name="srs"/>
+        </set-properties-rule>
+        <set-next-rule methodname="setBbox"/>
+    </pattern>
+
+    <pattern value="*/Layer">
+        <object-create-rule classname="fr.brgm.mapClient.utils.layerTree.Layer"/>
+        <set-properties-rule>
+            <alias attr-name="queryable" prop-name="queryable"/>
+        </set-properties-rule>
+        <set-properties-rule>
+            <alias attr-name="hidden" prop-name="hidden"/>
+        </set-properties-rule>
+        <set-properties-rule pattern="Server">
+            <alias attr-name="title" prop-name="serverTitle"/>
+        </set-properties-rule>
+        <set-properties-rule pattern="Server">
+            <alias attr-name="version" prop-name="version"/>
+        </set-properties-rule>
+        <set-properties-rule pattern="Server/OnlineResource">
+            <alias attr-name="xlink:href" prop-name="onlineResource"/>
+        </set-properties-rule>
+        <bean-property-setter-rule pattern="Name" propertyname="name"/>
+        <bean-property-setter-rule pattern="Title" propertyname="title"/>
+        <bean-property-setter-rule pattern="Abstract" propertyname="description"/>
+        <!-- Scale  -->
+        <bean-property-setter-rule pattern="sld:MinScaleDenominator" propertyname="minScaleDenominator"/>
+        <bean-property-setter-rule pattern="sld:MaxScaleDenominator" propertyname="maxScaleDenominator"/>
+
+        <!-- DataURL et MetaDataURL -->
+        <set-properties-rule pattern="DataURL/OnlineResource">
+            <alias attr-name="xlink:href" prop-name="dataURL"/>
+        </set-properties-rule>
+        <set-properties-rule pattern="MetadataURL/OnlineResource">
+            <alias attr-name="xlink:href" prop-name="metadataURL"/>
+        </set-properties-rule>
+
+        <!-- Extension -->
+        <bean-property-setter-rule pattern="Extension/Brgm/UUID" propertyname="uuid"/>
+        <bean-property-setter-rule pattern="Extension/Brgm/UnderlyingUUID" propertyname="underlyingUuid"/>
+        <bean-property-setter-rule pattern="Extension/Brgm/autoLayer" propertyname="autoLayer"/>
+        <bean-property-setter-rule pattern="Extension/Brgm/Opacity" propertyname="opacity"/>
+        <bean-property-setter-rule pattern="Extension/Brgm/gcQueryable" propertyname="gcQueryable"/>
+        <bean-property-setter-rule pattern="Extension/Brgm/AdditionalInformation/AccessConstraints"
+                                   propertyname="accessConstraints"/>
+        <bean-property-setter-rule pattern="Extension/Brgm/AdditionalInformation/WFSCOL_GEOM" propertyname="wfsGeom"/>
+        <bean-property-setter-rule pattern="Extension/Brgm/AdditionalInformation/WFSSRS" propertyname="wfsSrs"/>
+        <bean-property-setter-rule pattern="Extension/Brgm/AdditionalInformation/WFSURL" propertyname="wfsURL"/>
+        <bean-property-setter-rule pattern="Extension/Brgm/AdditionalInformation/WFSURLTYPE" propertyname="wfsURLType"/>
+        <bean-property-setter-rule pattern="Extension/Brgm/AdditionalInformation/LatLonBoundingBox"
+                                   propertyname="extent"/>
+        <bean-property-setter-rule pattern="Extension/Brgm/AdditionalInformation/country" propertyname="country"/>
+        <bean-property-setter-rule pattern="Extension/Brgm/AdditionalInformation/simulatedID"
+                                   propertyname="simulatedID"/>
+        <bean-property-setter-rule pattern="Extension/Brgm/AdditionalInformation/SimulatedPosition"
+                                   propertyname="simulatedPosition"/>
+        <bean-property-setter-rule pattern="Extension/Brgm/AdditionalInformation/KeepInLayerSwitcher"
+                                   propertyname="keepInLayerSwitcher"/>
+        <pattern value="Extension/Brgm/AdditionalInformation/Type">
+            <call-method-rule methodname="addType" paramcount="2"/>
+            <call-param-rule paramnumber="0" attrname="nomenclature" type="java.lang.String"/>
+            <call-param-rule paramnumber="1"/>
+        </pattern>
+        <bean-property-setter-rule pattern="Extension/Brgm/AdditionalInformation/Type0" propertyname="continent"/>
+
+        <!-- Extension OpenLayers -->
+        <bean-property-setter-rule pattern="Extension/ol:isBaseLayer" propertyname="OLBaseLayer"/>
+        <bean-property-setter-rule pattern="Extension/ol:displayInLayerSwitcher"
+                                   propertyname="OLDisplayInLayerSwitcher"/>
+
+        <set-next-rule methodname="addLayer"/>
+    </pattern>
+
+    <!-- Style -->
+    <pattern value="*/Layer/StyleList/Style">
+        <object-create-rule classname="fr.brgm.mapClient.business.ows.NamedStyle"/>
+        <set-properties-rule>
+            <alias attr-name="current" prop-name="current"/>
+        </set-properties-rule>
+        <bean-property-setter-rule pattern="Name" propertyname="name"/>
+        <bean-property-setter-rule pattern="Title" propertyname="title"/>
+        <bean-property-setter-rule pattern="Abstract" propertyname="description"/>
+        <set-properties-rule pattern="LegendURL/OnlineResource">
+            <alias attr-name="xlink:href" prop-name="legendURL"/>
+        </set-properties-rule>
+        <set-next-rule methodname="addStyle"/>
+    </pattern>
+
+    <!-- Format -->
+    <pattern value="*/Layer/FormatList/Format">
+        <object-create-rule classname="fr.brgm.mapClient.business.ows.Format"/>
+        <set-properties-rule>
+            <alias attr-name="current" prop-name="current"/>
+        </set-properties-rule>
+        <bean-property-setter-rule propertyname="name"/>
+        <set-next-rule methodname="addFormat"/>
+    </pattern>
+</digester-rules> 

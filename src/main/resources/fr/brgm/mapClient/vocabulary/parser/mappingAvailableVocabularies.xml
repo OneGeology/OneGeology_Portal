@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<digester-rules>
+
+    <pattern value="result">
+        <object-create-rule classname="java.util.ArrayList"/>
+
+        <pattern value="repository">
+            <call-method-rule methodname="add" paramcount="1"/>
+            <call-param-rule paramnumber="0" type="java.lang.String"/>
+        </pattern>
+
+    </pattern>
+
+</digester-rules>

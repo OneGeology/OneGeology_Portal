@@ -1,0 +1,154 @@
+@function calculateRem($size) {
+  $remSize: $size / 16px;
+  @return #{$remSize}rem;
+}
+
+@mixin themify($themes: $themes) {
+  @each $theme, $map in $themes {
+    .theme-#{$theme} & {
+      $theme-map: () !global;
+      @each $key, $submap in $map {
+        $value: map-get(map-get($themes, $theme), "#{$key}");
+        $theme-map: map-merge(
+          $theme-map,
+          (
+            $key: $value,
+          )
+        ) !global;
+      }
+
+      @content;
+      $theme-map: null !global;
+    }
+  }
+}
+
+@function themed($key) {
+  @return map-get($theme-map, $key);
+}
+
+@mixin fontawesome-like($code) {
+  content: $code;
+  border: 0 none;
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  display: inline-block;
+  font-style: normal;
+  font-variant: normal;
+  text-rendering: auto;
+  line-height: 1;
+}
+
+@mixin btn-states(
+  $baseColor,
+  $baseTextColor,
+  $hoverColor,
+  $textHoverColor: $baseTextColor,
+  $baseBorderColor: $baseColor,
+  $borderHoverColor: $hoverColor,
+  $activeColor: $hoverColor,
+  $textActiveColor: $textHoverColor,
+  $borderActiveColor: $activeColor
+) {
+  transition: color 0.25s ease, background-color 0.25s ease, border-color 0.25s ease;
+  background-color: $baseColor;
+  border-color: $baseBorderColor;
+  color: $baseTextColor;
+  outline: 0;
+  &:disabled {
+    background-color: $baseColor;
+    border-color: $baseBorderColor;
+    color: $baseTextColor;
+  }
+  &:not(:disabled):focus,
+  &:not(:disabled):hover {
+    background-color: $hoverColor;
+    border-color: $borderHoverColor;
+    color: $textHoverColor;
+  }
+  &:not(:disabled):active,
+  &:not(:disabled):active:focus,
+  &:not(:disabled):active:hover {
+    background-color: $activeColor;
+    border-color: $borderActiveColor;
+    color: $textActiveColor;
+    box-shadow: none;
+  }
+}
+
+@mixin btn-icon-states($baseColor, $hoverColor, $activeColor: $hoverColor) {
+  transition: color 0.25s ease;
+  color: $baseColor;
+  &:disabled {
+    color: $baseColor;
+  }
+  &:not(:disabled):focus,
+  &:not(:disabled):hover {
+    color: $hoverColor;
+  }
+  &:not(:disabled):active,
+  &:not(:disabled):active:focus,
+  &:not(:disabled):active:hover {
+    color: $activeColor;
+  }
+}
+
+@mixin btn-gradient-control() {
+  background: rgba(97, 96, 131, 1);
+  background: -moz-linear-gradient(top, rgba(97, 96, 131, 1) 0%, rgba(13, 12, 17, 1) 100%);
+  background: -webkit-gradient(
+    left top,
+    left bottom,
+    color-stop(0%, rgba(97, 96, 131, 1)),
+    color-stop(100%, rgba(13, 12, 17, 1))
+  );
+  background: -webkit-linear-gradient(top, rgba(97, 96, 131, 1) 0%, rgba(13, 12, 17, 1) 100%);
+  background: -o-linear-gradient(top, rgba(97, 96, 131, 1) 0%, rgba(13, 12, 17, 1) 100%);
+  background: -ms-linear-gradient(top, rgba(97, 96, 131, 1) 0%, rgba(13, 12, 17, 1) 100%);
+  background: linear-gradient(to bottom, rgba(97, 96, 131, 1) 0%, rgba(13, 12, 17, 1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#616083', endColorstr='#0d0c11', GradientType=0 );
+  @include themify($themes) {
+    color: themed("iconBtnColor");
+  }
+  transition: color 0.3s ease;
+  &:hover,
+  &:focus,
+  &:active {
+    @include themify($themes) {
+      color: themed("textInverseColor");
+    }
+    background: rgba(13, 12, 17, 1);
+    background: -moz-linear-gradient(top, rgba(13, 12, 17, 1) 0%, rgba(97, 96, 131, 1) 100%);
+    background: -webkit-gradient(
+      left top,
+      left bottom,
+      color-stop(0%, rgba(13, 12, 17, 1)),
+      color-stop(100%, rgba(97, 96, 131, 1))
+    );
+    background: -webkit-linear-gradient(top, rgba(13, 12, 17, 1) 0%, rgba(97, 96, 131, 1) 100%);
+    background: -o-linear-gradient(top, rgba(13, 12, 17, 1) 0%, rgba(97, 96, 131, 1) 100%);
+    background: -ms-linear-gradient(top, rgba(13, 12, 17, 1) 0%, rgba(97, 96, 131, 1) 100%);
+    background: linear-gradient(to bottom, rgba(13, 12, 17, 1) 0%, rgba(97, 96, 131, 1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#0d0c11', endColorstr='#616083', GradientType=0 );
+  }
+}
+
+@mixin display-flex() {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+
+@mixin flex-size($size) {
+  -webkit-box-flex: 0;
+  -ms-flex: 0 0 $size;
+  flex: 0 0 $size;
+  max-width: $size;
+  width: 100%;
+  position: relative;
+  min-height: 1px;
+}

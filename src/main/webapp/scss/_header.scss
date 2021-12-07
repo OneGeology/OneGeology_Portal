@@ -1,0 +1,402 @@
+#header {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 6;
+  pointer-events: none;
+  width: calc(100% - #{$sidebarWidth});
+  @media only screen and (min-width: $mediumWidth) {
+    width: calc(100% - #{calculateRem($sidebarDesktopWidth)});
+  }
+  * {
+    pointer-events: auto;
+  }
+  .banniere {
+    float: left;
+    padding: calculateRem(7px) 0 0 calculateRem(10px);
+    position: relative;
+    img {
+      max-width: calculateRem(70px);
+      max-height: calculateRem(42px);
+      @media only screen and (min-width: $smallWidth) {
+        max-width: calculateRem(85px);
+        max-height: calculateRem(60px);
+      }
+      @media only screen and (min-width: $mediumWidth) {
+        max-width: none;
+        max-height: calculateRem(75px);
+      }
+    }
+  }
+  .brand-text {
+    @include themify($themes) {
+      background: themed("headerBrandBorderBg");
+    }
+    position: absolute;
+    bottom: 0;
+    z-index: 1;
+    padding: calculateRem(6px) calculateRem(6px) calculateRem(6px) 0;
+    border-radius: 0 calculateRem(4px) calculateRem(4px) 0;
+    left: calculateRem(130px);
+    width: calculateRem(612px);
+    .brand-band {
+      @include themify($themes) {
+        background: themed("headerBrandBg");
+      }
+      padding-left: calculateRem(27px);
+      position: relative;
+      left: calculateRem(-2px);
+      height: calculateRem(10px);
+      p {
+        @include themify($themes) {
+          background: themed("headerBrandBorderBg");
+          color: themed("headerBrandColor");
+        }
+        margin: 0;
+        padding: 0 calculateRem(5px);
+        width: auto;
+        display: inline-block;
+        font-size: calculateRem(12px);
+        position: absolute;
+        font-style: italic;
+        top: calculateRem(-3px);
+      }
+    }
+  }
+  .gazetteer,
+  .base-layer-selector {
+    position: absolute;
+    right: 0;
+    top: calculateRem(48px);
+    display: none;
+    &:after {
+      @include themify($themes) {
+        border-bottom-color: themed("standardBg");
+      }
+      content: " ";
+      position: absolute;
+      bottom: 100%;
+      width: 0;
+      height: 0;
+      border: calculateRem(10px) solid transparent;
+    }
+    &.active {
+      display: block;
+    }
+    @media only screen and (min-width: $smallWidth) {
+      display: block;
+      position: relative;
+      top: 0;
+      right: auto;
+      &:after {
+        border: 0 none;
+      }
+    }
+  }
+  .gazetteer {
+    width: calculateRem(237px);
+    @media only screen and (min-width: $mediumWidth) {
+      width: calculateRem(300px);
+    }
+    &:after {
+      right: calculateRem(48px);
+    }
+    // field
+    .gazetteerSearchInput {
+      @include themify($themes) {
+        background: themed("standardBg");
+        box-shadow: 0 0 calculateRem(10px) themed("commonShadow");
+      }
+      border: none;
+      border-radius: calculateRem(4px);
+      font-family: Roboto;
+      outline: 0;
+      padding: calculateRem(9px) calculateRem(31px) calculateRem(10px) calculateRem(40px);
+      width: 100%;
+      @media only screen and (min-width: $mediumWidth) {
+        font-size: calculateRem(13px);
+        padding-top: calculateRem(6px);
+        padding-bottom: calculateRem(6px);
+      }
+    }
+    .locatorIcon,
+    .gazetteerCloseResult {
+      @include themify($themes) {
+        color: themed("textColor");
+      }
+      background: transparent;
+      border: 0 none;
+      font-size: 1.3em;
+      opacity: 0.6;
+      outline: 0;
+      position: absolute;
+      top: 0;
+      transition: color 0.25s ease;
+      &:hover,
+      &:active,
+      &:focus {
+        opacity: 1;
+      }
+      @media only screen and (min-width: $mediumWidth) {
+        top: calculateRem(-4px);
+      }
+    }
+    .locatorIcon {
+      left: 0;
+      padding: calculateRem(10px);
+    }
+    .gazetteerCloseResult {
+      right: 0;
+      padding: calculateRem(6px) calculateRem(10px);
+    }
+    // results
+    .result-section {
+      margin-top: calculateRem(10px);
+      position: relative;
+      .gazetteerResultCategory {
+        margin: 0 0 calculateRem(5px);
+        padding: 0 calculateRem(15px);
+        font-size: calculateRem(14px);
+        font-weight: 600;
+      }
+      .alert {
+        margin: calculateRem(5px) calculateRem(15px) calculateRem(15px);
+        .btn {
+          font-size: 1em;
+          padding: calculateRem(2px) calculateRem(10px);
+          margin-top: calculateRem(5px);
+          @include themify($themes) {
+            background: themed("standardBg");
+          }
+          @media only screen and (min-width: $smallWidth) {
+            float: right;
+          }
+          i {
+            margin-right: calculateRem(5px);
+            font-size: 0.9em;
+          }
+        }
+      }
+    }
+    .gazetteerResultContainer {
+      @include themify($themes) {
+        background: themed("standardBg");
+        box-shadow: 0 calculateRem(4px) calculateRem(7px) themed("commonShadow");
+      }
+      border-radius: calculateRem(4px);
+      margin-top: calculateRem(1px);
+      position: absolute;
+      width: 100%;
+      z-index: 1;
+      @media only screen and (min-width: $smallWidth) {
+        width: 150%;
+      }
+    }
+    .gazetteerLoader {
+      font-size: calculateRem(13px);
+      padding: calculateRem(10px) calculateRem(15px);
+    }
+    .gazetteerResult {
+      max-height: calculateRem(400px);
+      overflow: auto;
+      padding: calculateRem(5px) 0;
+      p {
+        margin: 0;
+        padding: calculateRem(5px) calculateRem(15px);
+        font-size: calculateRem(13px);
+      }
+      .mx-2 {
+        margin-left: 15px;
+        margin-right: 15px;
+      }
+      .mb-2 {
+        margin-bottom: 15px;
+      }
+    }
+    .gazetteerMore {
+      font-size: calculateRem(14px);
+      padding: calculateRem(5px) calculateRem(15px);
+    }
+    .gazetteerResultList {
+      margin: 0;
+      list-style: none;
+      padding: calculateRem(5px) calculateRem(15px);
+      &.show-all {
+        li {
+          &.exceedingItem {
+            display: block;
+          }
+        }
+      }
+      li {
+        cursor: pointer;
+        font-size: calculateRem(13px);
+        padding: calculateRem(5px) calculateRem(5px);
+        display: flex;
+        align-items: flex-start;
+        &.exceedingItem {
+          display: none;
+        }
+        &:hover {
+          @include themify($themes) {
+            background-color: themed("srsItemHoverBg");
+            color: themed("textInverseColor");
+          }
+          .squared-type {
+            @include themify($themes) {
+              border-color: themed("textInverseColor");
+            }
+          }
+          .fa {
+            @include themify($themes) {
+              color: themed("textInverseColor");
+            }
+          }
+        }
+        + li {
+          @include themify($themes) {
+            border-top: 1px solid themed("standardBorder");
+          }
+        }
+        .fa,
+        .squared-type {
+          margin-right: 5px;
+          opacity: 0.8;
+          position: relative;
+        }
+        .fa {
+          @include themify($themes) {
+            color: themed("themeColor");
+          }
+          min-width: 1em;
+          top: calculateRem(2px);
+        }
+        .squared-type {
+          top: calculateRem(1px);
+        }
+      }
+    }
+    .gazetteerHelp {
+      padding: 10px 20px;
+      @media only screen and (min-width: $smallWidth) {
+        width: 522px;
+      }
+      @media only screen and (min-width: $mediumWidth) {
+        width: 587px;
+      }
+      .btn-close {
+        background: none;
+        border: none;
+        padding: 5px 10px;
+        font-size: 26px;
+        position: absolute;
+        right: 0;
+        top: 0;
+        line-height: 20px;
+        opacity: 0.6;
+        transition: opacity .3s ease;
+        &:hover,
+        &:focus,
+        &:active {
+          opacity: 1;
+          box-shadow: none
+        }
+      }
+      ul {
+        padding: 0;
+        margin: 0;
+        list-style-type: none;
+        li {
+          margin-bottom: 10px;
+          @media only screen and (min-width: $smallWidth) {
+            display: flex;
+          }
+          &:last-child {
+            margin-bottom: 0;
+          }
+        }
+      }
+      .fa {
+        margin-right: 5px;
+        width: 1em;
+      }
+      .search-icon,
+      .search-type {
+        @include themify($themes) {
+          color: themed("gazetteerHelpTitleColor");
+        }
+      }
+      .search-type {
+        display: inline-block;
+        @media only screen and (min-width: $smallWidth) {
+          min-width: 105px;
+          margin-right: 15px;
+        }
+      }
+      .standard-link,
+      .search-example {
+        display: block;
+        margin-top: 3px;
+        @media only screen and (min-width: $smallWidth) {
+          display: inline-block;
+          margin-top: 0;
+        }
+      }
+    }
+  }
+  .base-layer-selector {
+    @include themify($themes) {
+      box-shadow: 0 0 calculateRem(10px) themed("commonShadow");
+    }
+    border-radius: calculateRem(4px);
+    width: calculateRem(237px);
+    &:after {
+      right: calculateRem(9px);
+    }
+    @media only screen and (min-width: $smallWidth) {
+      margin-left: calculateRem(10px);
+      width: auto;
+    }
+    @media only screen and (min-width: $mediumWidth) {
+      margin-left: calculateRem(20px);
+    }
+    label {
+      @include themify($themes) {
+        border-right-color: themed("srsItemSeparatorBorder");
+        background: themed("baseSelectorLabelBg");
+      }
+      margin: 0;
+      border-right: thin solid;
+      border-radius: calculateRem(5px) 0 0 calculateRem(5px);
+      padding: calculateRem(9px) calculateRem(15px);
+      height: calculateRem(41px); /* 'cause firefox doesnt set height auto like chrome */
+      min-width: calculateRem(117px);
+      text-align: center;
+      @media only screen and (min-width: $mediumWidth) {
+        height: calculateRem(30px);
+        padding-top: calculateRem(6px);
+        padding-bottom: calculateRem(6px);
+      }
+    }
+    .form-control {
+      border: 0 none;
+      border-radius: calculateRem(4px);
+      padding-bottom: calculateRem(10px);
+      padding-top: calculateRem(9px);
+      height: calculateRem(41px); /* 'cause firefox doesnt set height auto like chrome */
+      @media only screen and (min-width: $smallWidth) {
+        width: auto;
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+        border-left: 0 none;
+      }
+      @media only screen and (min-width: $mediumWidth) {
+        font-size: calculateRem(13px);
+        height: calculateRem(30px);
+        width: calculateRem(150px);
+        padding-top: calculateRem(6px);
+        padding-bottom: calculateRem(6px);
+      }
+    }
+  }
+}

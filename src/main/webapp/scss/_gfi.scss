@@ -1,0 +1,186 @@
+.gfi-panel {
+  position: fixed;
+  bottom: calculateRem(-305px);
+  left: 0;
+  right: 0;
+  height: calculateRem(300px);
+  overflow: hidden;
+  width: 100%;
+  max-width: 825px;
+  margin: auto;
+  transition: bottom 0.3s linear, height 0.3s ease, max-width 0.3s ease;
+  z-index: 10;
+  @include themify($themes) {
+    background: themed("standardBg");
+    box-shadow: 0 calculateRem(-2px) calculateRem(5px) themed("commonShadow");
+  }
+  @media only screen and (min-width: 825px) {
+    border-radius: calculateRem(5px) calculateRem(5px) 0 0;
+  }
+  &.opened {
+    bottom: 0;
+  }
+  &.expanded {
+    height: 100%;
+    @media only screen and (min-width: 825px) {
+      height: 95%;
+      max-width: 90%;
+    }
+  }
+  h2 {
+    @include themify($themes) {
+      color: themed("textColor");
+    }
+    margin: 0;
+    font-size: 0.9rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    padding: calculateRem(15px) calculateRem(15px) calculateRem(10px);
+  }
+  .modal-btn {
+    @include themify($themes) {
+      color: themed("iconBtnColor");
+    }
+    font-size: calculateRem(18px);
+    transition: color 0.3s ease;
+    background: none;
+    padding: calculateRem(7px) calculateRem(9px);
+    &:hover,
+    &:active,
+    &:focus {
+      @include themify($themes) {
+        color: themed("textColor");
+      }
+      text-decoration: none;
+      box-shadow: none;
+    }
+  }
+  .close-btn {
+    line-height: 0.5;
+    span {
+      font-size: 2rem;
+      line-height: 1;
+      position: relative;
+      top: calculateRem(-2px);
+    }
+  }
+  .coordinates {
+    position: relative;
+    padding: 0 calculateRem(50px) calculateRem(10px) calculateRem(15px);
+    margin-bottom: 0;
+    @include themify($themes) {
+      border-bottom: 1px solid themed("standardBorder");
+    }
+    span,
+    .copy-btn {
+      float: left;
+      font-size: calculateRem(13px);
+    }
+    .copy-btn {
+      top: auto;
+      right: auto;
+      position: absolute;
+      margin-top: calculateRem(-12px);
+      &:after {
+        top: calculateRem(11px);
+      }
+    }
+  }
+  .gfi-content {
+    height: calculateRem(200px);
+    width: 100%;
+    overflow: auto;
+    font-size: calculateRem(12px);
+    padding: 0 calculateRem(15px) calculateRem(10px);
+    .title {
+      @include themify($themes) {
+        color: themed("textColor");
+        background-color: themed("gfiTableHeaderBg");
+      }
+      padding: calculateRem(5px) calculateRem(8px);
+      margin-bottom: calculateRem(5px);
+    }
+    .layer {
+      margin-bottom: calculateRem(10px);
+    }
+    .response {
+      border: 0 none;
+      width: 100%;
+      height: auto;
+      overflow: auto;
+      /* ===@SUBSECTION override server inline CSS === */
+      /* !important is hazardous, don't try it at home ;) */
+      table {
+        border: 0 none !important;
+        border-collapse: collapse !important;
+        min-width: 100% !important;
+        margin-bottom: 10px;
+        &:last-child {
+          margin-bottom: 0;
+        }
+        &.wfs-gfi-result {
+          th {
+            border: 1px solid !important;
+            @include themify($themes) {
+              background: themed("gfiWfsTableHeadBg") !important;
+              border-color: themed("standardBorder") !important;
+            }
+          }
+        }
+      }
+      th,
+      td {
+        @include themify($themes) {
+          color: themed("textColor") !important;
+          border-bottom-color: themed("standardBorder") !important;
+        }
+        background: none transparent !important;
+        font-size: calculateRem(12px) !important;
+        padding: calculateRem(3px) calculateRem(8px) !important;
+        font-weight: normal !important;
+        border: 0 none !important;
+        border-bottom: thin solid !important;
+      }
+      tr {
+        background: none transparent !important;
+        &:last-child {
+          th,
+          td {
+            border-bottom: 0 none !important;
+          }
+        }
+      }
+      br,
+      hr {
+        display: none !important;
+      }
+      caption,
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        @include themify($themes) {
+          color: themed("textColor") !important;
+        }
+        background: none transparent !important;
+        font-size: calculateRem(12px) !important;
+        margin: 0 0 calculateRem(10px) 0 !important;
+        padding: 0 calculateRem(8px) !important;
+        font-weight: normal !important;
+        border: 0 none !important;
+      }
+    }
+  }
+  &.modal-body {
+    .coordinates {
+      padding: 0;
+    }
+    .gfi-content {
+      width: auto;
+      max-height: none;
+      padding: 0;
+    }
+  }
+}

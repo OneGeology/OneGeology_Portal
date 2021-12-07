@@ -1,0 +1,70 @@
+<div style="display: none" class="layerSwitcherLayerWFSParamsModel">
+  <p class="bg-info no-analysis" style="display: none">
+    <i class="fa fa-info-circle"></i>
+    <span data-i18n="layerswitcher.wfsUnavailable3d">WFS parameters are unavailable in globe view.</span>
+  </p>
+  <div class="active-analysis">
+    <div class="form-group clearfix">
+      <div class="pull-left">
+        <button type="button" class="btn btn-primary add-param-btn">
+          <i class="fa fa-plus"></i>
+          <span data-i18n="layerswitcher.addParameter">Add parameter</span>
+        </button>
+      </div>
+      <div class="pull-right">
+        <div class="dropdown wfs-colors-dropdown">
+          <button class="btn btn-dropdown dropdown-toggle" type="button" id="wfs-colors-dropdown-__ID__"
+            title="Choose a color" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"
+            data-i18n="[title]analysis.chooseColorTitle">
+            <span class="color-choice" data-value="0094FF" style="background: #0094FF">
+              <span class="sr-only">0094FF</span>
+            </span>
+            <i class="fa fa-angle-down"></i>
+          </button>
+          <ul class="dropdown-menu" aria-labelledby="wfs-colors-dropdown-__ID__"></ul>
+        </div>
+      </div>
+    </div>
+    <form class="wfs-params-form" novalidate>
+      <div class="wfs-params-form-content"></div>
+      <div class="row">
+        <div class="col-xs-6">
+          <button type="button" class="btn btn-default btn-block reset-btn" data-i18n="layerswitcher.reset">
+            Reset
+          </button>
+        </div>
+        <div class="col-xs-6">
+          <button type="submit" class="btn btn-primary btn-block" data-i18n="layerswitcher.applyParameters">
+            Apply parameters
+          </button>
+        </div>
+      </div>
+    </form>
+
+  </div>
+</div>
+
+<fieldset style="display: none" class="layerSwitcherLayerWFSParamsRowModel">
+  <legend>
+    <select class="form-control param-choice">
+      <option value="" data-i18n="layerswitcher.chooseParameter">-- Choose a parameter --</option>
+    </select>
+  </legend>
+  <button type="button" class="remove-param-btn"><span>&times;</span></button>
+  <form style="display: none" class="param-values-filter clearfix" novalidate>
+    <div class="pull-left classic-checkbox">
+      <input type="checkbox">
+      <label data-i18n="layerswitcher.seeSelected">See selected</label>
+    </div>
+    <div class="pull-right search-filter-value">
+      <i class="glyphicon glyphicon-search"></i>
+      <input type="text" class="form-control" data-i18n="[placeholder]layerswitcher.wfsFilterPlaceholder"
+        placeholder="Filter...">
+    </div>
+  </form>
+  <img style="display: none" src="images/loading.gif" class="param-loader" />
+  <p style="display: none" class="alert alert-warning" data-i18n="layerswitcher.paramNoValues">
+    No values found for this parameter
+  </p>
+  <div style="display: none" class="param-values"></div>
+</fieldset>

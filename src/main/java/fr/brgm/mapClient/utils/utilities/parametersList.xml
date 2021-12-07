@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<digester-rules>
+
+    <!-- Resource -->
+    <pattern value="*/OneGeologyGlobalRegistry">
+        <object-create-rule classname="fr.brgm.onegeo.global.utilities.ParamsList"/>
+    </pattern>
+    <pattern value="*/Parameter">
+        <call-method-rule methodname="addParameter" paramcount="2"/>
+        <call-param-rule paramnumber="0" attrname="Key" type="java.lang.String"/>
+        <call-param-rule paramnumber="1"/>
+    </pattern>
+</digester-rules> 

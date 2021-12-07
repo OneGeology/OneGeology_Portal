@@ -1,0 +1,220 @@
+.nav-tabs {
+  padding: 0;
+  @media only screen and (min-width: $smallWidth) {
+    padding-left: calculateRem(20px);
+    padding-right: calculateRem(20px);
+  }
+  li {
+    a {
+      @include themify($themes) {
+        color: themed('navtabColor');
+      }
+      border-width: 0 0 calculateRem(2px) 0;
+      border-color: transparent;
+      border-style: solid;
+      border-radius: 0;
+      padding: calculateRem(10px) calculateRem(12px);
+      text-align: center;
+      transition: color .25s ease, border-color .25s ease;
+      &:active,
+      &:hover,
+      &:focus {
+        @include themify($themes) {
+          color: themed('navtabHoverColor');
+          border-color: themed('navtabHoverColor');
+        }
+        background: transparent;
+      }
+      @media only screen and (min-width: $smallWidth) {
+        min-width: calculateRem(110px);
+      }
+    }
+    &.active {
+      a {
+        @include themify($themes) {
+          color: themed('navtabActiveColor');
+          border-color: themed('navtabActiveColor');
+        }
+        border-width: 0 0 calculateRem(2px) 0;
+        &:hover,
+        &:active,
+        &:focus {
+          @include themify($themes) {
+            color: themed('navtabActiveColor');
+            border-color: themed('navtabActiveColor');
+          }
+          border-width: 0 0 calculateRem(2px) 0;
+        }
+      }
+    }
+  }
+}
+
+.tab-pane {
+  padding: calculateRem(15px);
+  @media only screen and (min-width: $smallWidth) {
+    padding-left: calculateRem(30px);
+    padding-right: calculateRem(30px);
+  }
+}
+
+button {
+  outline: 0;
+}
+
+label {
+  font-weight: normal;
+}
+
+.form-control {
+  @include themify($themes) {
+    border-color: themed('standardBorder');
+  }
+  box-shadow: none;
+  font-size: 1rem;
+  @media only screen and (min-width: $mediumWidth) {
+    font-size: calculateRem(14px);
+  }
+  &:focus {
+    box-shadow: none;
+  }
+}
+
+.btn {
+  border-radius: calculateRem(5px);
+  padding: calculateRem(8px) calculateRem(10px);
+  font-size: 1rem;
+  transition: all .3s ease;
+  @media only screen and (min-width: $smallWidth) {
+    padding-left: calculateRem(20px);
+    padding-right: calculateRem(20px);
+  }
+  @media only screen and (min-width: $mediumWidth) {
+    font-size: calculateRem(14px);
+  }
+  &:active,
+  &:hover,
+  &:focus,
+  &:active:focus,
+  &:active:hover {
+    outline: 0;
+    text-decoration: none;
+  }
+}
+
+.btn-primary {
+  @include themify($themes) {
+    border-color: themed('textThemeColor');
+    color: themed('textThemeColor');
+  }
+  background: transparent;
+  font-weight: normal;
+  &:active,
+  &:hover,
+  &:focus,
+  &:active:focus,
+  &:active:hover {
+    @include themify($themes) {
+      border-color: themed('textThemeDarkenColor');
+      color: themed('textThemeDarkenColor');
+    }
+    background: transparent;
+  }
+}
+
+.btn-default {
+  @include themify($themes) {
+    border-color: themed('standardDarkenBorder');
+    color: themed('textColor');
+  }
+  background: transparent;
+  &:active,
+  &:hover,
+  &:focus,
+  &:active:focus,
+  &:active:hover {
+    @include themify($themes) {
+      color: darken(themed('textColor'), 20%);
+      border-color: darken(themed('standardDarkenBorder'), 20%);
+    }
+    background: transparent;
+  }
+}
+
+
+.panel-group {
+  .panel {
+    @include themify($themes) {
+      border-color: themed('standardBorder');
+    }
+    box-shadow: none;
+  }
+}
+
+.panel-default {
+  & > .panel-heading {
+    @include themify($themes) {
+      border-color: themed('standardBorder');
+      background: themed('standardBorder');
+    }
+    padding: 0;
+    & + .panel-collapse {
+      & > .panel-body {
+        border-top: 0 none;
+      }
+    }
+  }
+}
+
+.panel-title {
+  font-size: inherit;
+  a {
+    display: block;
+    padding: calculateRem(10px) calculateRem(15px);
+    position: relative;
+    &:before {
+      @include fontawesome-like("\f107");
+      position: absolute;
+      top: calculateRem(9px);
+      right: calculateRem(10px);
+    }
+  }
+}
+
+.panel-heading {
+  &.active {
+    .panel-title {
+      a {
+        &:before {
+          content: "\f106";
+        }
+      }
+    }
+  }
+}
+
+.panel-title  {
+  a {
+    &:hover:before,
+    &:active:before,
+    &:focus:before {
+      @include themify($themes) {
+        color: themed('textColor');
+      }
+    }
+  }
+}
+
+.bg-info {
+  @include themify($themes) {
+    color: themed('infoBlockColor');
+    border-color: themed('infoBlockBorder');
+    background-color: themed('infoBlockBg');
+  }
+  padding: calculateRem(12px) calculateRem(20px);
+  border-radius: calculateRem(5px);
+  margin-bottom: calculateRem(15px);
+  & > .fa {
+    margin-right: calculateRem(5px);
+  }
+}

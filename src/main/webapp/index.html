@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html class="theme-1gg">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta http-equiv="cache-control" content="no-cache, no-store" />
+  <meta http-equiv="expires" content="Tue, 01 Jan 1980 1:00:00 GMT" />
+  <meta http-equiv="pragma" content="no-cache" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OneGeology Portal</title>
+  <link rel="shortcut icon" href="images/icon-1Glayer.png" type="image/vnd.microsoft.icon">
+  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css">
+
+  <link rel="stylesheet" type="text/css" href="lib/fontawesome/all.min.css?1gg-no-cache">
+
+  <link rel="stylesheet" type="text/css" href="lib/bootstrap/bootstrap.min.css?1gg-no-cache" />
+
+  <link rel="stylesheet" type="text/css" href="lib/jstree/jstree.min.css?1gg-no-cache" />
+  <link rel="stylesheet" type="text/css" href="lib/datatables/jquery.dataTables.min.css?1gg-no-cache" />
+  <link rel="stylesheet" type="text/css" href="lib/toastr.min.css?1gg-no-cache" />
+
+
+  <link rel="stylesheet" type="text/css" href="lib/openlayers/ol.css?1gg-no-cache" />
+  <link rel="stylesheet" type="text/css" href="lib/ol-popup.min.css?1gg-no-cache" />
+
+  <link rel="stylesheet" href="lib/Cesium/Widgets/widgets.css?1gg-no-cache">
+
+  <link rel="stylesheet" type="text/css" href="css/onegicons.css?1gg-no-cache" />
+  <link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+
+<body onload="mapviewer.init();">
+  <div class="full-screen-loader">
+    <div class="upper">
+      <div class="image-loader">
+        <img src="images/init-loader.svg" alt="Application is loading...">
+      </div>
+    </div>
+    <div class="lower"></div>
+  </div>
+  <header id="header" class="clearfix">
+    <div id="banniere1GG" class="banniere pull-left">
+      <a href="http://www.onegeology.org" target="_blank" title="Go to OneGeology website">
+        <img src="images/header/baniere2.png" alt="One Geology" />
+      </a>
+      <div class="brand-text hidden-sm hidden-xs">
+        <div class="brand-band">
+          <p>Providing geoscience data globally</p>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="oneg-controls oneg-top-controls clearfix">
+      <div class="ol-control ol-search-control pull-left  visible-xs">
+        <button type="button" title="Search for location" data-i18n="[title]controls.searchPlaceholder">
+          <i class="fa fa-search"></i>
+        </button>
+      </div>
+      <div id="gazetteer" class="gazetteer pull-left"></div>
+      <div class="ol-control ol-background-selector-control pull-left visible-xs">
+        <button type="button" title="Select a base map" data-i18n="[title]controls.bglayerTitle">
+          <i class="fa fa-layer-group"></i>
+        </button>
+      </div>
+      <div class="base-layer-selector clearfix pull-left">
+        <label for="base-layers" class="pull-left hidden-xs" data-i18n="controls.baseMap">Base map</label>
+        <select id="base-layers" class="form-control pull-left"></select>
+      </div>
+    </div>
+  </header>
+
+
+  <nav class="sidebar-tabs" role="navigation">
+    <ul role="tablist">
+      <li>
+        <a href="#menu-datasets" role="tab">
+          <span class="menuLayerCounter">
+            <span class="layerCount">0</span>
+          </span>
+          <span data-i18n="sidebar.datasets">Datasets</span>
+        </a>
+      </li>
+      <li>
+        <a href="#menu-legends" role="tab">
+          <i class="fa fa-list"></i>
+          <span data-i18n="sidebar.legends">Legends</span>
+        </a>
+      </li>
+      <li class="hidden-xs hidden-sm">
+        <a href="#menu-measurement" role="tab">
+          <i class="fa fa-drafting-compass"></i>
+          <span data-i18n="sidebar.measure">Measure</span>
+        </a>
+      </li>
+      <!--<li><a href="#menu-scuddd" role="tab"><i class="ogi ogi-scudd"></i> SCUDDD</a></li>-->
+    </ul>
+
+    <ul role="tablist">
+      <li class="hidden-xs hidden-sm">
+        <a href="#menu-download" role="tab">
+          <i class="ogi ogi-download"></i>
+          <span data-i18n="sidebar.export">Save view</span>
+        </a>
+      </li>
+      <li class="hidden-xs hidden-sm">
+        <a href="#menu-generate-url" role="tab">
+          <i class="fa fa-link"></i>
+          <span data-i18n="sidebar.generateUrl">Generate url</span>
+        </a>
+      </li>
+      <li class="menu-catalog">
+        <a href="http://onegeology-geonetwork.brgm.fr/geonetwork3/srv/eng/catalog.search#/home" target="_blank"
+          role="tab">
+          <i class="fa fa-database"></i>
+          <span data-i18n="sidebar.catalog">Catalog</span>
+        </a>
+      </li>
+      <li>
+        <a href="#menu-help" role="tab">
+          <i class="ogi ogi-help"></i>
+          <span data-i18n="sidebar.help">Help</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div class="sidebar-content">
+    <button class="panel-toggle-btn">
+      <i class="fa fa-caret-left"></i>
+    </button>
+    <div class="sidebar-pane" id="menu-datasets">
+      <div class="sidebar-pane-title clearfix">
+        <h1 class="pull-left">
+          <span class="menuLayerCounter"><span class="layerCount">0</span></span>
+          <span data-i18n="sidebar.datasets">Datasets</span>
+        </h1>
+        <div class="pull-right switch-checkbox">
+          <input type="checkbox" id="active-basic-datasets" checked />
+          <label class="basic-dataset-labels" for="active-basic-datasets" data-i18n="datasets.autolayers">Automatic datasets</label>
+        </div>
+      </div>
+      <div class="sidebar-pane-content">
+        <div id="layerswitcher" class="layerswitcher"></div>
+      </div>
+    </div>
+
+    <div class="sidebar-pane" id="menu-legends">
+      <div class="sidebar-pane-title">
+        <h1>
+          <i class="fa fa-list"></i>
+          <span data-i18n="sidebar.legends">Legends</span>
+        </h1>
+      </div>
+      <div id="legends" class="sidebar-pane-content">
+        <div class="panel-group" id="legend-accordion" role="tablist" aria-multiselectable="true">
+        </div>
+      </div>
+    </div>
+
+    <div class="sidebar-pane" id="menu-measurement">
+      <div class="sidebar-pane-title">
+        <h1>
+          <i class="fa fa-drafting-compass"></i>
+          <span data-i18n="sidebar.measure">Measure</span>
+        </h1>
+      </div>
+      <div id="measurement" class="sidebar-pane-content"></div>
+    </div>
+
+    <div class="sidebar-pane" id="menu-scuddd">
+      <div class="sidebar-pane-title">
+        <h1>
+          <i class="ogi ogi-scudd"></i>
+          SCUDDD
+        </h1>
+      </div>
+      <div id="scudd" class="sidebar-pane-content"></div>
+    </div>
+
+    <div class="sidebar-pane" id="menu-download">
+      <div class="sidebar-pane-title">
+        <h1>
+          <i class="ogi ogi-download"></i>
+          <span data-i18n="sidebar.export">Save view</span>
+        </h1>
+      </div>
+      <div id="exportContext" class="sidebar-pane-content"></div>
+    </div>
+
+    <div class="sidebar-pane" id="menu-generate-url">
+      <div class="sidebar-pane-title">
+        <h1>
+          <i class="fa fa-link"></i>
+          <span data-i18n="sidebar.generateUrl">Generate url</span>
+        </h1>
+      </div>
+      <div id="generateUrl" class="sidebar-pane-content"></div>
+    </div>
+
+    <div class="sidebar-pane" id="menu-help">
+      <div class="sidebar-pane-title">
+        <h1>
+          <i class="ogi ogi-help"></i>
+          <span data-i18n="sidebar.help">Help</span>
+        </h1>
+      </div>
+      <div id="help" class="sidebar-pane-content"></div>
+    </div>
+  </div>
+
+
+  <div class="wrapper">
+
+    <div id="map">
+      <div class="oneg-controls oneg-bottom-controls">
+        <div id="scalesZoom" class="oneg-control projection-control scales-zoom-control">
+          <button type="button" class="visible-xs srs-button" data-i18n="controls.scales">Scales</button>
+          <div class="srs-container">
+            <label class="hidden-xs" id="labelSRS" for="scales-list" data-i18n="controls.scalesLabel">Scales:&nbsp;</label>
+            <div class="dropup">
+              <button class="btn btn-default dropdown-toggle" type="button" id="scales-list" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+                <span></span> <i class="fa fa-caret-up"></i>
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="scales-list"></ul>
+            </div>
+          </div>
+        </div>
+        <div class="oneg-control scale-line-control"></div>
+        <div class="oneg-control go-to-coord-control">
+          <span id="goToCoordButton" data-placement="top" data-html="true" data-toggle="popover"
+            class="fa fa-pen"></span>
+          <h6 id="popover-head" class="hide">
+            <span data-i18n="controls.goToTitle">Localisation by coordinates</span>
+            <small data-i18n="controls.goToSubTitle">2D Latitude/Longitude (WGS84) only</small>
+          </h6>
+          <div id="popover-content" class="hide">
+            <form class="go-to-coord-form">
+              <div class="form-group">
+                <label for="inputLong" class="sr-only" data-i18n="common.longitude">Longitude</label>
+                <input type="number" id="inputLong" class="form-control" placeholder="Longitude" required
+                  data-i18n="[placeholder]common.longitude">
+              </div>
+              <div class="form-group">
+                <label for="inputLat" class="sr-only" data-i18n="common.latitude">Latitude</label>
+                <input type="number" id="inputLat" class="form-control" placeholder="Latitude" required
+                  data-i18n="[placeholder]common.latitude">
+              </div>
+              <button class="btn btn-primary btn-block" type="submit" data-i18n="controls.goToBtn">Go</button>
+            </form>
+          </div>
+        </div>
+        <div class="oneg-control mouse-position-control hidden-xs"></div>
+
+        <div id="changeSRS" class="oneg-control projection-control">
+          <button type="button" class="visible-xs srs-button">SRS</button>
+          <div class="srs-container">
+            <label class="hidden-xs" id="labelSRS" for="srsList" data-i18n="controls.srsLabel">SRS:&nbsp;</label>
+            <div class="dropup">
+              <button class="btn btn-default dropdown-toggle" type="button" id="srsList" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+                <span></span> <i class="fa fa-caret-up"></i>
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="srsList"></ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="oneg-controls oneg-right-controls">
+        <div class="oneg-right-inner-controls"></div>
+        <div class="ol-control ol-globe-control">
+          <button type="button" title="Swap mode map/globe" data-i18n="[title]controls.swapMode"><i
+              class="fa fa-globe"></i></button>
+        </div>
+      </div>
+
+
+      <div id="olMap" class="map-block"></div>
+      <div id="csMap" class="map-block"></div>
+    </div>
+    <div id="loading" class="loading main-loader"></div>
+  </div>
+  <div id="thematicAnalysis" style="display:none"></div>
+  <div class="quick-help">
+    <div class="dataset-help">
+      <img src="images/arrow.svg" class="arrow" alt="" />
+      <p class="dataset-help-text" data-i18n="help.datasetsHelpText">Open datasets panel, which contains your currently
+        displayed datasets and allow you to add datasets from catalog or file.</p>
+    </div>
+    <div class="background-help">
+      <img src="images/arrow-flipped.svg" class="arrow" alt="" />
+      <p class="background-help-text" data-i18n="help.backgroundHelpText">Select background layer to display.</p>
+    </div>
+    <div class="controls-help">
+      <img src="images/arrow-flipped.svg" class="arrow" alt="" />
+      <p class="controls-help-text" data-i18n="help.controlsHelpText">Controls the map (zoom, go to home, etc).</p>
+    </div>
+    <div class="help-help">
+      <img src="images/arrow-flipped.svg" class="arrow" alt="" />
+      <p class="help-help-text" data-i18n="help.helpHelpText">For more help, open this panel.</p>
+    </div>
+  </div>
+
+  <div class="gfi-panel">
+    <div class="panel-heading">
+      <div class="clearfix">
+        <h2 class="pull-left" data-i18n="gfi.gfiTitle">Get information</h2>
+        <div class="pull-right">
+          <button type="button" class="btn modal-btn expand-btn" title="View in modal box"
+            data-i18n="[title]gfi.viewInModalBtnTitle">
+            <i class="fas fa-window-restore"></i>
+          </button>
+          <button type="button" class="btn modal-btn close-btn">
+            <span>&times;</span>
+          </button>
+        </div>
+      </div>
+      <p class="coordinates clearfix">
+        <span></span>
+        <button class="far fa-copy copy-btn" title="Copy to clipboard"
+          data-i18n="[title]layerswitcher.copyBtn"></button>
+      </p>
+    </div>
+    <div class="gfi-content">
+      <div class="text-center loader">
+        <img src="images/loading.gif" />
+      </div>
+      <div class="result"></div>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.7/es5-shim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/es6-shim/0.34.2/es6-shim.min.js"></script>
+  <script src="js/polyfill.js?1gg-no-cache"></script>
+
+
+  <script src="lib/lodash.min.js?1gg-no-cache"></script>
+
+  <script src="lib/openlayers/ol.js?1gg-no-cache"></script>
+  <script src="lib/proj4.min.js?1gg-no-cache"></script>
+
+  <script src="lib/Cesium/Cesium.js?1gg-no-cache"></script>
+
+  <script src="lib/ol-popup.min.js?1gg-no-cache"></script>
+
+  <script src="lib/jquery-3.1.0.min.js?1gg-no-cache"></script>
+  <script src="lib/jquery-ui/jquery-ui.min.js?1gg-no-cache"></script>
+  <script src="lib/jquery-ui/jquery-ui-touch.min.js?1gg-no-cache"></script>
+
+  <script src="lib/bootstrap/bootstrap.min.js?1gg-no-cache"></script>
+
+  <script src="lib/jstree/jstree.min.js?1gg-no-cache"></script>
+  <script src="lib/datatables/jquery.dataTables.min.js?1gg-no-cache"></script>
+  <script src="lib/toastr.min.js?1gg-no-cache"></script>
+
+  <script src="lib/libcoverage.min.js?1gg-no-cache"></script>
+
+  <script src="lib/i18next.min.js"></script>
+  <script src="lib/jquery-i18next.min.js"></script>
+
+  <script src="lib/jspdf.min.js"></script>
+
+  <script src="js/mapviewer.js?1gg-no-cache"></script>
+  <script src="js/mapviewer.monitoring.js?1gg-no-cache"></script>
+  <script src="js/mapviewer.olMap.js?1gg-no-cache"></script>
+  <script src="js/mapviewer.csMap.js?1gg-no-cache"></script>
+  <script src="js/mapviewer.map.js?1gg-no-cache"></script>
+  <script src="js/mapviewer.widget.js?1gg-no-cache"></script>
+  <script src="js/mapviewer.map.gfi.js?1gg-no-cache"></script>
+  <script src="js/mapviewer.tools.js?1gg-no-cache"></script>
+  <script src="js/mapviewer.autolayers.js?1gg-no-cache"></script>
+
+  <!-- Piwik -->
+  <noscript>
+    <p><img src="https://wwwstats.brgm-rec.fr/piwik.php?idsite=9" style="border:0;" alt="" /></p>
+  </noscript>
+  <!-- End Piwik Code -->
+  <script>
+    (function () {
+      // Convert array to object
+      var convArrToObj = function (array) {
+        var thisEleObj = {};
+        if (typeof array == "object") {
+          for (var i in array) {
+            var thisEle = convArrToObj(array[i]);
+            thisEleObj[i] = thisEle;
+          }
+        } else {
+          thisEleObj = array;
+        }
+        return thisEleObj;
+      };
+      var oldJSONStringify = JSON.stringify;
+      JSON.stringify = function (input) {
+        if (oldJSONStringify(input) == '[]')
+          return oldJSONStringify(convArrToObj(input));
+        else
+          return oldJSONStringify(input);
+      };
+    })();
+
+    String.prototype.replaceAll = function (search, replacement) {
+      var target = this;
+      return target.replace(new RegExp(search, 'g'), replacement);
+    };
+
+
+
+    toastr.options = {
+      "closeButton": false,
+      "debug": false,
+      "newestOnTop": true,
+      "progressBar": true,
+      "positionClass": "toast-bottom-left",
+      "preventDuplicates": true,
+      "onclick": null,
+      "showDuration": "300",
+      "hideDuration": "1000",
+      "timeOut": "10000",
+      "extendedTimeOut": "3000",
+      "showEasing": "swing",
+      "hideEasing": "linear",
+      "showMethod": "fadeIn",
+      "hideMethod": "fadeOut"
+    }
+
+  </script>
+
+  <script>
+    $(function () {
+      $('.sidebar-tabs a').click(function (e) { e.preventDefault() });
+    });
+  </script>
+
+</body>
+
+</html>

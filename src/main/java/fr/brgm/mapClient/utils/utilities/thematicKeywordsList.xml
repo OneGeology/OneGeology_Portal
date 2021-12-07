@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<digester-rules>
+    <pattern value="thematic_keywords">
+        <object-create-rule classname="fr.brgm.onegeo.global.utilities.ThematicKeywordsList"/>
+    </pattern>
+
+    <pattern value="*/thematic_keyword">
+        <object-create-rule classname="fr.brgm.onegeo.global.utilities.ThematicKeyword"/>
+        <bean-property-setter-rule pattern="category" propertyname="category"/>
+        <bean-property-setter-rule pattern="term" propertyname="term"/>
+        <bean-property-setter-rule pattern="definition" propertyname="definition"/>
+        <set-next-rule methodname="addThematicKeyword"/>
+    </pattern>
+</digester-rules>

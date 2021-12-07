@@ -1,0 +1,96 @@
+<div class="presentation bg-info">
+  <p>This section allow you to generate an url to share with others, which start the application with various parameters.</p>
+  <p>If you don't want to use a parameter, just leave it empty. Otherwise, fill it with the required data described for each field.</p>
+</div>
+
+<h2 class="link-title" data-i18n="generateUrl.generatedUrl">Generated url</h2>
+<div class="share-link">
+  <a href="" target="_blank"></a>
+  <button class="far fa-copy copy-btn" title="Copy to clipboard"
+    data-i18n="[title]layerswitcher.copyBtn"></button>
+</div>
+
+<!-- Nav tabs -->
+<ul class="nav nav-tabs main-tabs" role="tablist">
+  <li role="presentation" class="active">
+    <a href="#generate-url-config" aria-controls="generate-url-config" role="tab" data-toggle="tab" data-i18n="generateUrl.config">
+      Configuration
+    </a>
+  </li>
+  <li role="presentation">
+    <a href="#generate-url-autoload" aria-controls="generate-url-autoload" role="tab" data-toggle="tab"
+      data-i18n="generateUrl.autoload">
+      Auto-load service or layer
+    </a>
+  </li>
+</ul>
+
+<!-- Tab panes -->
+<div class="tab-content">
+  <!-- Basic configuration -->
+  <div role="tabpanel" class="tab-pane active" id="generate-url-config">
+    <h2 data-i18n="generateUrl.autolayers">Autolayers</h2>
+    <div class="form-group">
+      <label for="generate-url-catalog-url" data-i18n="generateUrl.autolayersCatalogUrl">Autolayers catalog url</label>
+      <input type="text" class="form-control" id="generate-url-catalog-url">
+    </div>
+    <div class="form-group classic-checkbox">
+      <input type="checkbox" id="generate-url-disable-autolayers">
+      <label for="generate-url-disable-autolayers" data-i18n="generateUrl.disableAutolayers">Disable autolayers on application start ?</label>
+    </div>
+    <div class="form-group">
+      <label class="title-like" for="generate-url-config-name" data-i18n="generateUrl.configFileName">Configuration file name</label>
+      <input type="text" class="form-control" id="generate-url-config-name">
+    </div>
+    <h2 data-i18n="generateUrl.startingExtent">Starting extent</h2>
+    <div class="active-set-extent">
+      <div class="clearfix">
+        <div class="pull-left set-extent-instructions">
+          <p class="bg-info" data-i18n="generateUrl.selectExtentInstructions">Use ctrl + mouse drag to select an extent</p>
+          <button type="button" class="btn btn-danger btn-block btn-clear-extent" data-i18n="generateUrl.clearExtent">Clear selection</button>
+        </div>
+        <div class="trosace pull-right">
+          <span class="tnorth"></span>
+          <span class="teast"></span>
+          <span class="twest"></span>
+          <span class="tsouth"></span>
+        </div>
+      </div>
+    </div>
+    <p class="bg-info no-set-extent" style="display: none" data-i18n="generateUrl.extentDisabled3DMode">
+      Select extent is disabled in 3D mode.
+    </p>
+  </div>
+  <!-- Autoload configuration -->
+  <div role="tabpanel" class="tab-pane" id="generate-url-autoload">
+    <div class="form-group generate-url-from-layers">
+      <!-- Single button -->
+      <div class="btn-group">
+        <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <span>Use current displayed layer</span> <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu"></ul>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="generate-url-service-url" data-i18n="generateUrl.serviceUrl">Service url to automatically show layers</label>
+      <input type="text" class="form-control" id="generate-url-service-url">
+    </div>
+    <div class="form-group">
+      <label for="generate-url-service-type" data-i18n="generateUrl.serviceType">Service type</label>
+      <select class="form-control" id="generate-url-service-type">
+        <option value="WMS">WMS</option>
+        <option value="WFS">WFS</option>
+        <option value="WMC">WMC</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="generate-url-layername" data-i18n="generateUrl.layername">Layer name in the service to load automatically</label>
+      <input type="text" class="form-control" id="generate-url-layername" disabled>
+    </div>
+    <div class="form-group classic-checkbox">
+      <input type="checkbox" id="generate-url-forceload" disabled>
+      <label for="generate-url-forceload" data-i18n="generateUrl.forceLoad">Force WFS load features ?</label>
+    </div>
+  </div>
+</div>

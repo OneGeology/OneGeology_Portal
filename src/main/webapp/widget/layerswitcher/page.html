@@ -1,0 +1,50 @@
+<div class="layer-management">
+  <!-- Nav tabs -->
+  <ul class="nav nav-tabs main-tabs" role="tablist">
+    <li role="presentation" class="active">
+      <a href="#layer-switcher" aria-controls="layer-switcher" role="tab" data-toggle="tab">
+        <span class="visible-xs-inline" data-i18n="datasets.altDatasetsTab">Datasets</span>
+        <span class="hidden-xs" data-i18n="datasets.datasetsTab">Displayed datasets</span>
+        (<span class="layerCount">0</span>)
+      </a>
+    </li>
+    <li role="presentation">
+      <a href="#add-layer" aria-controls="add-layer" role="tab" data-toggle="tab">
+        <strong data-i18n="datasets.addTab">+Add</strong>
+      </a>
+    </li>
+    <li role="presentation">
+      <a href="#import-layer" aria-controls="import-layer" role="tab" data-toggle="tab" data-i18n="datasets.importTab">
+        Import
+      </a>
+    </li>
+  </ul>
+
+  <!-- Tab panes -->
+  <div class="tab-content">
+    <div role="tabpanel" class="tab-pane active layerswitcher-pane" id="layer-switcher">
+      <div class="layerSwitcherLayersList" id="sortable"></div>
+      <div class="layerSwitcherModelContainer" style="display: none;"></div>
+      <div class="bottom-button-container">
+        <div class="row">
+          <div class="col-xs-12 col-sm-6" style="display: none;">
+            <button class="btn btn-default btn-block reset-button" data-i18n="layerswitcher.resetPortrayal">
+              Reset portrayables
+            </button>
+          </div>
+          <div class="col-xs-12">
+            <button class="btn btn-primary btn-block add-button" data-i18n="layerswitcher.addDataset">
+              Add dataset
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div role="tabpanel" class="tab-pane add-layer-pane" id="add-layer">
+      <div id="layerOneGeology"></div>
+    </div>
+    <div role="tabpanel" class="tab-pane import-layer-pane" id="import-layer">
+      <div id="externalOGC"></div>
+    </div>
+  </div>
+</div>

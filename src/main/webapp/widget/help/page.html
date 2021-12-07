@@ -1,0 +1,64 @@
+<!-- Nav tabs -->
+<ul class="nav nav-tabs main-tabs" role="tablist">
+  <li role="presentation" class="active">
+    <a href="#help-infos" aria-controls="help-infos" role="tab" data-toggle="tab" data-i18n="help.informationsTab">
+      Informations
+    </a>
+  </li>
+  <li role="presentation">
+    <a href="#wms-validator" aria-controls="wms-validator" role="tab" data-toggle="tab"
+      data-i18n="help.wmsValidatorTab">
+      WMS validator
+    </a>
+  </li>
+</ul>
+
+<!-- Tab panes -->
+<div class="tab-content">
+  <!-- Help informations -->
+  <div role="tabpanel" class="tab-pane active" id="help-infos">
+    <div class="help-links">
+      <a class="contact-link standard-link with-icon-prefix" href="mailto:onegeology@bgs.ac.uk">
+        <i class="fa fa-envelope icon-prefix"></i>
+        <span data-i18n="help.contact">Contact us</span>
+      </a>
+    </div>
+    <div class="btn-quick-help-container">
+      <button class="btn btn-primary btn-quick-help">
+        <i class="fa fa-question-circle"></i>
+        <span data-i18n="help.showQuickHelp">Show quick help</span>
+      </button>
+    </div>
+    <div class="bg-info clearfix">
+      <p>Please take a moment to complete a short survey about the OneGeology Portal:</p>
+      <a class="btn btn-default pull-right" target="_blank"
+        href="https://docs.google.com/forms/d/e/1FAIpQLSdMmYDJLgpCpILz4POrmGDHuRNKuQo3I-rJMTNdpshDLJ7MuQ/viewform">
+        <strong data-i18n="help.surveyBtn">Feedback</strong>
+        <i class="fa fa-external-link-alt"></i>
+      </a>
+    </div>
+  </div>
+
+  <!-- WMS validator -->
+  <div role="tabpanel" class="tab-pane wms-validator" id="wms-validator">
+    <form class="wms-validator-form" novalidate>
+      <div class="form-group">
+        <label for="wms-validator-url" data-i18n="help.wmsUrl">WMS url</label>
+        <input type="text" id="wms-validator-url" class="form-control">
+      </div>
+      <div class="form-group text-right">
+        <button type="submit" class="btn btn-primary" data-i18n="help.validateBtn">Validate</button>
+      </div>
+    </form>
+    <img style="display: none" src="images/loading.gif" class="validator-loader" />
+    <p style="display: none;" class="alert bg-success">
+      <i class="fa fa-check"></i>
+      <span data-i18n="help.wmsValid">Your WMS service is valid</span>
+    </p>
+    <p style="display: none;" class="alert bg-danger">
+      <i class="fa fa-times"></i>
+      <span data-i18n="help.wmsInvalid">Your WMS service is invalid</span>
+    </p>
+    <ul style="display: none;" class="wms-validator-results"></ul>
+  </div>
+</div>

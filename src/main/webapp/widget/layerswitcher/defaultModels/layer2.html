@@ -1,0 +1,218 @@
+<div style="display: none" class="layerSwitcherLayerModel">
+  <div class="toolsContainer clearfix">
+    <i class="fa fa-grip-vertical sortable-anchor pull-left"></i>
+    <button type="button" class="fa fa-cog pull-left layerSwitcherLayerTools hidden-xs hidden-sm"></button>
+    <div class="popover bottom" role="tooltip">
+      <div class="arrow"></div>
+      <div class="popover-content">
+        <div class="clearfix">
+          <button class="layerSwitcherLayerZoomTo pull-left" title="Zoom to dataset extent"
+            data-i18n="[title]layerswitcher.zoomToDatasetExtent">
+            <i class="fa fa-expand"></i>
+            <span data-i18n="layerswitcher.centerBtn">Center</span>
+          </button>
+          <div class="layerSwitcherLayerTransparencyContainer pull-left">
+            <div class="layerSwitcherLayerTransparency" title="Change dataset opacity"
+              data-i18n="[title]layerswitcher.changeOpacity"></div>
+            <p><span data-i18n="layerswitcher.opacityLabel">Opacity:</span> <span class="layerOpacity">12</span></p>
+          </div>
+        </div>
+        <ul class="layerSwitcherLayerDetailsMenu">
+          <li>
+            <a class="subpanelLink captionLink" data-target="#layerInfoSubpanel__ID__"
+              data-i18n="layerswitcher.legend">Legend</a>
+          </li>
+          <li>
+            <a class="subpanelLink infoLink" data-target="#layerInfoSubpanel__ID__"
+              data-i18n="layerswitcher.metadata">Metadata</a>
+          </li>
+          <li>
+            <a class="subpanelLink analysisLink hidden-xs hidden-sm" data-target="#layerInfoSubpanel__ID__"
+              data-i18n="layerswitcher.analysis">Analysis</a>
+          </li>
+          <li>
+            <a class="subpanelLink wfsParamsLink hidden-xs hidden-sm" data-target="#layerInfoSubpanel__ID__"
+              data-i18n="layerswitcher.wfsParameters">WFS parameters</a>
+          </li>
+          <li>
+            <a class="metadataURLButton standard-link" target="_blank">
+              <span data-i18n="layerswitcher.metadataUrl">Metadata URL</span>
+              <i class="fa fa-external-link-alt"></i>
+            </a>
+          </li>
+          <li>
+            <a class="dataURLButton standard-link" target="_blank">
+              <span data-i18n="layerswitcher.dataUrl">Data URL</span>
+              <i class="fa fa-external-link-alt"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="layerSwitcherLayerShowHide classic-checkbox pull-left" title="Show/hide layer"
+      data-i18n="[title]layerswitcher.showHideLayer">
+      <input id="layerSwitcherShowHide__ID__" type="checkbox">
+      <label for="layerSwitcherShowHide__ID__">&nbsp;</label>
+    </div>
+    <div class="layerSwitcherLayerSRS pull-left" style="display: none"
+      title="This layer cannot be displayed in the current projection system"
+      data-i18n="[title]layerswitcher.disabledLayerTitle"></div>
+    <div class="layerSwitcherLayerLoader pull-left" style="display: none">
+      <img src="images/loading.gif" alt="Loading layer image..." title="Loading layer image..."
+        data-i18n="[alt]layerswitcher.loadingTitle;[title]layerswitcher.loadingTitle" />
+    </div>
+
+    <a class="layerSwitcherLayerTitle pull-left" title="Open layer details" data-target="#layerInfoSubpanel__ID__"
+      data-i18n="[title]layerswitcher.detailsLinkTitle"></a>
+    <button type="button" class="layerSwitcherLayerDelete pull-right" title="Remove layer"
+      data-i18n="[title]layerswitcher.removeLayerTitle">&times;</button>
+  </div>
+
+  <div class="layerSwitcherFilters" style="display: none">
+    <div class="classic-checkbox">
+      <input id="layerSwitcherFilter__ID__" type="checkbox" checked>
+      <label class="clearfix" for="layerSwitcherFilter__ID__">
+        <i class="fa fa-filter"></i>
+        <span class="squared-type"></span>
+        <span class="filter-name"></span>
+      </label>
+    </div>
+  </div>
+  
+  <div class="layerSwitcherWfsFilters" style="display: none">
+    
+  </div>
+
+  <div class="sidebar-pane-subpane layerInfoSubpanel" id="layerInfoSubpanel__ID__">
+    <div class="sidebar-pane-title">
+      <h2 class="layerSwitcherLayerTitle"></h2>
+      <button class="fa fa-times closeSubpanel"></button>
+    </div>
+    <div class="sidebar-pane-content">
+      <div class="clearfix layerSwitcherSubpanelTools">
+        <div class="layerSwitcherLayerShowHide classic-checkbox pull-left" title="Show/hide layer"
+          data-i18n="[title]layerswitcher.showHideLayer">
+          <div class="showHideContainer">
+            <input id="layerSwitcherShowHideSub__ID__" type="checkbox">
+            <label for="layerSwitcherShowHideSub__ID__" data-i18n="layerswitcher.showHideLayerLabel">Select</label>
+          </div>
+          <img style="display: none" class="subpaneLoader" src="images/loading.gif" alt="Loading layer image..."
+            title="Loading layer image..."
+            data-i18n="[alt]layerswitcher.loadingTitle;[title]layerswitcher.loadingTitle" />
+        </div>
+        <button class="layerSwitcherLayerZoomTo pull-left" title="Zoom to dataset extent"
+          data-i18n="[title]layerswitcher.zoomToDatasetExtent">
+          <i class="fa fa-expand"></i>
+          <span data-i18n="layerswitcher.centerBtn">Center</span>
+        </button>
+        <div class="layerSwitcherLayerTransparencyContainer pull-left">
+          <div class="layerSwitcherLayerTransparency" title="Change dataset opacity"
+            data-i18n="[title]layerswitcher.changeOpacity"></div>
+          <p> <span data-i18n="layerswitcher.opacityLabel">Opacity:</span> <span class="layerOpacity">12</span></p>
+        </div>
+      </div>
+      <!-- Nav tabs -->
+      <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation" class="active">
+          <a href="#layerCaptions__ID__" aria-controls="layerCaptions__ID__" role="tab" data-toggle="tab"
+            data-i18n="layerswitcher.legend">Legend</a>
+        </li>
+        <li role="presentation">
+          <a href="#layerInfos__ID__" aria-controls="layerInfos__ID__" role="tab" data-toggle="tab"
+            data-i18n="layerswitcher.metadata">Metadata</a>
+        </li>
+        <li role="presentation" class="hidden-xs hidden-sm">
+          <a href="#layerAnalysis__ID__" data-id="__ID__" aria-controls="layerAnalysis__ID__" role="tab"
+            data-toggle="tab" data-i18n="layerswitcher.analysis">Analysis</a>
+        </li>
+        <li role="presentation" class="hidden-xs hidden-sm">
+          <a href="#layerWfsParams__ID__" data-id="__ID__" aria-controls="layerWfsParams__ID__" role="tab"
+            data-toggle="tab" data-i18n="layerswitcher.wfsParameters">WFS parameters</a>
+        </li>
+      </ul>
+
+      <!-- Tab panes -->
+      <div class="tab-content">
+        <div role="tabpanel" class="tab-pane active layerCaptions" id="layerCaptions__ID__">
+          <img src="" alt="Legend" />
+        </div>
+        <div role="tabpanel" class="tab-pane layerInfos" id="layerInfos__ID__">
+          <div class="layerLinks">
+            <a href="#" class="catalogMetadataURLButton standard-link" target="_blank">
+              <span data-i18n="layerswitcher.catalogMetadata">Catalog Metadata</span>
+              <i class="fa fa-external-link-alt"></i>
+            </a>
+            <a href="#" class="metadataURLButton standard-link" target="_blank">
+              <span data-i18n="layerswitcher.metadataUrl">Metadata URL</span>
+              <i class="fa fa-external-link-alt"></i>
+            </a>
+            <a href="#" class="dataURLButton standard-link" target="_blank">
+              <span data-i18n="layerswitcher.dataUrl">Data URL</span>
+              <i class="fa fa-external-link-alt"></i>
+            </a>
+          </div>
+          <dl>
+            <dt data-i18n="layerswitcher.accessConstraint">Access constraint</dt>
+            <dd class="metadataAccessConstraint"></dd>
+            <dt data-i18n="layerswitcher.serviceTitle">Service title</dt>
+            <dd class="metadataTitle"></dd>
+            <dt data-i18n="layerswitcher.serviceUrl">Service URL</dt>
+            <dd class="metadataServiceUrl">
+              <a target="_blank"></a>
+              <button class="far fa-copy copy-btn" title="Copy to clipboard"
+                data-i18n="[title]layerswitcher.copyBtn"></button>
+            </dd>
+            <dt data-i18n="layerswitcher.legendUrl">Legend URL</dt>
+            <dd class="metadataLegendUrl">
+              <a target="_blank"></a>
+              <button class="far fa-copy copy-btn" title="Copy to clipboard"
+                data-i18n="[title]layerswitcher.copyBtn"></button>
+            </dd>
+            <dt data-i18n="layerswitcher.downloadUrl">Download feature available</dt>
+            <dd class="metadataDownloadFeatureUrl">
+              <a target="_blank"></a>
+              <button class="far fa-copy copy-btn" title="Copy to clipboard"
+                data-i18n="[title]layerswitcher.copyBtn"></button>
+            </dd>
+            <dt data-i18n="layerswitcher.wfsUrl">GeoSciML WFS URL</dt>
+            <dd class="metadataWfsUrl">
+              <a target="_blank"></a>
+              <button class="far fa-copy copy-btn" title="Copy to clipboard"
+                data-i18n="[title]layerswitcher.copyBtn"></button>
+            </dd>
+            <dt data-i18n="layerswitcher.abstract">Abstract</dt>
+            <dd class="metadataAbstract"></dd>
+            <dt data-i18n="layerswitcher.lastUpdate">Last update</dt>
+            <dd class="metadataLastUpdate"></dd>
+            <dt data-i18n="layerswitcher.topicCategory">Topic category</dt>
+            <dd class="metadataTopicCategory"></dd>
+            <dt data-i18n="layerswitcher.owner">Owner</dt>
+            <dd class="metadataOwner"></dd>
+            <dt data-i18n="layerswitcher.visibility">Visibility</dt>
+            <dd class="metadataVisibility"></dd>
+            <dt data-i18n="layerswitcher.contact">Contact</dt>
+            <dd class="clearfix">
+              <address class="pull-left">
+                <strong class="contactPerson"></strong>
+                <strong class="contactOrganization"></strong>
+                <span class="contactAddress"></span>
+                <span class="contactPostCode"></span>
+                <span class="contactCountry"></span>
+                <a class="contactEmail"></a>
+              </address>
+              <div class="trosace pull-right">
+                <span class="tnorth"></span>
+                <span class="teast"></span>
+                <span class="twest"></span>
+                <span class="tsouth"></span>
+              </div>
+            </dd>
+          </dl>
+        </div>
+        <div role="tabpanel" class="tab-pane layerAnalysis" id="layerAnalysis__ID__"></div>
+        <div role="tabpanel" class="tab-pane layerWfsParams" id="layerWfsParams__ID__"></div>
+      </div>
+    </div>
+  </div>
+</div>

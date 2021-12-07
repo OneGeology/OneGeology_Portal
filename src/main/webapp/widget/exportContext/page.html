@@ -1,0 +1,59 @@
+<p class="bg-info no-export" style="display: none">
+	<i class="fa fa-info-circle"></i>
+	<span data-i18n="export.unavailable">Map export is unavailable on globe view.</span>
+</p>
+<div class="active-export">
+	<!-- <form class="export-form" novalidate>
+		<div class="form-group">
+			<label for="filenameInput" class="export-label" data-i18n="export.fieldLabel">Create save view</label>
+			<input id="filenameInput" class="form-control" placeholder="Filename"
+				data-i18n="[placeholder]export.fieldPlaceholder" />
+		</div>
+		<div class="form-group clearfix text-right">
+			<div class="classic-radio text-left">
+				<input type="radio" name="exportChoice" id="exportChoiceWMC" checked />
+				<label for="exportChoiceWMC" data-i18n="export.WMC">WMC</label>
+			</div>
+			<div class="classic-radio text-left">
+				<input type="radio" name="exportChoice" id="exportChoiceKML" />
+				<label for="exportChoiceKML" data-i18n="export.KML">KML</label>
+			</div>
+			<button type="submit" class="btn btn-primary" data-i18n="export.formButton">Save view</button>
+		</div>
+		<p class="alert bg-info" data-i18n="exportWFSMessage">If the map contains WFS features, they won't be exported</p>
+	</form> -->
+
+	<form class="export-pdf-form" novalidate>
+		<h2 data-i18n="export.pdfTitle">Export map to PDF</h2>
+		<div class="elements-container">
+			<div class="form-group">
+				<div class="clearfix">
+					<label for="pdf-resolution" class="pull-left" data-i18n="export.pdfResolution">Resolution</label>
+					<div class="classic-checkbox pull-right">
+						<input type="checkbox" name="pdf-with-legends" id="pdf-with-legends" checked />
+						<label for="pdf-with-legends" data-i18n="export.withLegends">With legends ?</label>
+					</div>
+				</div>
+				<select name="pdf-resolution" id="pdf-resolution" class="form-control">
+					<option value="72" data-i18n="export.lowRes" selected>Low resolution</option>
+					<option value="150" data-i18n="export.highRes">High resolution</option>
+				</select>
+			</div>
+		</div>
+		<div class="text-right">
+			<button type="submit" class="btn btn-primary" data-i18n="export.pdfSubmitButton">Download PDF</button>
+		</div>
+	</form>
+
+	<form action="context" name="savekmlform" method="post" id="savekmlform">
+		<input type="hidden" name="request" value="savekml" />
+		<textarea name="wmc" id="savekmlforminputwmc" style="display:none; position:absolute;"></textarea>
+		<input type="hidden" name="fileName" id="savekmlforminputfilename" />
+	</form>
+	<form action="context" name="savewmcform" method="post" id="savewmcform">
+		<input type="hidden" name="request" value="savewmc" />
+		<textarea name="wmc" id="savewmcforminputwmc" style="display:none; position:absolute;"></textarea>
+		<input type="hidden" name="fileName" id="savewmcforminputfilename" />
+	</form>
+	<div id="export-map" style="display: none"></div>
+</div>

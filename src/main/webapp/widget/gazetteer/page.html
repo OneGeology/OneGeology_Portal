@@ -1,0 +1,43 @@
+<input type="text" class="gazetteerSearchInput" placeholder="Search anything" autocomplete="off"
+  data-i18n="[placeholder]controls.searchPlaceholder">
+<button type="button" class="glyphicon glyphicon-search locatorIcon"></button>
+<button type="button" class="gazetteerCloseResult">&times;</button>
+
+<div class="gazetteerLoader gazetteerResultContainer" style="display: none;" data-i18n="gazetteer.loading">
+  Loading...
+</div>
+<div class="gazetteerResult gazetteerResultContainer" style="display: none;"></div>
+<div class="gazetteerHelp gazetteerResultContainer" style="display: none;">
+  <button type="button" class="btn btn-close">&times;</button>
+  <p data-i18n="gazetteer.helpIntro"></p>
+  <ul>
+    <li>
+      <i class="fa fa-search search-icon"></i>
+      <span class="search-type" data-i18n="gazetteer.helpLocation"></span>
+      <button type="button" class="standard-link location-btn">
+        <i class="fa fa-crosshairs"></i>
+        <span data-i18n="gazetteer.helpLocationFindMe"></span>
+      </button>
+    </li>
+    <li>
+      <i class="fa fa-plus search-icon"></i>
+      <span class="search-type" data-i18n="gazetteer.helpDataset"></span>
+      <button type="button" class="standard-link catalog-btn" data-i18n="gazetteer.helpDatasetLink"></button>
+    </li>
+    <li>
+      <i class="fa fa-filter search-icon"></i>
+      <span class="search-type" data-i18n="gazetteer.helpFilter"></span>
+      <button type="button" class="standard-link search-vocab-btn" data-i18n="gazetteer.helpFilterLink"></button>
+    </li>
+    <li>
+      <i class="fa fa-link search-icon"></i>
+      <span class="search-type" data-i18n="gazetteer.helpImport"></span>
+      <span class="search-example word-break" data-i18n="gazetteer.helpImportExample"></span>
+    </li>
+    <!--li>
+      <i class="fa fa-layer-group search-icon"></i>
+      <span class="search-type" data-i18n="gazetteer.helpContext"></span>
+      <span class="search-example" data-i18n="gazetteer.helpContextExample"></span>
+    </li-->
+  </ul>
+</div>

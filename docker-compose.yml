@@ -1,0 +1,19 @@
+version: "3.2"
+
+services:
+
+  maven:
+    image: 'maven:3-jdk-8-slim'
+    container_name: 'oneg-maven'
+    working_dir: /usr/src/mymaven
+    command: 'mvn clean tomcat7:run -DskipTests'
+    ports:
+      - '8080:8080'
+    volumes:
+      - '/mnt/c/Users/${USER}/.m2:/root/.m2'
+      - '.:/usr/src/mymaven'
+    networks:
+      - oneG
+
+networks:
+  oneG:

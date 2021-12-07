@@ -1,0 +1,197 @@
+.layerWfsParams {
+  .wfs-colors-dropdown {
+    display: inline-block;
+    margin-left: calculateRem(10px);
+    .btn-dropdown {
+      @include themify($themes) {
+        color: themed("iconBtnColor");
+        border-color: themed("standardBorder");
+      }
+      padding: 0 calculateRem(18px) 0 calculateRem(10px);
+      border: thin solid;
+      background: transparent;
+      height: calculateRem(28px);
+      line-height: 1;
+      position: relative;
+      &:hover,
+      &:active,
+      &:focus {
+        @include themify($themes) {
+          color: themed("textColor");
+          border-color: themed("standardDarkenBorder");
+        }
+      }
+      i {
+        position: absolute;
+        right: calculateRem(4px);
+        top: calculateRem(6px);
+        font-size: 0.9rem;
+      }
+    }
+    .color-choice {
+      display: inline-block;
+      width: calculateRem(40px);
+      height: calculateRem(18px);
+      position: relative;
+      top: calculateRem(1px);
+      &.bordered {
+        @include themify($themes) {
+          border-color: themed("standardBorder");
+        }
+        border: thin solid;
+      }
+    }
+    .dropdown-menu {
+      padding: calculateRem(5px);
+      width: calculateRem(168px);
+      min-width: 0;
+      left: auto;
+      right: 0;
+      li {
+        padding: calculateRem(3px);
+        float: left;
+      }
+      a {
+        display: block;
+        width: calculateRem(25px);
+        height: calculateRem(25px);
+        min-width: 0;
+        padding: 0;
+        cursor: pointer;
+        position: relative;
+        &.bordered {
+          @include themify($themes) {
+            border-color: themed("standardBorder");
+          }
+          border: thin solid;
+        }
+        &.checked {
+          &:before {
+            @include fontawesome-like("\f00c");
+            @include themify($themes) {
+              color: themed("textInverseColor");
+              text-shadow: calculateRem(1px) calculateRem(0px) calculateRem(10px) themed("commonShadow");
+            }
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            margin-top: calculateRem(-6px);
+            margin-left: calculateRem(-6px);
+            font-size: calculateRem(12px);
+          }
+        }
+      }
+    }
+  }
+  .layerSwitcherLayerWFSParamsRow {
+    border: thin solid;
+    @include themify($themes) {
+      border-color: themed("standardBorder");
+    }
+    padding: calculateRem(10px) calculateRem(10px);
+    border-radius: calculateRem(4px);
+    margin-bottom: calculateRem(15px);
+    position: relative;
+    .alert {
+      margin-bottom: 0;
+    }
+  }
+  .remove-param-btn {
+    border: 0 none;
+    font-size: 2em;
+    position: absolute;
+    top: calculateRem(-27px);
+    right: calculateRem(-15px);
+    line-height: calculateRem(24px);
+    @include themify($themes) {
+      background: themed("standardBg");
+    }
+    span {
+      opacity: 0.7;
+      transition: opacity 0.3s ease;
+    }
+    &:hover,
+    &:focus,
+    &:active {
+      span {
+        opacity: 1;
+      }
+    }
+  }
+  legend {
+    margin: 0;
+    border: 0 none;
+    width: calc(100% - 10px);
+  }
+  .param-choice {
+    padding: calculateRem(4px) calculateRem(10px);
+    height: auto;
+  }
+  .param-values-filter {
+    margin-bottom: calculateRem(10px);
+    .classic-checkbox,
+    .search-filter-value {
+      width: 50%;
+    }
+    .classic-checkbox {
+      padding-top: calculateRem(5px);
+      padding-right: calculateRem(5px);
+      label {
+        padding-bottom: calculateRem(2px);
+      }
+    }
+    .search-filter-value {
+      position: relative;
+      padding-left: calculateRem(5px);
+      .glyphicon {
+        @include themify($themes) {
+          color: themed("textColor");
+        }
+        font-size: 1.4em;
+        position: absolute;
+        top: calculateRem(6px);
+        left: calculateRem(10px);
+        opacity: 0.5;
+        pointer-events: none;
+      }
+      .form-control {
+        padding: calculateRem(4px) calculateRem(10px) calculateRem(4px) calculateRem(30px);
+        height: auto;
+        font-family: Roboto;
+        @media only screen and (min-width: $mediumWidth) {
+          font-size: calculateRem(13px);
+        }
+      }
+    }
+  }
+  .param-loader {
+    text-align: center;
+    display: block;
+    margin: 0 auto;
+  }
+  .param-values {
+    border: thin solid;
+    @include themify($themes) {
+      border-color: themed("standardBorder");
+    }
+    max-height: calculateRem(200px);
+    overflow: auto;
+    border-radius: calculateRem(4px);
+    padding: calculateRem(3px);
+    @include display-flex();
+    .classic-checkbox {
+      @include flex-size(50%);
+      padding: calculateRem(5px);
+      label {
+        &:before {
+          top: 0;
+          margin-top: calculateRem(1px);
+        }
+        &:after {
+          top: 0;
+          margin-top: calculateRem(4px);
+        }
+      }
+    }
+  }
+}
