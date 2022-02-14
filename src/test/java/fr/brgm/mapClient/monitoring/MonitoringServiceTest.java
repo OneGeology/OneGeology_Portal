@@ -79,6 +79,8 @@ public class MonitoringServiceTest extends Mockito {
         MockitoAnnotations.initMocks(this);
 
         ReflectionTestUtils.setField(this.monitoringService, "applicationProperties", this.applicationProperties);
+        ReflectionTestUtils.setField(this.monitoringService, "zabbixService", this.zabbixService);
+        ReflectionTestUtils.setField(this.monitoringService, "serviceRepository", this.serviceRepository);
 
         doNothing().when(this.zabbixService).login(anyString(), anyString());
         when(this.zabbixService.getOrCreateItemId(eq("template"), anyString(), anyString(), any(Map.class), any(Map.class))).thenReturn(1L);

@@ -12,6 +12,7 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.util.ReflectionTestUtils;
 
 /**
  * Classe de test de {@link WfsService}
@@ -32,6 +33,8 @@ public class WfsServiceTest extends Mockito {
     @Before
     public void setUp() throws WfsException {
         MockitoAnnotations.initMocks(this);
+
+        ReflectionTestUtils.setField(this.wfsService, "wfsRepository", this.wfsRepository);
 
         when(this.wfsRepository.getWfs(any(WfsAttributesDAO.class))).thenReturn("wfs");
     }

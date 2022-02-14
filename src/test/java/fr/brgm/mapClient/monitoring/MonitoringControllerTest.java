@@ -95,6 +95,7 @@ public class MonitoringControllerTest extends Mockito {
         this.mockMvc = MockMvcBuilders.standaloneSetup(this.monitoringController).build();
 
         ReflectionTestUtils.setField(this.monitoringController, "applicationProperties", this.applicationProperties);
+        ReflectionTestUtils.setField(this.monitoringController, "monitoringService", this.monitoringService);
 
         when(this.monitoringService.monitoring(any(TemplateRequestDTO.class))).thenReturn(this.createTemplateResponse());
         when(this.monitoringService.getAllSLAs()).thenReturn(this.createMonitoringDTO());
