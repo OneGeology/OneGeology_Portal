@@ -6,7 +6,7 @@ services:
     image: 'maven:3-jdk-8-slim'
     container_name: 'oneg-maven'
     working_dir: /usr/src/mymaven
-    command: 'mvn clean tomcat7:run -DskipTests'
+    command: 'mvn clean spring-boot:run -DskipTests'
     ports:
       - '8080:8080'
     volumes:

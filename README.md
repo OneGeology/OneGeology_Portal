@@ -4,7 +4,7 @@
 ## Dev information
 
 ### LOCAL RUN :
-Use maven goal : `clean install tomcat7:run`
+Use maven goal : `clean install spring-boot:run`
 
 The maven must run in **Java 8**.
 
@@ -12,9 +12,9 @@ The maven must run in **Java 8**.
 In the project root folder : `docker-compose up -d`
 ### FOR USING
 The following URLs will be availables :
-1. MapViewer : http://localhost:8080/mapClient/
-2. H2 manager : http://localhost:8080/mapClient/h2-console/login.jsp
-3. Swagger for API : http://localhost:8080/mapClient/swagger-ui.html
+1. MapViewer : http://localhost:8080/
+2. H2 manager : http://localhost:8080/h2-console/login.jsp
+3. Swagger for API : http://localhost:8080/swagger-ui.html
 
 ## Publication informations
 Add following options for specify spring configuration file to use :  

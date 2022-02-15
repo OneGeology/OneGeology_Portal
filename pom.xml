@@ -8,6 +8,12 @@
     <name>mapClient</name>
     <description>Map Client OL3</description>
 
+    <parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.1.13.RELEASE</version>
+	</parent>
+
     <!-- Repository -->
     <repositories>
         <repository>
@@ -59,17 +65,9 @@
 
     <properties>
         <maven.build.timestamp.format>yyyyMMddHHmmss</maven.build.timestamp.format>
-        <springframework.boot.version>2.1.3.RELEASE</springframework.boot.version>
         <springfox.version>2.8.0</springfox.version>
-        <jdk.version>1.8</jdk.version>
-        <maven-resources-plugin.version>3.1.0</maven-resources-plugin.version>
-        <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
-        <maven-war-plugin.version>3.3.2</maven-war-plugin.version>
-        <tomcat.version>7.0.109</tomcat.version>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.build.resourceEncoding>UTF-8</project.build.resourceEncoding>
         <dependency.mapstruct.version>1.3.1.Final</dependency.mapstruct.version>
-        <dependency.lombok.version>1.18.12</dependency.lombok.version>
     </properties>
 
     <dependencies>
@@ -96,18 +94,10 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
-            <version>${springframework.boot.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.springframework.boot</groupId>
-                    <artifactId>spring-boot-starter-tomcat</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
-            <version>${springframework.boot.version}</version>
             <exclusions>
                 <exclusion>
                     <groupId>javax.xml.bind</groupId>
@@ -118,7 +108,6 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
-            <version>${springframework.boot.version}</version>
             <scope>test</scope>
             <exclusions>
                 <exclusion>
@@ -134,18 +123,15 @@
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
-            <version>4.0.1</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpclient</artifactId>
-            <version>4.5.13</version>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.18.12</version>
             <scope>provided</scope>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.mapstruct/mapstruct -->
@@ -177,17 +163,6 @@
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
-            <version>1.4.197</version>
-        </dependency>
-        <dependency>
-            <groupId>org.glassfish</groupId>
-            <artifactId>javax.el</artifactId>
-            <version>3.0.0</version>
-        </dependency>
-        <dependency>
-            <groupId>javax.el</groupId>
-            <artifactId>javax.el-api</artifactId>
-            <version>3.0.0</version>
         </dependency>
         <dependency>
             <groupId>org.geotools</groupId>
@@ -279,13 +254,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>${maven-compiler-plugin.version}</version>
                 <configuration>
-                    <fork>true</fork>
-                    <source>${jdk.version}</source>
-                    <target>${jdk.version}</target>
-                    <verbose>false</verbose>
-                    <encoding>${project.build.sourceEncoding}</encoding>
                     <annotationProcessorPaths>
                         <path>
                             <groupId>org.mapstruct</groupId>
@@ -295,7 +264,7 @@
                         <path>
                             <groupId>org.projectlombok</groupId>
                             <artifactId>lombok</artifactId>
-                            <version>${dependency.lombok.version}</version>
+                            <version>${lombok.version}</version>
                         </path>
                     </annotationProcessorPaths>
                 </configuration>
@@ -303,7 +272,6 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
-                <version>${maven-war-plugin.version}</version>
                 <configuration>
                     <warSourceExcludes>../../../mapClient/src/main/webapp/js, ../../../mapClient/src/main/webapp/css
                     </warSourceExcludes>
@@ -311,113 +279,10 @@
             </plugin>
             <plugin>
                 <artifactId>maven-resources-plugin</artifactId>
-                <version>${maven-resources-plugin.version}</version>
                 <configuration>
                     <encoding>${project.build.resourceEncoding}</encoding>
                 </configuration>
             </plugin>
-            <plugin>
-                <groupId>org.apache.tomcat.maven</groupId>
-                <artifactId>tomcat7-maven-plugin</artifactId>
-                <version>2.2</version>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.apache.tomcat.embed</groupId>
-                        <artifactId>tomcat-embed-core</artifactId>
-                        <version>${tomcat.version}</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>org.apache.tomcat</groupId>
-                        <artifactId>tomcat-util</artifactId>
-                        <version>${tomcat.version}</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>org.apache.tomcat</groupId>
-                        <artifactId>tomcat-coyote</artifactId>
-                        <version>${tomcat.version}</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>org.apache.tomcat</groupId>
-                        <artifactId>tomcat-api</artifactId>
-                        <version>${tomcat.version}</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>org.apache.tomcat</groupId>
-                        <artifactId>tomcat-jdbc</artifactId>
-                        <version>${tomcat.version}</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>org.apache.tomcat</groupId>
-                        <artifactId>tomcat-dbcp</artifactId>
-                        <version>${tomcat.version}</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>org.apache.tomcat</groupId>
-                        <artifactId>tomcat-servlet-api</artifactId>
-                        <version>${tomcat.version}</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>org.apache.tomcat</groupId>
-                        <artifactId>tomcat-jsp-api</artifactId>
-                        <version>${tomcat.version}</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>org.apache.tomcat</groupId>
-                        <artifactId>tomcat-jasper</artifactId>
-                        <version>${tomcat.version}</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>org.apache.tomcat</groupId>
-                        <artifactId>tomcat-jasper-el</artifactId>
-                        <version>${tomcat.version}</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>org.apache.tomcat</groupId>
-                        <artifactId>tomcat-el-api</artifactId>
-                        <version>${tomcat.version}</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>org.apache.tomcat</groupId>
-                        <artifactId>tomcat-catalina</artifactId>
-                        <version>${tomcat.version}</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>org.apache.tomcat</groupId>
-                        <artifactId>tomcat-tribes</artifactId>
-                        <version>${tomcat.version}</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>org.apache.tomcat</groupId>
-                        <artifactId>tomcat-catalina-ha</artifactId>
-                        <version>${tomcat.version}</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>org.apache.tomcat</groupId>
-                        <artifactId>tomcat-annotations-api</artifactId>
-                        <version>${tomcat.version}</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>org.apache.tomcat</groupId>
-                        <artifactId>tomcat-juli</artifactId>
-                        <version>${tomcat.version}</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>org.apache.tomcat.embed</groupId>
-                        <artifactId>tomcat-embed-logging-juli</artifactId>
-                        <version>${tomcat.version}</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>org.apache.tomcat.embed</groupId>
-                        <artifactId>tomcat-embed-logging-log4j</artifactId>
-                        <version>${tomcat.version}</version>
-                    </dependency>
-                </dependencies>
-            </plugin>
-            <plugin>
-                <artifactId>maven-dependency-plugin</artifactId>
-                <version>2.8</version>
-            </plugin>
-
         </plugins>
     </build>
     <profiles>
