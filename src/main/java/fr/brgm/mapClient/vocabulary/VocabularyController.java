@@ -24,7 +24,7 @@ public class VocabularyController {
      * @param name
      * @return The vocabulary content
      */
-    @GetMapping(value = "/", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @GetMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Return the corresponding vocabulary", httpMethod = "GET", response = String.class)
     @ApiResponses({
             @ApiResponse(code = 200, response = String.class, message = "The vocabulary content")

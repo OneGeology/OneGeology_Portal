@@ -19,6 +19,9 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.H2Dialect
+  mvc:
+    pathmatch:
+      matching-strategy: ANT_PATH_MATCHER
 
 application:
   cesium-exception-url: http://egdi.geology.cz
