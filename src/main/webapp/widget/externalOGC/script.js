@@ -1,5 +1,6 @@
 /**
  * Import layers from files widget
+ * @constructor
  */
 var externalOGC = {
   /**
@@ -121,6 +122,8 @@ var externalOGC = {
       e.preventDefault();
       if ($('#OGCChoiceWMS').prop('checked')) {
         externalOGC.launchGetCapabilities('WMS');
+      } else if ($('#OGCChoiceWMTS').prop('checked')) {
+        externalOGC.launchGetCapabilities('WMTS');
       } else if ($('#OGCChoiceWCS').prop('checked')) {
         externalOGC.launchGetCapabilities('WCS');
       } else if ($('#OGCChoiceWFS').prop('checked')) {
@@ -266,6 +269,8 @@ var externalOGC = {
           externalOGC.capabilities = capabilities;
           if (serviceType === 'WMS') {
             externalOGC.showWMSGetCapabilities("#externalOGC .externalOGCResult");
+          } else if (serviceType === 'WMTS') {
+            externalOGC.showWMTSGetCapabilities("#externalOGC .externalOGCResult");
           } else if (serviceType === 'WCS') {
             externalOGC.showWCSGetCapabilities("#externalOGC .externalOGCResult");
           } else if (serviceType === 'WFS') {
@@ -540,6 +545,51 @@ var externalOGC = {
     $("#externalOGC .loadingResultsOGC").hide();
   },
 
+  /**
+   * Creates HTML of import according to WMTS GetCapabilities
+   * @param {String} treeContainer - html tree container selector
+   */
+  showWMTSGetCapabilities: function (treeContainer) {
+    $("#OGCServerTitle").html(externalOGC.capabilities.ServiceIdentification.Title);
+    $("#OGCServerAbstract").html(externalOGC.capabilities.ServiceIdentification.Abstract);
+    $("#OGCServerConstraint").html(externalOGC.capabilities.ServiceIdentification.AccessConstraints);
+
+    var html = '<ul class="tree-list">';
+
+    html += '<li>';
+    html += '<span class="item-title"><i class="fa fa-minus"></i> ' + externalOGC.capabilities.ServiceIdentification.Title + '</span>';
+    html += '<ul style="display: block">';
+
+
+    _.each(externalOGC.capabilities.Contents.Layer, function (layer, id) {
+      if (_.find(layer.Format, function (f) { return f.indexOf('image') >= 0; })) {
+
+        var bbox = layer.WGS84BoundingBox;
+        html += '<li class="classic-checkbox">';
+        html += '<input type="checkbox" id="externalOGCLayer' + id + '" ' +
+          'data-extent="' + bbox.join(',') + '" ' +
+          'data-layername="' + layer.Identifier + '"' +
+          'data-service-type="WMTS" />';
+        html += '<label for="externalOGCLayer' + id + '">' + layer.Title + '</label>';
+        html += '</li>';
+      }
+
+    });
+
+    html += '</ul>'
+    html += '<li></ul>';
+
+    $(treeContainer).append(html)
+      .localize()
+      .show();
+    $('#externalOGC .add-button').show();
+    $("#externalOGC .externalOGCMetadata").show();
+
+    //hide second level layer list
+    $(".level2name").hide();
+    $("#externalOGC .loadingResultsOGC").hide();
+  },
+
   showWFSGetCapabilities: function (treeContainer) {
     $("#OGCServerTitle").html(externalOGC.capabilities.ServiceIdentification.Title);
     $("#OGCServerAbstract").html(externalOGC.capabilities.ServiceIdentification.Abstract);
@@ -633,6 +683,8 @@ var externalOGC = {
       layerData.type = 'layer';
       if (layerData.serviceType === "WFS") {
         layerData.url = externalOGC.capabilities.ServiceUrl;
+      } else if (layerData.serviceType === "WMTS") {
+        layerData.url = externalOGC.capabilities.OperationsMetadata.GetCapabilities.DCP.HTTP.Get[0].href;
       } else {
         layerData.url = externalOGC.capabilities.Capability.Request.GetCapabilities.DCPType[0].HTTP.Get.OnlineResource;
       }

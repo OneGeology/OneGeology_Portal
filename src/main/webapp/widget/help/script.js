@@ -1,5 +1,6 @@
 /**
  * Help page
+ * @constructor
  */
 var help = {
   init: function () {
@@ -29,7 +30,7 @@ var help = {
             }
           });
         }, 45000);
-      }
+      }  
     }
   },
 
@@ -92,8 +93,10 @@ var help = {
    * Opens the quick help overlay
    */
   openQuickHelp: function () {
-    if ($('.sidebar-content.active').length > 0) {
-      $('.panel-toggle-btn').trigger('click');
+    if (!mapviewer.config.tools.showMenuByDefault.enable){
+      if ($('.sidebar-content.active').length > 0) {
+        $('.panel-toggle-btn').trigger('click');
+      }
     }
     help.replaceHelpTexts();
     $('.quick-help').show();

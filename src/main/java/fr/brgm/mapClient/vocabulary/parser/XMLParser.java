@@ -24,6 +24,7 @@ import java.net.URLConnection;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 
 
@@ -52,13 +53,17 @@ public class XMLParser {
         ArrayList<Concept> mapping = load(mappingURL, "mappingVocabularies.xml");
         // Put the mapping in a Map (easiest to search inside)
         HashMap<String, Concept> mappingHM = new HashMap<String, Concept>();
-        for (Concept concept : mapping) {
-            mappingHM.put(concept.getRdfAbout(), concept);
+        if (mapping != null && !mapping.isEmpty()) {
+            for (Concept concept : mapping) {
+                mappingHM.put(concept.getRdfAbout(), concept);
+            }
         }
         // Do here the match between the vocabulary and the mapping
-        for (Concept concept : voca) {
-            if (mappingHM.containsKey(concept.getRdfAbout())) // WARNING : in this case we just remove the exactMatches coming from the original vocabulary, if this is not what you want : use mergeExactMatches instead of setExactMatches
-                concept.setExactMatches(((Concept) mappingHM.get(concept.getRdfAbout())).getExactMatches());
+        if (voca != null && !voca.isEmpty()) {
+            for (Concept concept : voca) {
+                if (mappingHM.containsKey(concept.getRdfAbout())) // WARNING : in this case we just remove the exactMatches coming from the original vocabulary, if this is not what you want : use mergeExactMatches instead of setExactMatches
+                    concept.setExactMatches(((Concept) mappingHM.get(concept.getRdfAbout())).getExactMatches());
+            }
         }
         return voca;
     }

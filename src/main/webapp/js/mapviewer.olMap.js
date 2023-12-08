@@ -1,5 +1,6 @@
 /**
  * Openlayers map service
+ * @constructor
  */
 mapviewer.olMap = {
   /**
@@ -217,7 +218,7 @@ mapviewer.olMap = {
         case 'OSM':
           var source;
           if (bgLayer.url) {
-            source = new ol.source.OSM({ url: bgLayer.url });
+            source = new ol.source.OSM({ url: bgLayer.url, crossOrigin: null});
           } else {
             source = new ol.source.OSM();
           }
@@ -286,6 +287,38 @@ mapviewer.olMap = {
       if (layer.onImageLoadError) {
         source.on('imageloaderror', layer.onImageLoadError);
       }
+      if (layer.sourceParams.timeParams) {
+        var timeOps = {};
+        timeOps[layer.sourceParams.timeParams.name] = (new Date(Math.round(Date.now() / 3600000) * 3600000 - 3600000 * 3)).toISOString();
+        source.updateParams(timeOps);
+      }
+    } else if (layer.sourceParams.type === 'WMTS') {
+      var resolutions = [];
+      var matrixIds = [];
+      var layerProj = ol.proj.get(layer.sourceParams.projection);
+      var maxResolution = ol.extent.getWidth(layerProj.getExtent()) / 256;
+
+      for (var i = 0; i < 20; i++) {
+        matrixIds[i] = i.toString();
+        resolutions[i] = maxResolution / Math.pow(2, i);
+      }
+
+      var tileGrid = new ol.tilegrid.WMTS({
+        origin: ol.proj.transform([-20037508, 20037508], 'EPSG:3857', layer.sourceParams.projection),
+        resolutions: resolutions,
+        matrixIds: matrixIds
+      });
+
+      source = new ol.source.WMTS({
+        url: layer.sourceParams.url,
+        layer: layer.sourceParams.layer,
+        matrixSet: layer.sourceParams.matrixSet,
+        style: layer.sourceParams.style,
+        tileGrid: tileGrid,
+        projection: layer.sourceParams.projection,
+        format: layer.sourceParams.format,
+        tileLoadFunction: mapviewer.olMap.imageLoadFromProxy
+      });
     } else if (layer.sourceParams.type === 'WFS') {
       source = new ol.source.Vector({});
     } else {
@@ -305,6 +338,14 @@ mapviewer.olMap = {
       mapLayer = new ol.layer.Vector({
         idx: layer.idx,
         // extent: extent,
+        visible: layer.visible,
+        opacity: layer.opacity,
+        source: source
+      });
+    } else if (layer.sourceParams.type === 'WMTS') {
+      mapLayer = new ol.layer.Tile({
+        idx: layer.idx,
+        extent: extent,
         visible: layer.visible,
         opacity: layer.opacity,
         source: source

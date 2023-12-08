@@ -67,7 +67,8 @@ public class ProxyRedirect2 extends HttpServlet {
 
     protected void doForward(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String url = getParameter("url", req.getQueryString());
-        if (url != null) {
+        url = URLDecoder.decode(url, StandardCharsets.UTF_8.name());
+        if (url != null && (url.startsWith("http://") || url.startsWith("https://"))) {
             url = URLDecoder.decode(url, "UTF-8");
             log.debug("Forwarding get: " + url);
             URL target = new URL(url);
@@ -88,6 +89,8 @@ public class ProxyRedirect2 extends HttpServlet {
                     resp.getWriter().write(inputLine);
                 }
             }
+        } else {
+            throw new ServletException("only HTTP(S) protocol supported");
         }
     }
 
@@ -99,7 +102,8 @@ public class ProxyRedirect2 extends HttpServlet {
             url = req.getHeader("serverUrl");
         }
         log.debug("url : " + url);
-        if (url != null) {
+        url = URLDecoder.decode(url, StandardCharsets.UTF_8.name());
+        if (url != null && (url.startsWith("http://") || url.startsWith("https://"))) {
 
             url = URLDecoder.decode(url, "UTF-8");
             log.debug("Forwarding post: " + url);
@@ -157,11 +161,14 @@ public class ProxyRedirect2 extends HttpServlet {
                 log.error("Unexpected failure: " + httppost.getStatusLine().toString());
             }
             httppost.releaseConnection();
+        }  else {
+            throw new ServletException("only HTTP(S) protocol supported");
         }
     }
 
     protected void doForwardFromPostRedirected(HttpServletRequest req, HttpServletResponse resp, String newUrl, int trynbr) throws ServletException, IOException {
-        if (newUrl != null && trynbr < 10) {
+        newUrl = URLDecoder.decode(newUrl, StandardCharsets.UTF_8.name());
+        if (newUrl != null && trynbr < 10  && (newUrl.startsWith("http://") || newUrl.startsWith("https://"))) {
             log.debug("Forwarding post: " + newUrl);
 
             PostMethod httppost = new PostMethod(newUrl);
@@ -216,6 +223,8 @@ public class ProxyRedirect2 extends HttpServlet {
                 log.error("Unexpected failure: " + httppost.getStatusLine().toString());
             }
             httppost.releaseConnection();
+        } else {
+            throw new ServletException("only HTTP(S) protocol supported");
         }
     }
 

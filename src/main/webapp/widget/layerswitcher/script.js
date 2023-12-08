@@ -1,5 +1,6 @@
 /**
  * layer switcher widget
+ * @constructor
  */
 var layerswitcher = {
 
@@ -29,8 +30,15 @@ var layerswitcher = {
 
   /**
    * Debouncer for filter parameters values
+   * @type {any}
    */
   debounceWfsFilterTimeout: null,
+
+  /**
+   * Liste of setInterval and current time for wms time layers
+   * @type {{[key: number]: {interval: any, currentTime: number, loopStart: number, loopInterval: number}}}
+   */
+  wmsTimeStates: {},
 
   /**
    * Jquery ui slider options
@@ -90,7 +98,12 @@ var layerswitcher = {
       .on('click', '.layerSwitcherLayerWFSParams .reset-btn', this.resetWFSParameters.bind(this))
       .on("click", ".wfs-colors-dropdown a", this.chooseColor.bind(this))
       .on("change", ".layerSwitcherLayerWFSParams .param-values-filter .classic-checkbox input", this.filterWFSValues.bind(this))
-      .on("keyup", ".layerSwitcherLayerWFSParams .param-values-filter .search-filter-value input", this.debouncedFilterWFSValues.bind(this));
+      .on("keyup", ".layerSwitcherLayerWFSParams .param-values-filter .search-filter-value input", this.debouncedFilterWFSValues.bind(this))
+      .on('change', '.layerTimeManagement .time-loop-unit', this.defineTimeMin.bind(this))
+      .on('change', '.layerTimeManagement .time-interval-unit', this.defineTimeMin.bind(this))
+      .on('submit', '.layerTimeManagement .layer-time-form', this.playTime.bind(this))
+      .on('click', '.layerTimeManagement .layer-time-pause-btn', this.pauseTime.bind(this))
+      .on('click', '.layerTimeManagement .layer-time-stop-btn', this.stopTime.bind(this));
 
     $('.layer-management > .nav-tabs a').on('show.bs.tab', function () {
       if ($(this).attr('href') == "#import-layer") {
@@ -301,8 +314,8 @@ var layerswitcher = {
           .attr('href', downloadFeatureUrl)
           .attr('title', downloadFeatureUrl);
       } else {
-        layerDiv.find(".metadataLegendUrl").prev('dt').remove();
-        layerDiv.find(".metadataLegendUrl").remove();
+        layerDiv.find(".metadataDownloadFeatureUrl").prev('dt').remove();
+        layerDiv.find(".metadataDownloadFeatureUrl").remove();
       }
 
       if (layer.wfs && layer.wfs.url) {
@@ -411,6 +424,21 @@ var layerswitcher = {
       } else {
         layerDiv.find(".thematicAnalysisButton, .analysisLink").remove();
         layerDiv.find('a[href^="#layerAnalysis"]').closest('li').remove();
+      }
+
+      if (layer.sourceParams.timeParams) {
+        var max = Math.ceil((Date.now() - layer.sourceParams.timeParams.minDate.getTime()) / 60000);
+        var step = Math.round(layer.sourceParams.timeParams.interval / 60000);
+        layerDiv.find('.layerTimeManagement input[name="time-loop-start"]')
+          .attr('max', max)
+          .attr('step', step)
+          .val(step * 10);
+        layerDiv.find('.layerTimeManagement input[name="time-interval"]')
+          .attr('min', step)
+          .val(step);
+      } else {
+        layerDiv.find(".layerTimeManagement").remove();
+        layerDiv.find('a[href^="#layerTimeManagement"], .timeManagementLink').closest('li').remove();
       }
 
       // draw thematic if option is active
@@ -663,6 +691,9 @@ var layerswitcher = {
     }
     if (el.hasClass('infoLink') || el.hasClass('layerSwitcherLayerTitle')) {
       $(target).find('.nav-tabs a[href^="#layerInfos"]').click();
+    }
+    if (el.hasClass('timeManagementLink') || el.hasClass('layerSwitcherLayerTitle')) {
+      $(target).find('.nav-tabs a[href^="#layerTimeManagement"]').click();
     }
     if (el.hasClass('analysisLink')) {
       $(target).find('.nav-tabs a[href^="#layerAnalysis"]').click();
@@ -1137,5 +1168,137 @@ var layerswitcher = {
     $resetContainer = $('.reset-button').closest('.col-xs-12');
     $resetContainer.siblings('.col-xs-12').addClass('col-sm-6');
     $resetContainer.show();
+  },
+
+  /**
+   * Plays/resumes time of a WMS time layer
+   * @param {*} event JQuery form submit event
+   */
+  playTime: function (event) {
+    event.preventDefault();
+    var $form = $(event.target);
+
+    var idx = Number($form.closest('.tab-pane').attr('id').replace('layerTimeManagement', ''));
+    var layer = _.find(mapviewer.map.layers, { idx: idx });
+    if (layer) {
+      if (!layerswitcher.wmsTimeStates[idx]) { // first play
+        var loopStart = $form.find('input[name="time-loop-start"]').val(),
+          loopUnit = $form.find('select[name="time-loop-unit"]').val(),
+          interval = $form.find('input[name="time-interval"]').val(),
+          intervalUnit = $form.find('select[name="time-interval-unit"]').val();
+
+        if (!loopStart || !interval) {
+          toastr.error(i18next.t('layerswitcher.timeManagementError'));
+        } else {
+          loopStart = mapviewer.tools.transformToTime(loopStart, loopUnit);
+          interval = mapviewer.tools.transformToTime(interval, intervalUnit);
+
+          loopStart = Math.ceil(loopStart / interval) * interval;
+          loopStart = Math.round(Date.now() / interval) * interval - loopStart;
+          layerswitcher.wmsTimeStates[idx] = {
+            interval: null,
+            currentTime: loopStart,
+            loopStart: loopStart,
+            loopInterval: interval
+          };
+        }
+      } else { // resume
+        if (layerswitcher.wmsTimeStates[idx].interval) {
+          clearInterval(layerswitcher.wmsTimeStates[idx].interval);
+          layerswitcher.wmsTimeStates[idx].interval = null;
+        }
+      }
+
+      $form.find('.layer-time-play-btn').hide();
+      $form.find('.layer-time-pause-btn').show();
+      $form.find('.layer-time-stop-btn').show();
+      layerswitcher.displayTimeStep(layer);
+
+      layerswitcher.wmsTimeStates[idx].interval = setInterval(function () { layerswitcher.displayTimeStep(layer); }, 3000);
+    }
+  },
+
+  displayTimeStep: function (layer) {
+    if (layerswitcher.wmsTimeStates[layer.idx].currentTime > Date.now()) {
+      layerswitcher.wmsTimeStates[layer.idx].currentTime = layerswitcher.wmsTimeStates[layer.idx].loopStart;
+    }
+    var opts = {};
+    var ISOtime = (new Date(layerswitcher.wmsTimeStates[layer.idx].currentTime)).toISOString();
+    opts[layer.sourceParams.timeParams.name] = ISOtime;
+    mapviewer.map.updateSourceParams(layer, opts);
+
+    var humanTime = ISOtime.replace('T', ' ').replace(/:[0-9]{2,2}\.[0-9]{3,3}Z.*$/, '');
+    $('#layerTimeManagement' + layer.idx + ' form .current-time').text(humanTime);
+    layerswitcher.wmsTimeStates[layer.idx].currentTime += layerswitcher.wmsTimeStates[layer.idx].loopInterval;
+  },
+
+  /**
+   * Pauses time of a WMS time layer
+   * @param {*} event JQuery button click event
+   */
+  pauseTime: function (event) {
+    event.preventDefault();
+    var $form = $(event.target).closest('.layer-time-form');
+    var idx = Number($form.closest('.tab-pane').attr('id').replace('layerTimeManagement', ''));
+    if (layerswitcher.wmsTimeStates[idx] && layerswitcher.wmsTimeStates[idx].interval) {
+      clearInterval(layerswitcher.wmsTimeStates[idx].interval);
+      layerswitcher.wmsTimeStates[idx].interval = null;
+      $form.find('.layer-time-play-btn').show();
+      $form.find('.layer-time-pause-btn').hide();
+    }
+  },
+
+  /**
+   * Stops and resets time of a WMS time layer
+   * @param {*} event JQuery button click event
+   */
+  stopTime: function (event) {
+    event.preventDefault();
+    var $form = $(event.target).closest('.layer-time-form');
+    var idx = Number($form.closest('.tab-pane').attr('id').replace('layerTimeManagement', ''));
+    var layer = _.find(mapviewer.map.layers, { idx: idx });
+    if (layer && layerswitcher.wmsTimeStates[idx]) {
+      if (layerswitcher.wmsTimeStates[idx].interval) {
+        clearInterval(layerswitcher.wmsTimeStates[idx].interval);
+        layerswitcher.wmsTimeStates[idx].interval = null;
+      }
+      layerswitcher.wmsTimeStates[idx].currentTime = layerswitcher.wmsTimeStates[idx].loopStart;
+      layerswitcher.displayTimeStep(layer);
+      layerswitcher.wmsTimeStates[idx] = null;
+      $form.find('.layer-time-play-btn').show();
+      $form.find('.layer-time-pause-btn').hide();
+      $form.find('.layer-time-stop-btn').hide();
+    }
+  },
+
+  /**
+   * Defines minimum value for interval field
+   * @param {*} event Jquery change event
+   */
+  defineTimeMin: function (event) {
+    var $el = $(event.target);
+    var idx = Number($el.attr('id').replace(/^.*([0-9]+)$/, "$1"));
+    var value = $el.val();
+    var layer = _.find(mapviewer.map.layers, { idx: idx });
+    if (layer) {
+      var max = 0;
+      var diff = Date.now() - layer.sourceParams.timeParams.minDate.getTime();
+      switch (value) {
+        case 'D': max = Math.ceil(diff / (3600000 * 24));
+          break;
+        case 'H': max = Math.ceil(diff / 3600000);
+          break;
+        case 'M': max = Math.ceil(diff / 60000);
+          break;
+      }
+      var $loopInput = $el.closest('form-group').find('input');
+      var loopValue = Number($loopInput.val() || "0");
+      if (loopValue > max) {
+        $loopInput.val(max);
+      } else if (loopValue < 0) {
+        $loopInput.val(0);
+      }
+      $loopInput.attr('max', max);
+    }
   }
 };

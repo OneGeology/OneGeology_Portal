@@ -1,5 +1,6 @@
 /**
  * Measurement tools widget
+ * @constructor
  */
 var measurement = {
 
@@ -15,7 +16,7 @@ var measurement = {
    */
   drawInteraction: null,
 
-  /*
+  /**
    * Feature that is currently drawn
    * @type {ol.Feature|Null}
    */

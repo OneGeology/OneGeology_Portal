@@ -1,5 +1,6 @@
 /**
  * Manage automatic layers
+ * @constructor
  */
 mapviewer.autolayers = {
   /**

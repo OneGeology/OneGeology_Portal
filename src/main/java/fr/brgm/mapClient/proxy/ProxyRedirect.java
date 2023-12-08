@@ -178,186 +178,188 @@ public class ProxyRedirect extends HttpServlet {
     }
 
     private void handleRequest(HttpServletRequest request, HttpServletResponse response, String sURL) {
-        try {
-
-            URL url = null;
+        if (sURL.startsWith("http://") || sURL.startsWith("https://")) {
             try {
-                url = new URL(sURL);
-            } catch (MalformedURLException e) { // not an url
-                response.sendError(HttpServletResponse.SC_BAD_REQUEST, e.getMessage());
-                return;
-            }
 
-            // HTTP protocol is required
-            if (!"http".equalsIgnoreCase(url.getProtocol())) {
-                response.sendError(HttpServletResponse.SC_BAD_REQUEST,
-                        "HTTP protocol expected. \"" + url.getProtocol() + "\" used.");
-                return;
-            }
-
-            // check if proxy must filter on final host
-
-
-            String requestMethod = request.getMethod();
-
-            // open communication between proxy and final host
-            // all actions before the connection can be taken now
-            HttpURLConnection connectionWithFinalHost = (HttpURLConnection) url.openConnection();
-
-            // set request method
-            connectionWithFinalHost.setRequestMethod(requestMethod);
-
-            // set doOutput to true if we are POSTing
-            if (requestMethod.equalsIgnoreCase("POST")) {
-                connectionWithFinalHost.setDoOutput(true);
-            }
-
-            // copy headers from client's request to request that will be send to the final host
-            copyHeadersToConnection(request, connectionWithFinalHost);
-            connectionWithFinalHost.setRequestProperty("Accept-Encoding", "");
-
-            // connect to remote host
-            // interactions with the resource are enabled now
-            connectionWithFinalHost.connect();
-
-            if (requestMethod.equalsIgnoreCase("POST")) {
-                ServletInputStream in = request.getInputStream();
-                OutputStream out = connectionWithFinalHost.getOutputStream();
-                byte[] buf = new byte[1024]; // read maximum 1024 bytes
-                int len;                     // number of bytes read from the stream
-                while ((len = in.read(buf)) > 0) {
-                    out.write(buf, 0, len);
+                URL url = null;
+                try {
+                    url = new URL(sURL);
+                } catch (MalformedURLException e) { // not an url
+                    response.sendError(HttpServletResponse.SC_BAD_REQUEST, e.getMessage());
+                    return;
                 }
-            }
 
-            // get content type
-            String contentType = connectionWithFinalHost.getContentType();
-            if (contentType == null) {
-                response.sendError(HttpServletResponse.SC_FORBIDDEN,
-                        "Host url has been validated by proxy but content type given by remote host is null");
-                return;
-            }
+                // HTTP protocol is required
+                if (!"http".equalsIgnoreCase(url.getProtocol())) {
+                    response.sendError(HttpServletResponse.SC_BAD_REQUEST,
+                            "HTTP protocol expected. \"" + url.getProtocol() + "\" used.");
+                    return;
+                }
 
-            // content type has to be valid
-            if (!isContentTypeValid(contentType)) {
+                // check if proxy must filter on final host
 
-                if (connectionWithFinalHost.getResponseMessage() != null) {
-                    if (connectionWithFinalHost.getResponseMessage().equalsIgnoreCase("Not Found")) {
-                        // content type was not valid because it was a not found page (text/html)
-                        response.sendError(HttpServletResponse.SC_NOT_FOUND, "Remote host not found");
-                        return;
+
+                String requestMethod = request.getMethod();
+
+                // open communication between proxy and final host
+                // all actions before the connection can be taken now
+                HttpURLConnection connectionWithFinalHost = (HttpURLConnection) url.openConnection();
+
+                // set request method
+                connectionWithFinalHost.setRequestMethod(requestMethod);
+
+                // set doOutput to true if we are POSTing
+                if (requestMethod.equalsIgnoreCase("POST")) {
+                    connectionWithFinalHost.setDoOutput(true);
+                }
+
+                // copy headers from client's request to request that will be send to the final host
+                copyHeadersToConnection(request, connectionWithFinalHost);
+                connectionWithFinalHost.setRequestProperty("Accept-Encoding", "");
+
+                // connect to remote host
+                // interactions with the resource are enabled now
+                connectionWithFinalHost.connect();
+
+                if (requestMethod.equalsIgnoreCase("POST")) {
+                    ServletInputStream in = request.getInputStream();
+                    OutputStream out = connectionWithFinalHost.getOutputStream();
+                    byte[] buf = new byte[1024]; // read maximum 1024 bytes
+                    int len;                     // number of bytes read from the stream
+                    while ((len = in.read(buf)) > 0) {
+                        out.write(buf, 0, len);
                     }
                 }
 
-                response.sendError(HttpServletResponse.SC_FORBIDDEN,
-                        "The content type of the remote host's response \"" + contentType
-                                + "\" is not allowed by the proxy rules");
-                return;
-            }
+                // get content type
+                String contentType = connectionWithFinalHost.getContentType();
+                if (contentType == null) {
+                    response.sendError(HttpServletResponse.SC_FORBIDDEN,
+                            "Host url has been validated by proxy but content type given by remote host is null");
+                    return;
+                }
 
-            // send remote host's response to client
+                // content type has to be valid
+                if (!isContentTypeValid(contentType)) {
 
-            /* Here comes the tricky part because some host send files without the charset
-             * in the header, therefore we do not know how they are text encoded. It can result
-             * in serious issues on IE browsers when parsing those files.
-             * There is a workaround which consists to read the encoding within the file. It is made
-             * possible because this proxy mainly forwards xml files. They all have the encoding
-             * attribute in the first xml node.
-             *
-             * This is implemented as follows:
-             *
-             * A. The content type provides a charset:
-             *     Nothing special, just send back the stream to the client
-             * B. There is no charset provided:
-             *     The encoding has to be extracted from the file.
-             *     The file is read in ASCII, which is common to many charsets,
-             *     like that the encoding located in the first not can be retrieved.
-             *     Once the charset is found, the content-type header is overridden and the
-             *     charset is appended.
-             *
-             *     /!\ Special case: whenever data are compressed in gzip/deflate the stream has to
-             *     be uncompressed and compressed
-             */
-
-            boolean isCharsetKnown = connectionWithFinalHost.getContentType().toLowerCase().contains("charset");
-            String contentEncoding = getContentEncoding(connectionWithFinalHost.getHeaderFields());
-
-            // copy headers from the remote server's response to the response to send to the client
-            if (isCharsetKnown) {
-                copyHeadersFromConnectionToResponse(response, connectionWithFinalHost);
-            } else {
-                // copy everything except Content-Type header
-                // because we need to concatenate the charset later
-                copyHeadersFromConnectionToResponse(response, connectionWithFinalHost, "Content-Type");
-            }
-
-            InputStream streamFromServer = null;
-            OutputStream streamToClient = null;
-            if (contentEncoding == null || isCharsetKnown) {
-                // A simple stream can do the job for data that is not in content encoded
-                // but also for data content encoded with a known charset
-                streamFromServer = connectionWithFinalHost.getInputStream();
-                streamToClient = response.getOutputStream();
-            } else if ("gzip".equalsIgnoreCase(contentEncoding) && !isCharsetKnown) {
-                // the charset is unknown and the data are compressed in gzip
-                // we add the gzip wrapper to be able to read/write the stream content
-                streamFromServer = new GZIPInputStream(connectionWithFinalHost.getInputStream());
-                streamToClient = new GZIPOutputStream(response.getOutputStream());
-            } else if ("deflate".equalsIgnoreCase(contentEncoding) && !isCharsetKnown) {
-                // same but with deflate
-                streamFromServer = new DeflaterInputStream(connectionWithFinalHost.getInputStream());
-                streamToClient = new DeflaterOutputStream(response.getOutputStream());
-            } else {
-                throw new UnsupportedOperationException("Please handle the stream when it is encoded in " + contentEncoding);
-            }
-
-            byte[] buf = new byte[1024]; // read maximum 1024 bytes
-            int len;                     // number of bytes read from the stream
-            boolean first = true;        // helps to find the encoding once and only once
-            String s = "";               // piece of file that should contain the encoding
-            while ((len = streamFromServer.read(buf)) > 0) {
-
-                if (first && !isCharsetKnown) {
-                    // charset is unknown try to find it in the file content
-                    for (int i = 0; i < len; i++) {
-                        s += (char) buf[i]; // get the beginning of the file as ASCII
-                    }
-
-                    // s has to be long enough to contain the encoding
-                    if (s.length() > 200) {
-                        String charset = getCharset(s); // extract charset
-
-                        if (charset == null) {
-                            // the charset cannot be found, IE users must be warned
-                            // that the request cannot be fulfilled, nothing good would happen otherwise
-                            if (request.getHeader("User-Agent").toLowerCase().contains("msie")) {
-                                response.sendError(HttpServletResponse.SC_NOT_ACCEPTABLE,
-                                        "Charset of the response is unknown");
-                                streamFromServer.close();
-                                connectionWithFinalHost.disconnect();
-                                streamToClient.close();
-                                return;
-                            }
-                        } else {
-                            // override content-type header and add the charset found
-                            response.addHeader("Content-Type",
-                                    connectionWithFinalHost.getContentType()
-                                            + ";charset=" + charset);
-                            first = false; // we found the encoding, don't try to do it again
+                    if (connectionWithFinalHost.getResponseMessage() != null) {
+                        if (connectionWithFinalHost.getResponseMessage().equalsIgnoreCase("Not Found")) {
+                            // content type was not valid because it was a not found page (text/html)
+                            response.sendError(HttpServletResponse.SC_NOT_FOUND, "Remote host not found");
+                            return;
                         }
                     }
+
+                    response.sendError(HttpServletResponse.SC_FORBIDDEN,
+                            "The content type of the remote host's response \"" + contentType
+                                    + "\" is not allowed by the proxy rules");
+                    return;
                 }
 
-                // for everyone, the stream is just forwarded to the client
-                streamToClient.write(buf, 0, len);
-            }
+                // send remote host's response to client
 
-            streamFromServer.close();
-            connectionWithFinalHost.disconnect();
-            streamToClient.close();
-        } catch (IOException e) {
-            // connection problem with the host
-            e.printStackTrace();
+                /* Here comes the tricky part because some host send files without the charset
+                 * in the header, therefore we do not know how they are text encoded. It can result
+                 * in serious issues on IE browsers when parsing those files.
+                 * There is a workaround which consists to read the encoding within the file. It is made
+                 * possible because this proxy mainly forwards xml files. They all have the encoding
+                 * attribute in the first xml node.
+                 *
+                 * This is implemented as follows:
+                 *
+                 * A. The content type provides a charset:
+                 *     Nothing special, just send back the stream to the client
+                 * B. There is no charset provided:
+                 *     The encoding has to be extracted from the file.
+                 *     The file is read in ASCII, which is common to many charsets,
+                 *     like that the encoding located in the first not can be retrieved.
+                 *     Once the charset is found, the content-type header is overridden and the
+                 *     charset is appended.
+                 *
+                 *     /!\ Special case: whenever data are compressed in gzip/deflate the stream has to
+                 *     be uncompressed and compressed
+                 */
+
+                boolean isCharsetKnown = connectionWithFinalHost.getContentType().toLowerCase().contains("charset");
+                String contentEncoding = getContentEncoding(connectionWithFinalHost.getHeaderFields());
+
+                // copy headers from the remote server's response to the response to send to the client
+                if (isCharsetKnown) {
+                    copyHeadersFromConnectionToResponse(response, connectionWithFinalHost);
+                } else {
+                    // copy everything except Content-Type header
+                    // because we need to concatenate the charset later
+                    copyHeadersFromConnectionToResponse(response, connectionWithFinalHost, "Content-Type");
+                }
+
+                InputStream streamFromServer = null;
+                OutputStream streamToClient = null;
+                if (contentEncoding == null || isCharsetKnown) {
+                    // A simple stream can do the job for data that is not in content encoded
+                    // but also for data content encoded with a known charset
+                    streamFromServer = connectionWithFinalHost.getInputStream();
+                    streamToClient = response.getOutputStream();
+                } else if ("gzip".equalsIgnoreCase(contentEncoding) && !isCharsetKnown) {
+                    // the charset is unknown and the data are compressed in gzip
+                    // we add the gzip wrapper to be able to read/write the stream content
+                    streamFromServer = new GZIPInputStream(connectionWithFinalHost.getInputStream());
+                    streamToClient = new GZIPOutputStream(response.getOutputStream());
+                } else if ("deflate".equalsIgnoreCase(contentEncoding) && !isCharsetKnown) {
+                    // same but with deflate
+                    streamFromServer = new DeflaterInputStream(connectionWithFinalHost.getInputStream());
+                    streamToClient = new DeflaterOutputStream(response.getOutputStream());
+                } else {
+                    throw new UnsupportedOperationException("Please handle the stream when it is encoded in " + contentEncoding);
+                }
+
+                byte[] buf = new byte[1024]; // read maximum 1024 bytes
+                int len;                     // number of bytes read from the stream
+                boolean first = true;        // helps to find the encoding once and only once
+                String s = "";               // piece of file that should contain the encoding
+                while ((len = streamFromServer.read(buf)) > 0) {
+
+                    if (first && !isCharsetKnown) {
+                        // charset is unknown try to find it in the file content
+                        for (int i = 0; i < len; i++) {
+                            s += (char) buf[i]; // get the beginning of the file as ASCII
+                        }
+
+                        // s has to be long enough to contain the encoding
+                        if (s.length() > 200) {
+                            String charset = getCharset(s); // extract charset
+
+                            if (charset == null) {
+                                // the charset cannot be found, IE users must be warned
+                                // that the request cannot be fulfilled, nothing good would happen otherwise
+                                if (request.getHeader("User-Agent").toLowerCase().contains("msie")) {
+                                    response.sendError(HttpServletResponse.SC_NOT_ACCEPTABLE,
+                                            "Charset of the response is unknown");
+                                    streamFromServer.close();
+                                    connectionWithFinalHost.disconnect();
+                                    streamToClient.close();
+                                    return;
+                                }
+                            } else {
+                                // override content-type header and add the charset found
+                                response.addHeader("Content-Type",
+                                        connectionWithFinalHost.getContentType()
+                                                + ";charset=" + charset);
+                                first = false; // we found the encoding, don't try to do it again
+                            }
+                        }
+                    }
+
+                    // for everyone, the stream is just forwarded to the client
+                    streamToClient.write(buf, 0, len);
+                }
+
+                streamFromServer.close();
+                connectionWithFinalHost.disconnect();
+                streamToClient.close();
+            } catch (IOException e) {
+                // connection problem with the host
+                e.printStackTrace();
+            }
         }
     }
 

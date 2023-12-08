@@ -1,8 +1,9 @@
-<form class="filterForm" novalidate>
+<form class="filterForm" novalidate autocomplete="off">
   <div class="row">
-    <div class="col-xs-12 col-sm-6 form-group">
+    <div class="col-xs-12 col-sm-6 form-group autocomplete">
       <label class="sr-only" for="freeTxt" data-i18n="addlayer.keywordsLabel">Keywords</label>
-      <input id="freeTxt" class="form-control" name="freeTxt" placeholder="Keywords" data-i18n="[placeholder]addlayer.keywordsLabel" disabled />
+      <input id="freeTxt" class="form-control" name="freeTxt" placeholder="Keywords" data-i18n="[placeholder]addlayer.keywordsLabel" disabled/>
+      <datalist id="freeTxtResults"></datalist>
     </div>
     <div class="col-xs-12 col-sm-6 form-group">
       <label class="sr-only" for="thematicKeywords" data-i18n="addlayer.thematicLabel">Thematic keywords</label>
@@ -41,9 +42,6 @@
     </div>
   </fieldset>
 </form>
-
-
-
 
 <div class="addLayerTab">
   <ul class="nav nav-tabs clearfix" role="tablist">

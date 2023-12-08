@@ -1,7 +1,39 @@
+
 /**
  * Search and add layer manager
+ * @constructor
  */
 var layerOneGeology = {
+
+  /**
+   * La précédente valeur de freetext
+   */
+  oldFreeText: "",
+
+  /**
+   * Les mot-clés disponibles pour l'autocompletion
+   */
+  availableTags: [],
+
+  /**
+   * Tableau de correspondance des chaines de caractères 
+   */
+  charMap: [
+    {oldValue:"á",newValue: "a"},
+    {oldValue:"à",newValue: "a"},
+    {oldValue:"â",newValue: "a"},
+    {oldValue:"á",newValue: "a"},
+    {oldValue:"é",newValue: "e"},
+    {oldValue:"è",newValue: "e"},
+    {oldValue:"ê",newValue: "e"},
+    {oldValue:"ë",newValue: "e"},
+    {oldValue:"ï",newValue: "i"},
+    {oldValue:"î",newValue: "i"},
+    {oldValue:"ô",newValue: "o"},
+    {oldValue:"ö",newValue: "o"},
+    {oldValue:"û",newValue: "u"},
+    {oldValue:"ù",newValue: "u"}
+  ],
   /**
    * Url to call to get layers list
    * @type {string}
@@ -40,7 +72,7 @@ var layerOneGeology = {
   /**
    * JSON file to get standard country or area codes for statistical use (M49)
    */
-  urlMappingCountriesM49File: "conf/mapping_countries_m49.json",
+  urlMappingCountriesM49File: "conf/mapping_countries_m49.json",  
 
   /**
    * Initialize widget
@@ -61,11 +93,177 @@ var layerOneGeology = {
     if (!mapviewer.config.tools.advancedSearch.enable) {
       $('#advancedSearch').remove();
     }
-    setTimeout(function(){
+    if (!mapviewer.config.tools.selectTheme.enable) {      
+      $('#thematicKeywords').closest('div').remove();
+    }
+    setTimeout(function () {
       layerOneGeology.getRecords(true);
     }, 200);
     layerOneGeology.addEvents();
 
+    /* Déplacement de la légende */
+    const dragElement = (element, dragzone) => {
+      
+      let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+      
+      const dragMouseUp = () => {
+        if(element.classList.contains("expanded")){
+          return;
+        }
+        document.onmouseup = null;
+        document.onmousemove = null;
+        element.classList.remove("drag");
+      };
+  
+      const dragMouseMove = (event) => {
+        if(element.classList.contains("expanded")){
+          return;
+        }
+
+        event.preventDefault();
+        pos1 = pos3 - event.clientX;
+        pos2 = pos4 - event.clientY;
+        pos3 = event.clientX;
+        pos4 = event.clientY;
+        
+        element.style.top = `${element.offsetTop - pos2}px`;
+        element.style.left = `${element.offsetLeft - pos1}px`;
+        
+      };
+  
+      const dragMouseDown = (event) => {        
+        if(element.classList.contains("expanded")){
+          return;
+        }
+
+        event.preventDefault();
+        pos3 = event.clientX;
+        pos4 = event.clientY;
+        element.classList.add("drag");
+        document.onmouseup = dragMouseUp;
+        document.onmousemove = dragMouseMove;
+        if(element.classList.contains("fixed")){
+          element.style.bottom = `auto`;
+          element.style.right = `auto`;
+          element.style.top = `${document.body.clientHeight - element.offsetHeight}px`;
+          element.style.left = `${(document.body.clientWidth - element.offsetWidth) / 2}px`;
+        }
+        element.classList.remove("fixed");
+      };
+  
+      dragzone.onmousedown = dragMouseDown;
+    };
+  
+    const dragable = document.getElementById("dragable"), dragzone = document.getElementById("dragzone");
+    dragElement(dragable, dragzone);    
+  },
+
+  /**
+   * Autocompletion
+   * - inp : l'input auquel on applique l'autocompletion
+   * - arr : le tableau de string, qui liste les chaines de caractère à prendre dans l'autocompletion
+   * return : rien
+   */
+  autocomplete: function(inp, arr){
+    var currentFocus;
+  
+    /* Trigger sur la modification de l'input */
+    inp.addEventListener("input", function(e) {
+        var a, b, i, val = this.value;      
+        /* On ferme à chaque fois la liste déroulante */
+        closeAllLists();
+        if (!val) { return false;}
+        currentFocus = -1;
+        
+        /* Création de la liste déroulante */
+        a = document.createElement("DIV");
+        a.setAttribute("id", this.id + "autocomplete-list");
+        a.setAttribute("class", "autocomplete-items");      
+        this.parentNode.appendChild(a);
+  
+        /* Pour chaque élément de la liste...*/
+        for (i = 0; i < arr.length; i++) {          
+          /* On recherche les éléments qui commence par la chaine de caractère saisie */ 
+          if (normalize(arr[i].substr(0, val.length).toLowerCase()) == normalize(val.toLowerCase())) {          
+            /* Si l'élément correspond aux critères, on le rajoute dans la liste */          
+            b = document.createElement("DIV");
+            b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
+            b.innerHTML += arr[i].substr(val.length);          
+            b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
+  
+            /* Au clic d'un élément, on l'insert dans l'input */
+            b.addEventListener("click", function(e) {
+                inp.value = this.getElementsByTagName("input")[0].value;              
+                $('#layerOneGeology .filterForm').trigger('submit');
+                closeAllLists();
+            });
+            a.appendChild(b);
+          }
+        }
+    });
+  
+    /* Trigger sur la saisie au clavier dans l'input */  
+    inp.addEventListener("keyup", function(e) {
+        var x = document.getElementById(this.id + "autocomplete-list");
+        if (x) x = x.getElementsByTagName("div");
+        if (e.keyCode == 40) {        
+          currentFocus++;
+          addActive(x);
+        } else if (e.keyCode == 38) { // touche UP        
+          currentFocus--;
+          addActive(x);
+        } else if (e.keyCode == 13) { // touche Entrée        
+          e.preventDefault();
+          if (currentFocus > -1) {          
+            if (x) x[currentFocus].click();
+          }
+        }
+        $('#layerOneGeology .filterForm').trigger('submit');
+    });
+  
+    /* Fonction qui affiche */
+    function addActive(x) {    
+      if (!x) return false;    
+      removeActive(x);
+      if (currentFocus >= x.length) currentFocus = 0;
+      if (currentFocus < 0) currentFocus = (x.length - 1);    
+      x[currentFocus].classList.add("autocomplete-active");
+    }
+  
+    /* Fonction qui masque un élément du tableau */
+    function removeActive(x) {
+      for (var i = 0; i < x.length; i++) {
+        x[i].classList.remove("autocomplete-active");
+      }
+    }
+  
+    /* Fonction qui ferme la liste déroulante */ 
+    function closeAllLists(elmnt) {
+      var x = document.getElementsByClassName("autocomplete-items");
+      for (var i = 0; i < x.length; i++) {
+        if (elmnt != x[i] && elmnt != inp) {
+          x[i].parentNode.removeChild(x[i]);
+        }
+      }
+    }
+  
+    /**
+     * Suppression des accents dans les chaines de caractère 
+     * - str : la chaine de caractère en entrée
+     * return : la chaine de caractère modifiée
+     */
+    var normalize = function (str) {
+      let normalizedStr = str;      
+      layerOneGeology.charMap.forEach(charObject =>{
+        normalizedStr = normalizedStr.replace(charObject.oldValue, charObject.newValue);        
+      });
+      return normalizedStr;
+    }
+  
+    /* Trigger qui ferme la liste déroulante si on clique à l'exterieur */
+    document.addEventListener("click", function (e) {
+        closeAllLists(e.target);
+    });
   },
 
   /**
@@ -98,6 +296,14 @@ var layerOneGeology = {
     });
     $("#resetSearch").on("click", layerOneGeology.resetSearchOptions);
     $("#advancedSearch").on("click", layerOneGeology.showHideSearchOptions);
+
+    if(mapviewer.config.tools.hideSearchButton.enable){
+      $("#filterOnBBOX").on("click", function(){
+        $(".filterForm").submit();
+      });
+      $(".filterButtons > button[type=submit]").hide();
+      $(".filterButtons").addClass("absolute");
+    }
   },
 
   /**
@@ -150,32 +356,35 @@ var layerOneGeology = {
         + "<Literal>dataset</Literal>"
         + "</PropertyIsEqualTo>";
     } else {
-      freeText = $("#freeTxt").val() || "";
+      freeText = $("#freeTxt").val();
       if ($("#filterOnBBOX").is(":checked"))
         bboxFilter = mapviewer.map.getCurrentExtent();
       thematic = $("#thematicKeywords").val();
-      var phrase = freeText;
-      var phraseConstraint = "";
       constraint = "<And>"
         + "<PropertyIsEqualTo>"
         + "<PropertyName>dc:type</PropertyName>"
         + "<Literal>dataset</Literal>"
         + "</PropertyIsEqualTo>";
+      var phraseConstraint = "";
 
-      if (freeText.startsWith("\"") && freeText.endsWith("\"")) {
-        phrase = phrase.replaceAll("\"", "*");
-        phrase = phrase.replaceAll("\\s", "?");
-        phraseConstraint +=
-          "<PropertyIsLike matchCase='false' escapeChar=\"\\\" singleChar=\"?\" wildCard=\"*\">"
-          + "<PropertyName>keyword</PropertyName>"
-          + "<Literal>" + phrase + "</Literal>"
-          + "</PropertyIsLike>";
-      } else {
-        constraint +=
-          "<PropertyIsLike matchCase=\"false\" escapeChar=\"\\\" singleChar=\"?\" wildCard=\"*\">"
-          + "<PropertyName>AnyText</PropertyName>"
-          + "<Literal>" + freeText.replaceAll("\\s", " ") + "</Literal>"
-          + "</PropertyIsLike>";
+      if (freeText) {
+        var phrase = freeText;
+
+        if (freeText.startsWith("\"") && freeText.endsWith("\"")) {
+          phrase = phrase.replaceAll("\"", "*");
+          phrase = phrase.replaceAll("\\s", "?");
+          phraseConstraint +=
+            "<PropertyIsLike matchCase='false' escapeChar=\"\\\" singleChar=\"?\" wildCard=\"*\">"
+            + "<PropertyName>Subject</PropertyName>"
+            + "<Literal>" + phrase + "</Literal>"
+            + "</PropertyIsLike>";
+        } else {
+          constraint +=
+            "<PropertyIsLike matchCase=\"false\" escapeChar=\"\\\" singleChar=\"?\" wildCard=\"*\">"
+            + "<PropertyName>AnyText</PropertyName>"
+            + "<Literal>" + freeText.replaceAll("\\s", " ") + "</Literal>"
+            + "</PropertyIsLike>";
+        }
       }
 
       if (bboxFilter) {
@@ -183,44 +392,54 @@ var layerOneGeology = {
         upperCorner = bboxFilter[2] + " " + bboxFilter[3];
         constraint += "<BBOX>"
           + "<PropertyName>ows:BoundingBox</PropertyName>"
-          + "<Envelope><lowerCorner>" + lowerCorner + "</lowerCorner><upperCorner>" + upperCorner + "</upperCorner></Envelope>"
+          + "<gml:Envelope><gml:lowerCorner>" + lowerCorner + "</gml:lowerCorner><gml:upperCorner>" + upperCorner + "</gml:upperCorner></gml:Envelope>"
           + "</BBOX>";
       }
       if (thematic && thematic != "none") {
         constraint += "<PropertyIsLike matchCase='false' wildCard=\"%\" singleChar='_' escapeChar='\\'>"
-          + "<PropertyName>keyword</PropertyName>"
+          + "<PropertyName>Subject</PropertyName>"
           + "<Literal>thematic@" + thematic.replaceAll("\\s", "*") + "</Literal>"
           + "</PropertyIsLike>";
       }
 
-      if ($("#wfsDefined").is(":checked") || $("#wmsPortrayalGeosciml").is(":checked") || $("#wmsPortrayalErml").is(":checked") || $("#wcsSearch").is(":checked")) {
-        constraint += "<Or>"
-      }
+      var orConstraint = "", countOrConstraint = 0;
       if ($("#wfsDefined").is(":checked")) {
-        constraint += "<PropertyIsLike escapeChar='\' singleChar='?' wildCard='*'>"
+        countOrConstraint++;
+        orConstraint += "<PropertyIsLike escapeChar='\' singleChar='?' wildCard='*'>"
           + "<PropertyName>Anytext</PropertyName><Literal>*wfs_age_or_litho_queryable*</Literal>"
           + "</PropertyIsLike>";
       }
       if ($("#wmsPortrayalGeosciml").is(":checked")) {
-        constraint += "<PropertyIsLike escapeChar='\' singleChar='?' wildCard='*'>"
+        countOrConstraint++;
+        orConstraint += "<PropertyIsLike escapeChar='\' singleChar='?' wildCard='*'>"
           + "<PropertyName>Anytext</PropertyName><Literal>*portrayal_age_or_litho_queryable*</Literal>"
           + "</PropertyIsLike>";
       }
       if ($("#wmsPortrayalErml").is(":checked")) {
-        constraint += "<PropertyIsLike escapeChar='\' singleChar='?' wildCard='*'>"
+        countOrConstraint++;
+        orConstraint += "<PropertyIsLike escapeChar='\' singleChar='?' wildCard='*'>"
           + "<PropertyName>Anytext</PropertyName><Literal>*Erml_lite_queryable*</Literal>"
           + "</PropertyIsLike>";
       }
       if ($("#wcsSearch").is(":checked")) {
-        constraint += "<PropertyIsLike escapeChar='\' singleChar='?' wildCard='*'>"
+        countOrConstraint++;
+        orConstraint += "<PropertyIsLike escapeChar='\' singleChar='?' wildCard='*'>"
           + "<PropertyName>Anytext</PropertyName><Literal>*wcs*</Literal>"
           + "</PropertyIsLike>";
       }
-      if ($("#wfsDefined").is(":checked") || $("#wmsPortrayalGeosciml").is(":checked") || $("#wmsPortrayalErml").is(":checked") || $("#wcsSearch").is(":checked")) {
-        constraint += "</Or>"
+      if (countOrConstraint > 1) {
+        constraint += "<Or>" + orConstraint + "</Or>";
+      } else {
+        constraint += orConstraint;
       }
+
       constraint += phraseConstraint;
       constraint += "</And>";
+    }
+
+    var emptyRequest = constraint.search(/<\/PropertyIsEqualTo>(<\/And>)?$/);
+    if (emptyRequest > 0) {
+      constraint = constraint.replace(/^<And>/, '').replace(/<\/And>$/, '');
     }
 
     var query = "<csw:GetRecords xmlns:csw=\"http://www.opengis.net/cat/csw/2.0.2\" service=\"CSW\" version=\"2.0.2\" resultType=\"results\" maxRecords=\"1000\" startPosition=\"1\">"
@@ -233,9 +452,11 @@ var layerOneGeology = {
       + "</csw:Constraint>"
       + "</csw:Query>"
       + "</csw:GetRecords>";
+
     layerOneGeology.currentCall = $.ajax({
       type: "POST",
-      url: "./proxy?url=" + layerOneGeology.url,
+      url: "./proxycatalog?url=" + layerOneGeology.url,
+      headers: { 'use-catalog-cache': (emptyRequest > 0) },
       data: query,
       contentType: "text/xml",
       dataType: "text",
@@ -533,14 +754,7 @@ var layerOneGeology = {
     }).responseText;
 
     // Parsing JSON text
-    var countryInformationsM49 = eval(countryInformationsResponseText);
-
-    // "United Kingdom": "Northern Europe"
-    var subRegionByCountry = [];
-    // "Northern Europe": "Europe"
-    var regionBySubRegion = [];
-    // "Europe": "World"
-    var globalByRegion = [];
+    var countryInformationsM49 = JSON.parse(countryInformationsResponseText);
 
     // From service to M49 code
     var mapCountriesM49Text = $.ajax({
@@ -548,50 +762,35 @@ var layerOneGeology = {
       async: false,
       cache: false
     }).responseText;
-    mapCountriesM49 = JSON.parse(mapCountriesM49Text);
-
-    for (var i = 0; i < countryInformationsM49.length; i++) {
-      var countryName = countryInformationsM49[i]["Country or Area"];
-      var subRegionName = countryInformationsM49[i]["Sub-region Name"];
-      var regionName = countryInformationsM49[i]["Region Name"];
-      var globalName = countryInformationsM49[i]["Global Name"];
-
-      // Creating maps to access geographical parent
-      subRegionByCountry[countryName] = subRegionName;
-      regionBySubRegion[subRegionName] = regionName;
-      globalByRegion[regionName] = globalName;
-    }
+    var mapCountriesM49 = JSON.parse(mapCountriesM49Text);
 
     recordList.forEach(function (record) {
       var subarea = record.subarea;
       var country = record.geographicarea;
+      var subcontinent = record.subcontinent;
+      var continent = record.continent;
       // We map services with M49 labels
       if (mapCountriesM49[country] != undefined) {
         country = mapCountriesM49[country];
       }
-      var subcontinent = subRegionByCountry[country] || record.subcontinent;
-      var continent = regionBySubRegion[subcontinent] || record.continent;
-
-      for (var key in regionBySubRegion) {
-        // It means geographicarea is a continent (for example Africa)
-        if (country == regionBySubRegion[key]) {
-          continent = country;
-          subcontinent = undefined;
-          // country is not set to undefined in order to keep the algo below unchanged
-          subarea = undefined;
-          break;
-        }
+      var m49Country = _.find(countryInformationsM49, function (e) { return e["Country or Area"] === country });
+      if (!m49Country && (country === subcontinent || country === continent)) {
+        m49Country = _.find(countryInformationsM49, function (e) { return e["Sub-region Name"] === country });
+        subarea = undefined;
       }
+      if (m49Country) {
+        continent = m49Country['Region Name'] || continent;
+        subcontinent = m49Country['Sub-region Name'] || subcontinent;
 
-      for (var key in subRegionByCountry) {
-        // It means geographicarea is a subcontinent (for example Northern America)
-        if (country == subRegionByCountry[key]) {
-          subcontinent = country;
-          continent = regionBySubRegion[subcontinent];
-          // country is not set to undefined in order to keep the algo below unchanged
-          subarea = undefined;
-          break;
+        // if there is a subdivision
+        if (!subarea && m49Country['Intermediate Region Name'] && m49Country['Intermediate Region Name'] !== subcontinent && country !== subcontinent) {
+          subarea = country;
+          country = m49Country['Intermediate Region Name'];
         }
+      } else if (country === continent) {
+        subcontinent = undefined;
+        // country is not set to undefined in order to keep the algo below unchanged
+        subarea = undefined;
       }
 
       // M49 JSON may contain "" instead of null
@@ -608,10 +807,10 @@ var layerOneGeology = {
       record.subarea = subarea;
 
       // Fixes some problems for sorting
-      if(record.geographicarea && !record.subcontinent) {
+      if (record.geographicarea && !record.subcontinent) {
         record.subcontinent = record.geographicarea;
       }
-      if(record.subarea && !record.geographicarea) {
+      if (record.subarea && !record.geographicarea) {
         record.geographicarea = record.subarea;
       }
     });
@@ -678,16 +877,16 @@ var layerOneGeology = {
       }
     }
 
-    
+
     var subcontinentObjList = [];
-    if(Object.hasOwnProperty.call(continentsObj, 'World')) {
+    if (Object.hasOwnProperty.call(continentsObj, 'World')) {
       // Sets all continents under 'World'
       var worldObj = continentsObj['World'];
       delete continentsObj['World'];
       subcontinentObjList['World'] = [];
 
       var keys = [];
-  
+
       for (const key in worldObj) {
         if (Object.hasOwnProperty.call(worldObj, key)) {
           if (isNaN(key)) {
@@ -697,15 +896,15 @@ var layerOneGeology = {
           }
         }
       }
-  
+
       for (const key in continentsObj) {
         if (Object.hasOwnProperty.call(continentsObj, key)) {
           keys.push(key);
         }
       }
-  
+
       keys.sort();
-  
+
       keys.forEach(function (key) {
         subcontinentObjList['World'][key] = worldObj[key] || continentsObj[key];
       });
@@ -716,13 +915,56 @@ var layerOneGeology = {
 
     // Display catalog
     var html = "<ul class='tree-list'>";
-    for (var key in subcontinentObjList) {
-      html += "<li><span class='item-title'><i class='fa fa-minus'></i>" + key + "</span><ul style='display: block'>";
-      html += layerOneGeology.parcoursNoeud(subcontinentObjList[key], 1);
+    for (var key in subcontinentObjList) {            
+      if(subcontinentObjList[key][0] && subcontinentObjList[key][0].title && !subcontinentObjList[key][0].level){        
+        html += "<li><span class='item-title'><i class='fa fa-plus'></i>" + key + "</span><ul style='display: none'>";
+        html += layerOneGeology.parcoursNoeud(subcontinentObjList[key], 1);  
+      }
+      else{
+        html += "<li><span class='item-title'><i class='fa fa-minus'></i>" + key + "</span><ul style='display: block'>";
+        html += layerOneGeology.parcoursNoeud(subcontinentObjList[key], 1);
+      }      
+      
       html += "</ul></li>";
     }
     html += "</ul>"
     $('#layer1GGAreaResult').append(html);
+    
+    
+    // Ajout de l'autocompletion :
+    if (mapviewer.config.tools.autocompleteKeyword.enable){
+      if($.isEmptyObject(layerOneGeology.availableTags)){        
+        // Récupération de tous les labels
+        labels = $("#layer1GGAreaResult li>span, #layer1GGAreaResult li>label");        
+        for (let li of labels) {                 
+          // Pour chaque label, on récupère tous les mots et on l'ajoute dans le tableau availableTags
+          words = $(li).text().split(/[,.\s\(\)\'\n:]/);      
+          words.forEach(function(item){
+            if(item.length>2 && !item.match(/^\d/)){
+              layerOneGeology.availableTags.push(item);
+            }
+          })                
+        }     
+        
+        // On affine la liste :
+        //   - On supprime les doublons
+        //   - On élimine les mots à moins de 2 caractères
+        //   - On élimine les mots commençant par des chiffres
+        layerOneGeology.availableTags = layerOneGeology.availableTags.filter(function(elem, index, self) {
+          return index === self.indexOf(elem);
+        });        
+        layerOneGeology.availableTags.sort(function (a, b) {
+          return a.toLowerCase().localeCompare(b.toLowerCase());
+        });
+        var dataList = $("#freeTxtResults");
+        dataList.empty();
+        layerOneGeology.availableTags.forEach(function(item){
+          var opt = $("<option></option>").attr("value", item);
+          dataList.append(opt);
+        });     
+        layerOneGeology.autocomplete(document.getElementById("freeTxt"), layerOneGeology.availableTags);        
+      }
+    }
   },
 
   /**
@@ -739,7 +981,7 @@ var layerOneGeology = {
       if (treeNode[key][0]) {
         level = treeNode[key][0].level;
       }
-      if (treeNode[key] && !treeNode[key].title && !treeNode[key].level) { // has childs
+      if (treeNode[key] && !treeNode[key].title && !treeNode[key].level) { // has childs        
         html += "<li><span class='item-title'><i class='fa fa-plus'></i>" + key + "</span><ul>";
         html += layerOneGeology.parcoursNoeud(treeNode[key], level);
         html += "</ul></li>";
@@ -772,6 +1014,7 @@ var layerOneGeology = {
           "data-layername='" + treeNode[key].layerName + "' data-extent='" + treeNode[key].extent + "' " +
           "data-service-type='" + (treeNode[key].serviceType || "WMS") + "'" +
           "data-wfs-url='" + (treeNode[key].serviceWfsUrl || "") + "' data-wfs-url-type='" + (treeNode[key].serviceWfsUrlType || "") + "' " +
+          (treeNode[key].serviceUrlGfi ? "data-service-url-gfi='" + treeNode[key].serviceUrlGfi + "'" : "") +
           "value='" + treeNode[key].serviceUrl + ";" + treeNode[key].layerName + "'/>" +
           "<label for='" + treeNode[key].id + "'>" + title + "</label>" +
           "</li>";

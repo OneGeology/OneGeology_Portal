@@ -19,6 +19,7 @@
   }
   &.opened {
     bottom: 0;
+    overflow: auto;
   }
   &.expanded {
     height: 100%;
@@ -92,6 +93,7 @@
     overflow: auto;
     font-size: calculateRem(12px);
     padding: 0 calculateRem(15px) calculateRem(10px);
+    display: contents;
     .title {
       @include themify($themes) {
         color: themed("textColor");
@@ -183,4 +185,12 @@
       padding: 0;
     }
   }
+}
+
+#dragable #dragzone {
+  cursor: move;
+}
+
+#dragable{
+  resize: both;
 }

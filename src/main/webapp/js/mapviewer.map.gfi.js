@@ -1,7 +1,10 @@
+var lastInset = null;
+
 /**
  * Manages GetFeatureInfo map interaction
+ * @constructor
  */
-mapviewer.map.gfi = {
+mapviewer.map.gfi = {  
 
   /**
    * Creates popup interaction
@@ -15,7 +18,7 @@ mapviewer.map.gfi = {
 
   /**
    * Shows information panel about coordinates clicked on the map
-   * @param {[number, number]} coords Coordinates clicked on the map
+   * @param {number[]} coords Coordinates clicked on the map
    */
   displayPanel: function (evt) {
     var coords = evt.coordinate
@@ -89,6 +92,10 @@ mapviewer.map.gfi = {
           mapviewer.map.getCurrentProjection(),
           { 'INFO_FORMAT': 'text/html' }
         );
+        if (layer.metadata.serviceUrlGfi && layer.metadata.serviceUrl) {
+          var baseUrl = layer.metadata.serviceUrl.split('?')[0];
+          url = url.replace(baseUrl, layer.metadata.serviceUrlGfi);
+        }
       }
       if (url) {
         if (!layer.queryable) {
@@ -179,31 +186,52 @@ mapviewer.map.gfi = {
    * Close the gfi popup
    */
   closePanel: function () {
-    $('.gfi-panel').removeClass('opened').removeClass('expanded');
+    $('.gfi-panel').css("inset","");
+    $('.gfi-panel').css("width","100%");
+    $('.gfi-panel').css("height","300px");
+    $('.gfi-panel').removeClass('opened').removeClass('expanded').addClass("fixed");
     mapviewer.map.markGfiPosition();
   },
 
   /**
    * Resize the panel content for good scrollbars (flex forbidden)
    */
-  resizePanelContent: function () {
+  resizePanelContent: function (panel, expanded) {     
+    if(expanded == undefined){
+      return;
+    }    
+    if(expanded){
+      lastInset = panel.css("inset");      
+      panel.css("inset","");
+      panel.css("height","95%");
+    }
+    else{
+      let insets = lastInset.split(" ")      
+      panel.css("inset", insets[0] + " auto auto " + insets[3]);
+      panel.css("height","300px");
+    }
+    /*       
+    
     let panelHeight = $('.gfi-panel').height();
     let headHeight = $('.gfi-panel .panel-heading').outerHeight();
     let contentPadding = $('.gfi-panel .gfi-content').outerHeight() - $('.gfi-panel .gfi-content').height();
-    $('.gfi-panel .gfi-content').height(panelHeight - headHeight - contentPadding);
+    $('.gfi-panel .gfi-content').height(panelHeight - headHeight - contentPadding);            
+    */
   },
 
   /**
    * Expand or reduce gfi panel
    */
-  expandPanel: function () {
+  expandPanel: function () {    
     let $panel = $('.gfi-panel');
+    let expanded = false;
     if ($panel.hasClass('expanded')) {
-      $panel.removeClass('expanded');
-    } else {
-      $panel.addClass('expanded');
+      $panel.removeClass('expanded');      
+    } else {      
+      $panel.addClass('expanded');      
+      expanded = true;
     }
-    setTimeout(mapviewer.map.gfi.resizePanelContent, 300);
+    setTimeout(mapviewer.map.gfi.resizePanelContent, 300, $panel, expanded);    
   },
 
   /**

@@ -1,5 +1,6 @@
 /**
  * Manages all monitoring tools
+ * @constructor
  */
 mapviewer.monitoring = {
   /**

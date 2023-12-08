@@ -1,6 +1,6 @@
 /**
- * map
- * openlayers map manager
+ * Map manager
+ * @constructor
  */
 mapviewer.map = {
   /**
@@ -11,7 +11,7 @@ mapviewer.map = {
 
   /**
    * Current displayed layers configurations
-   * @type {*[]}
+   * @type {any[]}
    */
   layers: [],
 
@@ -281,8 +281,12 @@ mapviewer.map = {
           if (!layerData.autolayer || $("#active-basic-datasets").prop('checked')) {
             if (capabilities.FeatureTypeList) { // WFS
               layerToAdd = mapviewer.map.generateWFSLayer(layerData, capabilities, idx);
-            } else if (capabilities.Contents) { // WCS
-              layerToAdd = mapviewer.map.generateWCSLayer(layerData, capabilities, idx);
+            } else if (capabilities.Contents) { // WCS & WMTS
+              if (capabilities.Contents.TileMatrixSet) {
+                layerToAdd = mapviewer.map.generateWMTSLayer(layerData, capabilities, idx);
+              } else {
+                layerToAdd = mapviewer.map.generateWCSLayer(layerData, capabilities, idx);
+              }
             } else if (capabilities.Capability) { // WMS
               layerToAdd = mapviewer.map.generateWMSLayer(layerData, capabilities, idx);
             }
@@ -290,7 +294,9 @@ mapviewer.map = {
 
           // dblClick security
           found = _.find(mapviewer.map.layers, function (e) {
-            return (e.url.replace(/\?$/, "") === layerData.url.replace(/\?$/, "")) && e.name === layerData.layername && e.sourceParams.type === layerData.serviceType;
+            return (e.url.replace(/(https?:)/, "").replace(/\?$/, "") === layerData.url.replace(/(https?:)/, "").replace(/\?$/, ""))
+              && e.name === layerData.layername
+              && e.sourceParams.type === layerData.serviceType;
           });
 
           if (layerToAdd) {
@@ -406,6 +412,7 @@ mapviewer.map = {
         },
         metadata: {
           serviceUrl: layerData.url,
+          serviceUrlGfi: layerData.serviceUrlGfi,
           serviceAccessConstraint: capabilities.Service.AccessConstraints,
           serviceTitle: capabilities.Service.Title,
           layerAbstract: layerCapabilities.Abstract,
@@ -444,6 +451,24 @@ mapviewer.map = {
           }
         }
         layerToAdd.srs = layerCapabilities.srs;
+
+        //adding time management
+        if (
+          layerCapabilities.Dimension && layerCapabilities.Dimension.length > 0
+          && (layerCapabilities.Dimension[0].name === 'time' || _.isDate(layerCapabilities.Dimension[0].default))
+        ) {
+          var timeParams = layerCapabilities.Dimension[0];
+          var timeLimits = timeParams.values.split('/');
+          var minDate = new Date(timeLimits[0]);
+          var maxDate = new Date(timeLimits[1]);
+          layerToAdd.sourceParams.timeParams = {
+            name: layerCapabilities.Dimension[0].name.toUpperCase(),
+            minDate: minDate,
+            maxDate: maxDate,
+            default: new Date(timeParams.default),
+            interval: mapviewer.tools.getTimeStepFromStandard(timeLimits[2])
+          };
+        }
       }
       if (capabilities.Service.ContactInformation && _.keys(capabilities.Service.ContactInformation).length > 0) {
         layerToAdd.metadata.contactPerson = capabilities.Service.ContactInformation.ContactPersonPrimary.ContactPerson;
@@ -518,7 +543,89 @@ mapviewer.map = {
   },
 
   /**
-   * Add WMS layer to map
+   * Add WMTS layer to map
+   * @param {Object} layerData - data to set layer
+   * @param {Object} capabilities - result of global GetCapabilities
+   * @param {number} idx - idx to set to layer in map
+   * @return {ol.Layer}
+   */
+  generateWMTSLayer: function (layerData, capabilities, idx) {
+    let layerCapabilities = _.find(capabilities.Contents.Layer, { Identifier: layerData.layername });
+    if (layerCapabilities) {
+      var keywords = {};
+      if (layerCapabilities.Keywords && _.isArray(layerCapabilities.Keywords.Keyword)) {
+        keywords = mapviewer.tools.parseCapabilitiesKeywords(layerCapabilities.Keywords.Keyword);
+      }
+      layerToAdd = {
+        title: layerCapabilities.Title,
+        name: layerData.layername,
+        displayInLayerSwitcher: (layerData.type == 'layer'),
+        type: layerData.type,
+        idx: idx,
+        id: layerData.id,
+        extent: layerData.extent,
+        visible: layerData.visible != undefined ? layerData.visible : true,
+        opacity: layerData.opacity || 1,
+        bbox: layerData.extent,
+        url: layerData.url,
+        metadata: {
+          serviceUrl: layerData.url,
+          serviceAccessConstraint: capabilities.ServiceIdentification.AccessConstraints,
+          serviceTitle: layerCapabilities.Title,
+          layerAbstract: layerCapabilities.Abstract,
+          keywords: keywords,
+        },
+        sourceParams: {
+          type: 'WMTS',
+          url: layerData.url,
+          layer: layerData.layername,
+          style: layerCapabilities.Style[0].Identifier,
+          matrixSet: layerCapabilities.TileMatrixSetLink[0].TileMatrixSet,
+          format: layerCapabilities.Format.indexOf('image/png') >= 0 ? 'image/png' : layerCapabilities.Format[0]
+        }
+      };
+
+      var matrixSet = _.find(capabilities.Contents.TileMatrixSet, { Identifier: layerToAdd.sourceParams.matrixSet });
+      layerToAdd.sourceParams.projection = matrixSet.SupportedCRS;
+      layerToAdd.sourceParams.tileGrid = {
+        origin: matrixSet.TileMatrix[0].TopLeftCorner,
+        resolutions: [],
+        matrixIds: [],
+        sizes: []
+      };
+      _.each(matrixSet.TileMatrix, function (tileMatrix) {
+        var setLimit = _.find(layerCapabilities.TileMatrixSetLink[0].TileMatrixSetLimits, { TileMatrix: tileMatrix.Identifier });
+        if (setLimit) {
+          layerToAdd.sourceParams.tileGrid.matrixIds.push(tileMatrix.Identifier);
+          layerToAdd.sourceParams.tileGrid.resolutions.push(tileMatrix.ScaleDenominator);
+          layerToAdd.sourceParams.tileGrid.sizes.push([tileMatrix.MatrixWidth, tileMatrix.MatrixHeight]);
+        }
+      });
+
+
+      if (capabilities.ServiceProvider.ServiceContact) {
+        layerToAdd.metadata.contactPerson = capabilities.ServiceProvider.ServiceContact.IndividualName;
+        if (capabilities.ServiceProvider.ServiceContact.PositionName) {
+          layerToAdd.metadata.contactPerson += ", " + capabilities.ServiceProvider.ServiceContact.PositionName;
+        }
+        layerToAdd.metadata.contactOrganization = capabilities.ServiceProvider.ProviderName;
+        if (capabilities.ServiceProvider.ServiceContact.ContactInfo) {
+          layerToAdd.metadata.contactAddress = capabilities.ServiceProvider.ServiceContact.ContactInfo.Address.DeliveryPoint;
+          layerToAdd.metadata.contactPostCode = capabilities.ServiceProvider.ServiceContact.ContactInfo.Address.PostalCode;
+          layerToAdd.metadata.contactCity = capabilities.ServiceProvider.ServiceContact.ContactInfo.Address.City;
+          layerToAdd.metadata.contactCountry = capabilities.ServiceProvider.ServiceContact.ContactInfo.Address.Country;
+          layerToAdd.metadata.contactEmail = capabilities.ServiceProvider.ServiceContact.ContactInfo.Address.ElectronicMailAddress;
+
+        }
+      }
+
+      return layerToAdd;
+    }
+    return null;
+  },
+
+  /**
+   * Add WCS layer to map
    * @param {Object} layerData - data to set layer
    * @param {Object} capabilities - result of global GetCapabilities
    * @param {number} idx - idx to set to layer in map

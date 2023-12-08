@@ -1,5 +1,6 @@
 /**
  * app core & bootstrap
+ * @constructor
  */
 mapviewer = {
 
@@ -7,13 +8,13 @@ mapviewer = {
    * Widget configuration file path
    * @type {string}
    */
-  WIDGET_CONFIG_FILE: "conf/default.json",
+  WIDGET_CONFIG_FILE: "conf/widgets.json",
 
   /**
    * Configuration file path
    * @type {string}
    */
-  CONFIG_FILE: "conf/conf.json",
+  CONFIG_FILE: "conf/conf_geothermie_perspective.json",
   // CONFIG_FILE: "conf/conf_geothermie_perspective_recette.json",
 
   /**
@@ -58,7 +59,7 @@ mapviewer = {
             mapviewer.applyConfig();
 
             var widgetConfigContent = mapviewer.load(mapviewer.WIDGET_CONFIG_FILE);
-            mapviewer.widgets = eval("(" + widgetConfigContent + ")");
+            mapviewer.widgets = JSON.parse(widgetConfigContent);
 
             mapviewer.map.init();
             mapviewer.map.gfi.init();
@@ -66,9 +67,17 @@ mapviewer = {
             if (mapviewer.config.tools.autolayers.enable) {
               mapviewer.autolayers.init();
             }
-
-            mapviewer.addEvents();
-          });
+            if (mapviewer.config.tools.autolayers.hideButton) {
+              $(".pull-right.switch-checkbox").hide();              
+            }
+            mapviewer.addEvents();    
+                        
+            if (mapviewer.config.tools.showMenuByDefault.enable){
+              $('.sidebar-content').addClass('active');
+              $('.sidebar-pane').addClass('active');
+              $('.sidebar-tabs > ul:first > li:first').addClass('active');
+            }
+          });        
         }, function (e) {
           console.error(e);
           alert("An error occured during the application's loading. Please refresh the page or contact an administrator");

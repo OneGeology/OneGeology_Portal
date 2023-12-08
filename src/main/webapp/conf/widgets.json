@@ -1,0 +1,38 @@
+[
+	{
+		"name": "gazetteer",
+		"div": "gazetteer"
+	},
+	{
+		"name": "thematicAnalysis",
+		"div": "thematicAnalysis"
+	},
+	{
+		"name": "layerswitcher",
+		"div": "layerswitcher"
+	},
+	{
+		"name": "layerOneGeology",
+		"div": "layerOneGeology"
+	},
+	{
+		"name": "externalOGC",
+		"div": "externalOGC"
+	},
+	{
+		"name": "exportContext",
+		"div": "exportContext"
+	},
+	{
+		"name": "measurement",
+		"div": "measurement"
+	},
+	{
+		"name": "help",
+		"div": "help"
+	},
+	{
+		"name": "generateUrl",
+		"div": "generateUrl"
+	}
+]

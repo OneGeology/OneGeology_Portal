@@ -1,5 +1,6 @@
-/*
+/**
  * Widget manager
+ * @constructor
  */
 mapviewer.widget = {
   /**
@@ -12,9 +13,9 @@ mapviewer.widget = {
    * Initializes and loads all the widgets
    */
   init: function () {
-    if (mapviewer.widgets.widgets) {
-      for (var i = 0; i < mapviewer.widgets.widgets.length; i++) {
-        var currentWidget = mapviewer.widgets.widgets[i];
+    if (mapviewer.widgets) {
+      for (var i = 0; i < mapviewer.widgets.length; i++) {
+        var currentWidget = mapviewer.widgets[i];
         mapviewer.widget.load(currentWidget);
 
         var widgetInstance = window[currentWidget.name];

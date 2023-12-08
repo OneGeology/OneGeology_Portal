@@ -1,5 +1,6 @@
 /**
  * thematic analysis widget
+ * @constructor
  */
 var thematicAnalysis = {
   /**

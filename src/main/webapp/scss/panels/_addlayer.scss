@@ -12,6 +12,7 @@
   }
   .filterForm {
     margin-bottom: calculateRem(20px);
+    position: relative;
     .extent-filter {
       width: 100%;
       @media only screen and (min-width: $smallWidth) {
@@ -55,6 +56,12 @@
       .form-group {
         margin-bottom: calculateRem(7px);
       }
+    }
+    
+    .filterButtons.absolute{
+      position: absolute;
+      top: 0;
+      right: 70px;
     }
   }
   .addLayerTab {

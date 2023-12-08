@@ -1,5 +1,6 @@
 /**
  * Header search form widget
+ * @constructor
  */
 var gazetteer = {
   /**
@@ -97,6 +98,7 @@ var gazetteer = {
     $('.gazetteerHelp').hide();
 
     if (mapviewer.tools.isUrl(term)) {
+
       gazetteer.lastResult.searchType = 'url';
       gazetteer.getUrlResults(term);
     } else {
@@ -131,9 +133,23 @@ var gazetteer = {
    * @param {any[]} results Results to sort
    * @param {string} term Term to check
    */
-  sortResultsWithTerm: function (results, term) {
-    return _.sortBy(results, ['label'])
-      .map(function (r, i) {
+  sortResultsWithTerm: function (results, term) { 
+    // Supprimer les doublons
+    let noDuplicatedResult =  [];
+    items = $.grep(results, (item, i) => {
+      let label = item['label'];      
+      if(jQuery.inArray(label, noDuplicatedResult) != -1) {              
+        return false;
+      }
+      else{        
+        noDuplicatedResult.push(label);
+        return true; 
+      }
+    });
+    
+    // On désactive le filtre par label pour afficher le résultat des villes en premier
+    //return _.sortBy(results, ['label']) 
+    return  items.map(function (r, i) {
         r.id = i;
         return r;
       });
@@ -247,7 +263,7 @@ var gazetteer = {
         limit: 50
       };
 
-      if(mapviewer.config.gazetteer.geonamesRestrictions) {
+      if (mapviewer.config.gazetteer.geonamesRestrictions) {
         data.countrycodes = mapviewer.config.gazetteer.geonamesRestrictions.join(',');
       }
 
@@ -347,16 +363,23 @@ var gazetteer = {
   getUrlResults: function (url, layerToAdd) {
     var calls = [];
     calls.push(gazetteer.getUrlResultsWMS(url));
+    calls.push(gazetteer.getUrlResultsWMTS(url));
     if (mapviewer.config.tools.wfsLayers.enable) {
       calls.push(gazetteer.getUrlResultsWFS(url));
     }
 
     $.when.apply($, calls)
-      .done(function (wmsResults, wfsResults) {
+      .done(function (wmsResults, wmtsResults, wfsResults) {
+        if (!wmsResults) {
+          wmsResults = [];
+        }
+        if (!wmtsResults) {
+          wmtsResults = [];
+        }
         if (!wfsResults) {
           wfsResults = [];
         }
-        gazetteer.lastResult.results = _.sortBy(wmsResults.concat(wfsResults), function (v) {
+        gazetteer.lastResult.results = _.sortBy(wmsResults.concat(wmtsResults, wfsResults), function (v) {
           return mapviewer.tools.stripCaseAndAccents(v.label);
         });
         gazetteer.showResult(layerToAdd);
@@ -419,7 +442,8 @@ var gazetteer = {
       .done(function (capabilities) {
         if (capabilities && capabilities.Capability && capabilities.Capability.Layer && capabilities.Capability.Layer.Layer && capabilities.Capability.Layer.Layer.length > 0) {
           var results = [];
-          _.each(capabilities.Capability.Layer.Layer, function (layer, i) {
+          var layerCapabilitiesList = mapviewer.tools.flattenLayerCapabilities(capabilities.Capability.Layer.Layer);
+          _.each(layerCapabilitiesList, function (layer, i) {
             var extent = layer.EX_GeographicBoundingBox || layer.LatLonBoundingBox || [];
             results.push({
               label: layer.Title,
@@ -436,6 +460,50 @@ var gazetteer = {
                 version: capabilities.version
               }
             });
+          });
+          defer.resolve(results);
+        } else {
+          defer.resolve([]);
+        }
+      })
+      .fail(function (e) {
+        console.error(e);
+        defer.resolve([]);
+      });
+    return defer;
+  },
+
+
+
+  /**
+   * Get layer list from wmts url
+   * @param {string} url Service url
+   */
+  getUrlResultsWMTS: function (url) {
+    var defer = $.Deferred();
+    mapviewer.tools.getCapabilities(url, "WMTS")
+      .done(function (capabilities) {
+        if (capabilities && capabilities.Contents && capabilities.Contents.Layer && capabilities.Contents.Layer.length > 0) {
+          var results = [];
+          _.each(capabilities.Contents.Layer, function (layer, i) {
+            if (_.find(layer.Format, function (f) { return f.indexOf('image') >= 0 })) {
+              var extent = layer.WGS84BoundingBox || [];
+              results.push({
+                label: layer.Title,
+                type: 'layer',
+                typeLabel: i18next.t('gazetteer.layerTileTag'),
+                id: 'gazeteer-wmts-' + i,
+                value: {
+                  id: 'gazeteer-wmts-' + i,
+                  title: layer.Title,
+                  serviceType: "WMTS",
+                  extent: extent.join(','),
+                  layerName: layer.Identifier,
+                  serviceUrl: url,
+                  version: capabilities.ServiceIdentification.ServiceTypeVersion
+                }
+              });
+            }
           });
           defer.resolve(results);
         } else {
@@ -500,7 +568,7 @@ var gazetteer = {
         );
       }
 
-      if (mapviewer.config.gazetteer.enableGeonames) {
+      if (mapviewer.config.gazetteer.enableGeonames) {        
         if (gazetteer.geonamesRunning) {
           html += '<div class="result-section geonames-result">';
           html += '<h6 class="gazetteerResultCategory">' + i18next.t('gazetteer.locationResults') + '</h6>';
@@ -569,7 +637,7 @@ var gazetteer = {
       }
     }
 
-    if (list && list.length > 0) {
+    if (list && list.length > 0) {          
       html += '<ul class="gazetteerResultList ' + className + '">';
       _.each(list, function (item, i) {
         var displayClass = "";
@@ -628,7 +696,8 @@ var gazetteer = {
    * Displays or not all the results
    */
   toggleShowAllResults: function () {
-    var $list = $(this).siblings('.gazetteerResultList').eq(0);
+    //var $list = $(this).siblings('.gazetteerResultList').eq(0);
+    var $list = $('.gazetteerResultList');
     if ($list.hasClass('show-all')) {
       $list.removeClass('show-all');
       $(this).text($(this).text().replace(i18next.t('gazetteer.lessResults'), i18next.t('gazetteer.moreResults')));

@@ -1,0 +1,869 @@
+<AutoLayerMembers>
+    <!-- World -->
+    <Layer name="World CGMW 1:50M Geological Units Onshore">
+        <BBOX minx="-180" miny="-90" maxx="180" maxy="90"/>
+        <Scale min="50000000" max="999999999"/>
+        <url>http://mapsref.brgm.fr/wxs/1GG/CGMW_Bedrock_and_Structural_Geology?</url>
+        <!--<url>http://mapdmzrec.brgm.fr/cgi-bin/mapserv54?map=/carto/ogg/mapFiles/CGMW_Bedrock_and_Structural_Geology.map&</url>-->
+        <layername>World_CGMW_50M_GeologicalUnitsOnshore</layername>
+        <SRS>EPSG:4326</SRS>
+    </Layer>
+
+    <!-- Eurasia -->
+    <Layer name="Eurasia CGMW 1:12,500,000 Geological Units">
+        <BBOX minx="0" miny="-20.0051" maxx="180" maxy="77.9276"/>
+        <Scale min="20000000" max="45000000"/>
+        <url>http://mapsref.brgm.fr/wxs/1GG/CGMW_Bedrock_and_Structural_Geology?</url>
+        <!--<url>http://mapdmzrec.brgm.fr/cgi-bin/mapserv54?map=/carto/ogg/mapFiles/CGMW_Bedrock_and_Structural_Geology.map&</url>-->
+        <layername>Eurasia_CGMW_12500K_GeologicalUnits</layername>
+        <SRS>EPSG:4326</SRS>
+    </Layer>
+
+    <!-- Africa -->
+
+    <!-- Africa continent-->
+    <Layer name="AFR CGMW-BRGM 1:10M Geological units">
+        <BBOX minx="-17.5292" miny="-34.8404" maxx="51.4041" maxy="37.3205"/>
+        <Scale min="5000000" max="45000000"/>
+        <url>http://mapsref.brgm.fr/wxs/1GG/IGC35_CGMW_BRGM_Africa_Geology?</url>
+        <!--<url>http://mapdmzrec.brgm.fr/cgi-bin/mapserv?map=/carto/ogg/mapFiles/SIGAfrique_EN_Bedrock_and_Structural_Geology.map&</url>-->
+        <layername>AFR_CGMW_BRGM_10M_GeologicUnits</layername>
+        <SRS>EPSG:4326</SRS>
+    </Layer>
+    <!-- Congo -->
+    <Layer name="DRC Congo 1:2 000 000 Chronostratigraphy">
+        <BBOX minx="12.203" miny="-13.427" maxx="31.288" maxy="5.381"/>
+        <Scale min="50000" max="10000000"/>
+        <url>http://edit.africamuseum.be/RMCA_Bedrock_and_Structural_Geology/wms?</url>
+        <layername>COD_RMCA_2M_BA</layername>
+        <SRS>EPSG:4326</SRS>
+        <SRS>CRS:84</SRS>
+    </Layer>
+    <!-- Rwanda and Burundi -->
+    <Layer name="Rwanda and Burundi 1:250 000 Chronostratigraphy">
+        <BBOX minx="28.855" miny="-4.47" maxx="30.892" maxy="-1.047"/>
+        <Scale min="50000" max="10000000"/>
+        <url>http://edit.africamuseum.be/RMCA_Bedrock_and_Structural_Geology/wms</url>
+        <layername>RWABDI_RMCA_250K_BA</layername>
+        <SRS>EPSG:4326</SRS>
+        <SRS>CRS:84</SRS>
+    </Layer>
+    <!-- Ethiopia -->
+    <Layer name="ETH GSE 1:2M Geology">
+        <BBOX minx="33.0001" miny="3.40221" maxx="47.9865" maxy="14.8928"/>
+        <Scale min="50000" max="10000000"/>
+        <url>http://035a1a3.netsolvps.com/cgi-bin/SEAMIC_GSE_EN_GEOLOGY/ows?</url>
+        <layername>ETH_GSE_2M_G</layername>
+        <SRS>EPSG:4326</SRS>
+        <SRS>EPSG:3857</SRS>
+    </Layer>
+    <!-- Kenya -->
+    <Layer name="KEN MGD 1:2M Geology">
+        <BBOX minx="33.909" miny="-4.67775" maxx="41.8993" maxy="4.62904"/>
+        <Scale min="50000" max="10000000"/>
+        <url>http://035a1a3.netsolvps.com/cgi-bin/SEAMIC_MGD_EN_Geology/ows?</url>
+        <layername>KEN_MGD_2M_G</layername>
+    </Layer>
+    <!-- Tanzania -->
+    <Layer name="TZA GST 1:2M Bedrock Geology">
+        <BBOX minx="29.3273" miny="-11.745" maxx="40.4434" maxy="-0.990672"/>
+        <Scale min="50000" max="10000000"/>
+        <url>http://035a1a3.netsolvps.com/cgi-bin/SEAMIC_GST_EN_Bedrock_Geology/ows?</url>
+        <layername>TZA_GST_2M_BG</layername>
+        <SRS>EPSG:4326</SRS>
+        <SRS>EPSG:3857</SRS>
+    </Layer>
+    <!-- Uganda -->
+    <Layer name="UGA DGSM 1:2M Geology">
+        <BBOX minx="29.5636" miny="-1.47517" maxx="35.0269" maxy="4.23253"/>
+        <Scale min="50000" max="10000000"/>
+        <url>http://035a1a3.netsolvps.com/cgi-bin/SEAMIC_DGSM_EN_GEOLOGY/ows?</url>
+        <layername>UGA_DGSM_2M_G</layername>
+        <SRS>EPSG:4326</SRS>
+        <SRS>EPSG:3857</SRS>
+    </Layer>
+    <!-- Cameroon -->
+    <Layer name="CMR IRGM 1:1M Geologic Units">
+        <BBOX minx="8.49464" miny="1.67949" maxx="16.1701" maxy="13.0773"/>
+        <Scale min="50000" max="10000000"/>
+        <url>http://mapsref.brgm.fr/wxs/1GG/IRGM_Formations_et_Geologie_Structurale</url>
+        <layername>CMR_IRGM_1M_UnitesGeologiques</layername>
+        <SRS>EPSG:4326</SRS>
+    </Layer>
+    <!-- Bostwana -->
+    <!-- name="Botswana DGS 1:1M Bedrock Lithostratigraphy">
+        <BBOX minx="20" miny="-26.9141" maxx="29.3753" maxy="-17.7769"/>
+        <Scale min="50000" max="10000000"/>
+        <url>http://196.33.85.22/cgi-bin/CGS_DGS_Bedrock_and_Structural_Geology/wms?</url>
+        <layername>BWA_DGS_1M_BLS</layername>
+        <SRS>EPSG:4326</SRS>
+        <SRS>EPSG:3857</SRS>
+        <SRS>CRS:84</SRS>
+    </Layer-->
+    <!-- Namibia -->
+    <Layer name="NAM GSN 1:1M Bedrock Age">
+        <BBOX minx="11.0712" miny="-29.5656" maxx="25.9403" maxy="-16.3558"/>
+        <Scale min="50000" max="10000000"/>
+        <url>http://ogc.bgs.ac.uk/cgi-bin/BGS_GSN_Bedrock_Geology/wms?</url>
+        <layername>NAM_GSN_1M_BA</layername>
+        <SRS>EPSG:3031</SRS>
+        <SRS>EPSG:3034</SRS>
+        <SRS>EPSG:3413</SRS>
+        <SRS>EPSG:3857</SRS>
+        <SRS>EPSG:4258</SRS>
+        <SRS>EPSG:4326</SRS>
+        <SRS>EPSG:900913</SRS>
+    </Layer>
+    <!-- South Africa -->
+    <!-- name="ZAF CGS 1:1M Bedrock Lithostratigraphy">
+        <BBOX minx="16.4487" miny="-34.8343" maxx="32.8942" maxy="-22.1266"/>
+        <Scale min="50000" max="10000000"/>
+        <url>http://196.33.85.22/cgi-bin/ZAF_CGS_Bedrock_Geology/wms?</url>
+        <layername>ZAF_CGS_1M_BLS</layername>
+        <SRS>EPSG:4326</SRS>
+    </Layer-->
+    <!-- Burkina Faso -->
+    <Layer name="BFA BUMIGEB FR 1:1M Bedrock Lithostratigraphy">
+        <BBOX minx="-5.9167" miny="8.3622" maxx="2.7969" maxy="16.1168"/>
+        <Scale min="50000" max="10000000"/>
+        <url>http://ogc.bgs.ac.uk/cgi-bin/BGS_BUMIGEB_FR_Bedrock_Geology/wms?</url>
+        <layername>BFA_BUMIGEB_FR_1M_BLS</layername>
+        <SRS>EPSG:23030</SRS>
+        <SRS>EPSG:23031</SRS>
+        <SRS>EPSG:3031</SRS>
+        <SRS>EPSG:3034</SRS>
+        <SRS>EPSG:3413</SRS>
+        <SRS>EPSG:3857</SRS>
+        <SRS>EPSG:4258</SRS>
+        <SRS>EPSG:4326</SRS>
+        <SRS>EPSG:900913</SRS>
+    </Layer>
+    <!-- GHANA -->
+    <!--Layer name="GHA GGS 1M Geological Units">
+        <BBOX minx="-3" miny="4" maxx="11" maxy="1"/>
+        <Scale min="50000" max="10000000"/>
+        <url>http://www.bgr.de/Service/OneGeology/GGS_Geological_Units/?</url>
+        <layername>GHA_GGS_1M_GeoUnits</layername>
+        <SRS>EPSG:4326</SRS>
+    </Layer-->
+
+
+    <!-- Antartica DONE -->
+    <Layer name="ATA GA 1:10M Bedrock Age">
+        <BBOX minx="-180" miny="-87.6547" maxx="180" maxy="-60.4109"/>
+        <Scale min="500000" max="45000000"/>
+        <url>http://ogc.bgs.ac.uk/cgi-bin/BGS_GA_Bedrock_Geology/wms?</url>
+        <layername>ATA_GA_10M_BA</layername>
+        <SRS>EPSG:3031</SRS>
+        <SRS>EPSG:3857</SRS>
+        <SRS>EPSG:4326</SRS>
+        <SRS>EPSG:900913</SRS>
+    </Layer>
+    <Layer name="ATA-SVL GNS 1:250K geological units">
+        <BBOX minx="157.058" miny="-78.894" maxx="171.857" maxy="-76.393"/>
+        <Scale min="5000" max="10000000"/>
+        <url>http://maps.gns.cri.nz:80/geology/wms?SERVICE=WMS&amp;</url>
+        <layername>gns:ATA_SVL_GNS_250K_geological_units</layername>
+        <SRS>EPSG:4326</SRS>
+        <SRS>EPSG:4258</SRS>
+        <SRS>EPSG:3034</SRS>
+        <SRS>EPSG:3413</SRS>
+        <SRS>EPSG:3995</SRS>
+        <SRS>EPSG:3031</SRS>
+        <SRS>EPSG:3857</SRS>
+    </Layer>
+
+    <!-- Asia DONE -->
+    <!-- CCOP -->
+    <Layer name="EASIA CCOP 1:2M Combined Bedrock and Superficial Geology and Age">
+        <BBOX minx="92.1903" miny="-11.6578" maxx="155.955" maxy="47.6128"/>
+        <Scale min="500000" max="45000000"/>
+        <url>https://gbank.gsj.jp/ows/GSJ_CCOP_Combined_Bedrock_and_Superficial_Geology_and_Age/wms?</url>
+        <layername>EASIA_CCOP_2M_Combined_BLT_SLT_BA</layername>
+        <SRS>EPSG:4326</SRS>
+        <SRS>EPSG:4612</SRS>
+        <SRS>EPSG:4301</SRS>
+        <SRS>EPSG:900913</SRS>
+        <SRS>ESRI:54004</SRS>
+    </Layer>
+
+    <!-- India -->
+    <Layer name="IND GSI 1:2M Geology">
+        <BBOX minx="68.1344" miny="6.79659" maxx="97.3964" maxy="37.0797"/>
+        <Scale min="50000" max="30000000"/>
+        <url>http://ogc.bgs.ac.uk/cgi-bin/BGS_GSI_Geology/wms?</url>
+        <layername>IND_GSI_2M_Geology</layername>
+        <SRS>EPSG:4326</SRS>
+        <SRS>EPSG:3857</SRS>
+    </Layer>
+    <!-- China -->
+    <Layer name="CHN CGS EN 1:1M Bedrock Lithostratigraphy">
+        <BBOX minx="73.499" miny="18.1609" maxx="135.08" maxy="53.5585"/>
+        <Scale min="50000" max="10000000"/>
+        <url>http://onegeologychina.cgs.gov.cn/cgi-bin/CGS_EN_Bedrock_Geology/wms.exe?</url>
+        <layername>CHN_CGS_EN_1M_BLS</layername>
+        <SRS>EPSG:4326</SRS>
+        <SRS>EPSG:4214</SRS>
+    </Layer>
+
+    <!-- South Korea -->
+    <Layer name="KOR KIGAM 1M Bedrock Geology">
+        <BBOX minx="124.032" miny="33.1138" maxx="131.873" maxy="43.0093"/>
+        <Scale min="50000" max="10000000"/>
+        <url>http://onegeology.kigam.re.kr/cgi-bin/KIGAM_Bedrock_Geology/wms?</url>
+        <layername>KOR_KIGAM_1M_BLS</layername>
+        <SRS>EPSG:4326</SRS>
+    </Layer>
+    <!-- Japan -->
+    <Layer name="JPN GSJ 1:1M Combined Bedrock and Superficial Geology and Age">
+        <BBOX minx="122.943" miny="20.4539" maxx="153.994" maxy="45.5541"/>
+        <Scale min="50000" max="10000000"/>
+        <url>https://gbank.gsj.jp/ows/GSJ_Combined_Bedrock_and_Superficial_Geology_and_Age/wms?</url>
+        <layername>JPN_GSJ_1M_Combined_BLT_SLT_BA</layername>
+        <SRS>EPSG:4326</SRS>
+        <SRS>EPSG:4612</SRS>
+        <SRS>EPSG:4301</SRS>
+        <SRS>EPSG:900913</SRS>
+        <SRS>ESRI:54004</SRS>
+    </Layer>
+    <!-- Afghanistan -->
+    <Layer name="AFG AGS 1:1M Bedrock Age">
+        <BBOX minx="59.443" miny="26.4857" maxx="75.7144" maxy="41.2513"/>
+        <Scale min="50000" max="10000000"/>
+        <url>http://ogc.bgs.ac.uk/cgi-bin/BGS_AGS_EN_Bedrock_and_Structural_Geology/wms?</url>
+        <layername>AFG_AGS_1M_BA</layername>
+        <SRS>EPSG:3031</SRS>
+        <SRS>EPSG:3034</SRS>
+        <SRS>EPSG:32641</SRS>
+        <SRS>EPSG:32642</SRS>
+        <SRS>EPSG:32643</SRS>
+        <SRS>EPSG:3413</SRS>
+        <SRS>EPSG:3857</SRS>
+        <SRS>EPSG:4258</SRS>
+        <SRS>EPSG:4326</SRS>
+        <SRS>EPSG:900913</SRS>
+    </Layer>
+    <!-- Iran -->
+    <Layer name="IRN GSI 1:1M bedrock geology">
+        <BBOX minx="44.0356" miny="24.7328" maxx="64.7367" maxy="40.1182"/>
+        <Scale min="50000" max="10000000"/>
+        <url>http://ogc.bgs.ac.uk/cgi-bin/BGS_GSI_EN_Bedrock_and_Structural_Geology/ows?</url>
+        <layername>IRN_GSI_1M_BG</layername>
+        <SRS>EPSG:4326</SRS>
+        <SRS>EPSG:3857</SRS>
+        <SRS>EPSG:9802</SRS>
+        <SRS>EPSG:900913</SRS>
+    </Layer>
+
+    <!-- Indonesia -->
+    <Layer name="IDN GRDC 1:1M Combined Bedrock and Superficial Geology and Age">
+        <BBOX minx="95.0098" miny="-10.941" maxx="141.311" maxy="5.89602"/>
+        <Scale min="50000" max="20000000"/>
+        <url>http://onegeology-asia.org/ows/GSJ_GRDC_Combined_Bedrock_and_Superficial_Geology_and_Age/wms?</url>
+        <layername>IDN_GRDC_1M_Combined_BLT_SLT_BA</layername>
+        <SRS>EPSG:4326</SRS>
+        <SRS>EPSG:900913</SRS>
+    </Layer>
+    <!-- Laos -->
+    <Layer name="Laos 1:1M Bedrock Lithology">
+        <BBOX minx="100.0784" miny="13.9124" maxx="107.65" maxy="22.505"/>
+        <Scale min="50000" max="10000000"/>
+        <url>http://gtkdata.gtk.fi/ArcGIS/services/LaosOneGeology/MapServer/WMSServer</url>
+        <layername>0</layername>
+        <SRS>EPSG:4326</SRS>
+        <SRS>CRS:84</SRS>
+    </Layer>
+    <!-- Eastern Malaysia -->
+    <Layer name="MYS Eastern JMG 1:1M Combined Bedrock and Superficial Geology and Age">
+        <BBOX minx="109.532" miny="0.851413" maxx="119.267" maxy="7.36374"/>
+        <Scale min="50000" max="10000000"/>
+        <url>http://onegeology-asia.org/ows/GSJ_JMG_Combined_Bedrock_and_Superficial_Geology_and_Age/wms?</url>
+        <layername>MYS_EASTERN_JMG_1M_Combined_BLT_SLT_BA</layername>
+        <SRS>EPSG:4326</SRS>
+        <SRS>EPSG:900913</SRS>
+    </Layer>
+    <!-- Peninsular Malaysia -->
+    <Layer name="MYS Peninsula JMG 1:1M Combined Bedrock and Superficial Geology and Age">
+        <BBOX minx="99.6554" miny="1.27802" maxx="104.548" maxy="6.71563"/>
+        <Scale min="50000" max="10000000"/>
+        <url>http://onegeology-asia.org/ows/GSJ_JMG_Combined_Bedrock_and_Superficial_Geology_and_Age/wms?</url>
+        <layername>MYS_PENINSULA_JMG_1M_Combined_BLT_SLT_BA</layername>
+        <SRS>EPSG:4326</SRS>
+        <SRS>EPSG:900913</SRS>
+    </Layer>
+    <!-- Philippines -->
+    <Layer name="PHL MGB 1:1M Combined Bedrock and Superficial Geology and Age">
+        <BBOX minx="116.929" miny="4.61528" maxx="126.606" maxy="20.937"/>
+        <Scale min="50000" max="10000000"/>
+        <url>http://onegeology-asia.org/ows/GSJ_MGB_Combined_Bedrock_and_Superficial_Geology_and_Age/wms?</url>
+        <layername>PHL_MGB_1M_Combined_BLT_SLT_BA</layername>
+        <SRS>EPSG:4326</SRS>
+        <SRS>EPSG:900913</SRS>
+    </Layer>
+    <!-- Thailand doesn't work -->
+
+    <!-- Myanmar -->
+    <Layer name="MMR DGSME 1:1M Combined Bedrock and Superficial Geology and Age">
+        <BBOX minx="92.2277" miny="9.65642" maxx="100.676" maxy="27.556"/>
+        <Scale min="50000" max="10000000"/>
+        <url>http://onegeology-asia.org/ows/GSJ_DGSME_Combined_Bedrock_and_Superficial_Geology_and_Age/wms?</url>
+        <layername>MMR_DGSME_1M_Combined_BLT_SLT_BA</layername>
+        <SRS>EPSG:4326</SRS>
+    </Layer>
+    <!-- Yemen -->
+    <Layer name="YEM YGSMRB 1:1M Bedrock">
+        <BBOX minx="42.667" miny="12.107" maxx="54.477" maxy="18.963"/>
+        <Scale min="50000" max="10000000"/>
+        <url>http://mapsref.brgm.fr/wxs/1GG/YGSMRB_Bedrock_and_Structural_Geology?</url>
+        <layername>YEM_YGSMRB_1M_Bedrock</layername>
+        <SRS>EPSG:4326</SRS>
+    </Layer>
+
+    <!-- Northern America DONE  -->
+    <!--Layer name="North America USGS 1:5M Geology">
+        <BBOX minx="-180" miny="7.35" maxx="-10" maxy="81"/>
+        <Scale min="5000000" max="40000000"/>
+        <url>http://certmapper.cr.usgs.gov/arcgis/services/one_geology_wms/USGS_Geologic_Map_of_North_America/MapServer/WMSServer</url>
+        <layername>0</layername>
+        <SRS>CRS:84</SRS>
+        <SRS>EPSG:4326</SRS>
+        <SRS>EPSG:3413</SRS>
+    </Layer-->
+
+    <!-- USA DONE -->
+    <Layer name="USA USGIN 1:3M Geologic Age">
+        <BBOX minx="-180" miny="-15.2" maxx="-63.5" maxy="90"/>
+        <Scale min="50000" max="40000000"/>
+        <url>http://services.azgs.az.gov/arcgis/services/OneGeology/AZGS_USGIN_Geology/MapServer/WMSServer</url>
+        <layername>USA_USGIN_3M_Geologic_Age</layername>
+        <SRS>EPSG:4326</SRS>
+    </Layer>
+    <!--Arizona-->
+    <Layer name="US-AZ AZGS 1M Geologic Age">
+        <BBOX minx="-114.81" miny="31.33" maxx="-109.04" maxy="37"/>
+        <Scale min="50000" max="5000000"/>
+        <url>http://services.azgs.az.gov/ArcGIS/services/OneGeology/AZGS_Arizona_Geology/MapServer/WMSServer</url>
+        <layername>US-AZ_AZGS_1M_Geologic_Age</layername>
+        <SRS>EPSG:4326</SRS>
+    </Layer>
+    <!--Illinois-->
+    <Layer name="Illinois ISGS Bedrock Geology">
+        <BBOX minx="-91.51" miny="36.96" maxx="-87.495" maxy="42.50"/>
+        <Scale min="50000" max="5000000"/>
+        <!--<url><![CDATA[http://moulin.isgs.uiuc.edu/ArcGIS/services/Geology/ISGS_Bedrock_Geology/MapServer/WMSServer]]></url>-->
+        <url>http://maps.isgs.illinois.edu/arcgis/services/OneGeology/ISGS_Bedrock_Geology/MapServer/WmsServer</url>
+        <layername>0</layername>
+        <SRS>CRS:84</SRS>
+        <SRS>EPSG:4326</SRS>
+        <SRS>EPSG:4269</SRS>
+    </Layer>
+    <!--Kentucky-->
+    <!--Layer name="US-KY KGS 1:500K Kentucky Geologic Formations">
+        <BBOX minx="-90.10" miny="36.31" maxx="-81.48" maxy="39.28"/>
+        <Scale min="50000" max="5000000"/>
+        <url>http://128.163.2.13/arcgis/services/KGS_Geology_and_Faults/MapServer/WMSServer</url>
+        <layername>0</layername>
+        <SRS>CRS:84</SRS>
+        <SRS>EPSG:4326</SRS>
+    </Layer-->
+    <!--New Mexico-->
+    <Layer name="US-NM NMBGMR 1:500k Geologic Age">
+        <BBOX minx="-109.050173" miny="31.332172" maxx="-103.001964" maxy="37.000293"/>
+        <Scale min="50000" max="5000000"/>
+        <url>http://services.azgs.az.gov/arcgis/services/OneGeology/AZGS_NMBGMR_Geology/MapServer/WMSServer</url>
+        <layername>US-NM_NMBGMR_500k_Geologic_Age</layername>
+        <SRS>CRS:84</SRS>
+        <SRS>EPSG:4326</SRS>
+    </Layer>
+    <!--Hawai-->
+    <Layer name="US-HI HIGS 1:250k Geologic Age">
+        <BBOX minx="-161" miny="18" maxx="-153" maxy="24"/>
+        <Scale min="50000" max="5000000"/>
+        <url>http://services.azgs.az.gov/arcgis/services/OneGeology/AZGS_HIGS_Geology/MapServer/WMSServer?</url>
+        <layername>US-HI_HIGS_250k_Geologic_Age</layername>
+        <SRS>CRS:84</SRS>
+        <SRS>EPSG:4326</SRS>
+    </Layer>
+    <!--Idaho-->
+    <Layer name="US-ID IDGS 1:750k Geologic Age">
+        <BBOX minx="-117" miny="41" maxx="-111" maxy="49"/>
+        <Scale min="50000" max="5000000"/>
+        <url>http://services.azgs.az.gov/arcgis/services/OneGeology/AZGS_IDGS_Geology/MapServer/WMSServer?</url>
+        <layername>US-ID_IDGS_750k_Geologic_Age</layername>
+        <SRS>CRS:84</SRS>
+        <SRS>EPSG:4326</SRS>
+    </Layer>
+
+
+    <!-- Greenland -->
+    <Layer name="GRL GEUS 1:2.5M Geology">
+        <BBOX minx="-74" miny="59" maxx="-8" maxy="84"/>
+        <Scale min="50000" max="40000000"/>
+        <url>http://jupiter.geus.dk/GRL_GEUS_Bedrock_and_Superficial_Geology/wms/mapserv.exe?map=onegeology.map&amp;
+        </url>
+        <layername>GRL_GEUS_2500k_GEO</layername>
+        <SRS>EPSG:4326</SRS>
+    </Layer>
+
+
+    <!-- Canada DONE but a lot of are not working-->
+    <Layer name="CAN GSC 1:5M Bedrock">
+        <BBOX minx="-146" miny="40" maxx="-50" maxy="89"/>
+        <Scale min="50000" max="40000000"/>
+        <url>http://gin.gw-info.net/service/onegeology/wms/mediator/GSC_EN_Geological_Formations</url>
+        <layername>CAN_GSC_1:5M_Bedrock</layername>
+        <SRS>EPSG:900913</SRS>
+        <SRS>EPSG:3857</SRS>
+        <SRS>EPSG:4326</SRS>
+    </Layer>
+    <!--Layer name="CAN MGS 1:250K Quaternary Age - Manitoba">
+        <BBOX minx="-102" miny="49" maxx="-88" maxy="60"/>
+        <Scale min="50000" max="5000000"/>
+        <url>http://geoapp2.gov.mb.ca/wmsconnector/com.esri.wms.Esrimap/CAN_MGS_Chronostrat_WMS?</url>
+        <layername>Quaternary</layername>
+        <SRS>EPSG:4326</SRS>
+    </Layer-->
+    <!--Layer name="CAN GSNL 1:1M Bedrock Geology">
+        <BBOX minx="-67" miny="46" maxx="-52.62" maxy="60"/>
+        <Scale min="50000" max="5000000"/>
+        <url>http://gis.geosurv.gov.nl.ca/wmsconnector/com.esri.wms.Esrimap/NAD27_MineralResources_NL?</url>
+        <layername>%20Million%20Bedrock%20Geology</layername>
+        <SRS>EPSG:4326</SRS>
+    </Layer-->
+    <!--Layer name="CAN ON OGS 1M QUATERNARY GEOLOGY">
+        <BBOX minx="-95" miny="41.69" maxx="-74.32" maxy="56.85"/>
+        <Scale min="50000" max="5000000"/>
+        <url>http://www.geologyontario.mndm.gov.on.ca:80/wmsconnector/com.esri.wms.Esrimap/CAN_ON_OGS_1M_QUATERNARY_GEOLOGY?</url>
+        <layername>quaternary1m</layername>
+        <SRS>EPSG:4326</SRS>
+    </Layer-->
+    <!--Layer name="CAN MGS 1:250K Surficial Geology - Red River Valley">
+        <BBOX minx="-98" miny="45.5" maxx="-95" maxy="51"/>
+        <Scale min="50000" max="5000000"/>
+        <url>http://geoapp2.gov.mb.ca/wmsconnector/com.esri.wms.Esrimap/CAN_MGS_RedRiverValley_WMS?</url>
+        <layername>Red%20River%20Valley%20Quaternary%20Geology</layername>
+        <SRS>EPSG:4326</SRS>
+    </Layer>
+    <Layer name="CAN MGS 1:1M Cambrian Age - Williston Basin">
+        <BBOX minx="-106" miny="48.99" maxx="-99.71" maxy="55.50"/>
+        <Scale min="50000" max="5000000"/>
+        <url>http://geoapp2.gov.mb.ca/wmsconnector/com.esri.wms.Esrimap/CAN_MGS_WillistonBasin_Chronostrat_WMS?</url>
+        <layername>Cambrian</layername>
+        <SRS>EPSG:4326</SRS>
+    </Layer-->
+
+    <!-- EUROPE DONE-->
+
+    <!-- Europe continent-->
+    <!--Layer name="Europe BGR 5M Geological Units - Onshore">
+        <BBOX minx="-70.7674" miny="21.2045" maxx="99.4712" maxy="80.8795"/>
+        <Scale min="10000000" max="40000000"/>
+        <url>http://www.bgr.de/Service/OneGeology/BGR_Geological_Units_IGME5000/?</url>
+        <layername>EUROPE_BGR_5M_ONSH</layername>
+        <SRS>EPSG:4326</SRS>
+    </Layer-->
+    <Layer name="Europe GISEurope 1:1.5M Bedrock Age">
+        <BBOX minx="-10.6181" miny="34.5621" maxx="34.5858" maxy="62.4007"/>
+        <Scale min="500000" max="40000000"/>
+        <!--Scale min="500000" max="10000000"/-->
+        <url>http://mapsref.brgm.fr/wxs/1GG/GISEurope_Bedrock_and_Structural_Geology?</url>
+        <!--<url>http://mapdmzrec.brgm.fr/cgi-bin/mapserv?map=/carto/ogg/mapFiles/GISEurope_Bedrock_and_Structural_Geology.map&</url>-->
+        <layername>Europe_GISEurope_1500K_BedrockAge</layername>
+        <SRS>EPSG:4326</SRS>
+        <SRS>EPSG:3034</SRS>
+    </Layer>
+    <!-- Commonwealth of Independent States : eg; Russia +other countries-->
+    <Layer name="CIS VSEGEI 1:1M Geology">
+        <BBOX minx="-180" miny="35" maxx="180" maxy="83"/>
+        <Scale min="500000" max="45000000"/>
+        <url>http://wms.vsegei.ru/VSEGEI_Bedrock_geology/wms?</url>
+        <!--<layername>RUSSIA_VSEGEI_1M_BLS</layername>-->
+        <layername>RUSSIA_VSEGEI_1M_BLS</layername>
+        <SRS>EPSG:4326</SRS>
+        <SRS>EPSG:3857</SRS>
+    </Layer>
+    <Layer name="CIS VSEGEI 1:200K Geology">
+        <BBOX minx="-180" miny="35" maxx="180" maxy="83"/>
+        <Scale min="50000" max="10000000"/>
+        <url>http://wms.vsegei.ru/VSEGEI_Bedrock_geology2/wms?</url>
+        <!--<layername>RUSSIA_VSEGEI_1M_BLS</layername>-->
+        <layername>CIS_VSEGEI_200K_BLS</layername>
+        <SRS>EPSG:4326</SRS>
+        <SRS>EPSG:3857</SRS>
+    </Layer>
+    <!-- Switzerland -->
+    <Layer name="CHE SGS 500k GeologicalUnits">
+        <BBOX minx="5.775" miny="45.68" maxx="11.45" maxy="47.91"/>
+        <Scale min="50000" max="10000000"/>
+        <url>http://wms.ga.admin.ch/LG_DE_Geologie_und_Tektonik/wms?</url>
+        <layername>CHE_LG_500K_GeologischeEinheiten</layername>
+        <SRS>EPSG:4326</SRS>
+        <SRS>EPSG:900913</SRS>
+        <SRS>EPSG:3857</SRS>
+        <SRS>EPSG:4258</SRS>
+        <SRS>EPSG:3034</SRS>
+    </Layer>
+    <!-- CZECH -->
+    <Layer name="CZE CGS 500k GUnits">
+        <BBOX minx="11.9266" miny="48.47" maxx="18.965" maxy="51.1444"/>
+        <Scale min="50000" max="10000000"/>
+        <url>http://mapy.geology.cz/arcgis/services/Projekty/CGS_Bedrock_Geology/MapServer/WMSServer?</url>
+        <layername>0</layername>
+        <SRS>EPSG:4326</SRS>
+    </Layer>
+    <!-- Hungary doesn't work -->
+    <!-- Poland -->
+    <!--Layer name="POL PGI 1:1M Geological units">
+        <BBOX minx="14.1234" miny="49.002" maxx="24.1458" maxy="54.8358"/>
+        <Scale min="50000" max="10000000"/>
+        <url>http://onegeology.pgi.gov.pl/cgi-bin/mapserv?map=/u01/PGI_MOS_PL_Superficial_Geology/Poland.map&amp;</url>
+        <layername>POL_PGI_1M_GeoUnits</layername>
+        <SRS>EPSG:4326</SRS>
+        <SRS>EPSG:4258</SRS>
+        <SRS>EPSG:3034</SRS>
+        <SRS>EPSG:3857</SRS>
+    </Layer-->
+    <!-- Romania doesn't work -->
+    <!-- Slovakia doesn't work -->
+    <!-- Denmark -->
+    <!--Layer name="DNK GEUS 1:1 M Geology">
+        <BBOX minx="7.61" miny="54.25" maxx="16.5" maxy="58.15"/>
+        <Scale min="50000" max="10000000"/>
+        <url>http://jupiter.geus.dk/DNK_GEUS_Bedrock_and_Superficial_Geology/wms/mapserv.exe?map=onegeology.map</url>
+        <layername>DNK_GEUS_SUP</layername>
+        <SRS>EPSG:4326</SRS>
+    </Layer-->
+    <!-- Estonia -->
+    <Layer name="EST EGK 1:400k Bedrock Age">
+        <BBOX minx="21.5" miny="54.4" maxx="15.45" maxy="60"/>
+        <Scale min="50000" max="10000000"/>
+        <url>http://kaart.maaamet.ee/wms/ENLB_Bedrock_Geology/wms?</url>
+        <layername>EST_EGK_400k_BA</layername>
+        <SRS>EPSG:4326</SRS>
+    </Layer>
+    <!-- Finland -->
+    <Layer name="FIN GTK 1:1M Superficial Lithology">
+        <BBOX minx="16.1658" miny="59.664023" maxx="33.111754" maxy="70.094"/>
+        <Scale min="50000" max="10000000"/>
+        <url>http://gtkdata.gtk.fi/arcgis/services/GTK_Bedrock_and_Superficial_Geology2/MapServer/WMSServer?</url>
+        <layername>0</layername>
+        <SRS>EPSG:4326</SRS>
+        <SRS>EPSG:3034</SRS>
+        <SRS>EPSG:4258</SRS>
+    </Layer>
+    <!-- Ireland -->
+    <Layer name="IRL GSI 1:500K Bedrock Solid Geology">
+        <BBOX minx="-10.656" miny="51.42046" maxx="-5.4296" maxy="55.43507"/>
+        <Scale min="50000" max="10000000"/>
+        <url>https://secure.dccae.gov.ie/arcgis/services/OneGeology/IRL_GSI_1M_OGE/MapServer/WMSServer?</url>
+        <layername>OGE_1M_bedrock_GeologicUnit</layername>
+        <SRS>EPSG:4326</SRS>
+    </Layer>
+    <!-- Norway -->
+    <!--Layer name="NOR NGU 1:1M SUPERFICIAL DEPOSIT POLYGON">
+        <BBOX minx="-2.55991" miny="57.0881" maxx="33.0199" maxy="71.8912"/>
+        <Scale min="50000" max="10000000"/>
+        <url>http://geo.ngu.no/mapserver/NGU_Bedrock_and_Superficial_Geology/wms?</url>
+        <layername>NOR_NGU_1M_SDP</layername>
+        <SRS>EPSG:4326</SRS>
+        <SRS>EPSG:4258</SRS>
+        <SRS>EPSG:3034</SRS>
+        <SRS>EPSG:900913</SRS>
+    </Layer-->
+    <Layer name="NOR NGU 1:1M EGDI Bedrock Lithology">
+        <BBOX minx="-2.55991" miny="57.0881" maxx="33.0199" maxy="71.8912"/>
+        <Scale min="50000" max="10000000"/>
+        <url>http://geo.ngu.no/egdi/egdi_portrayalservice/ows?</url>
+        <layername>egdi_portrayalservice:NOR_NGU_1M_EGDI_BLT</layername>
+        <SRS>EPSG:4326</SRS>
+        <SRS>EPSG:4258</SRS>
+        <SRS>EPSG:3034</SRS>
+    </Layer>
+    <!-- Sweden -->
+    <Layer name="SWE SGU 1:1M Bedrock Lithology (polygons)">
+        <BBOX minx="10.989" miny="55.3320" maxx="24.154" maxy="69.0617"/>
+        <Scale min="50000" max="10000000"/>
+        <url>http://resource.sgu.se/service/wms/inspire/SGU_Bedrock_Geology?</url>
+        <layername>GE.GeologicUnit.SGU.Bedrock_1M.Lithology.Polygon</layername>
+        <SRS>EPSG:4326</SRS>
+    </Layer>
+    <!-- UK -->
+    <Layer name="1GE BGS 1M surface Geologic Unit">
+        <BBOX minx="-8.64839" miny="49.8638" maxx="1.76755" maxy="60.861"/>
+        <Scale min="100000" max="10000000"/>
+        <url>http://ogc2.bgs.ac.uk/1GEConnector/surface/?</url>
+        <layername>OGE_1M_surface_GeologicUnit</layername>
+        <SRS>EPSG:4326</SRS>
+        <SRS>EPSG:3034</SRS>
+        <SRS>EPSG:4258</SRS>
+    </Layer>
+    <Layer name="GBR BGS 1:50k Superficial deposits">
+        <BBOX minx="-8.34" miny="49.8638" maxx="2.69" maxy="60.861"/>
+        <Scale min="1000" max="100000"/>
+        <url>http://maps.bgs.ac.uk/ArcGIS/services/BGS_Detailed_Geology/MapServer/WMSServer</url>
+        <layername>1</layername>
+        <SRS>CRS:84</SRS>
+        <SRS>EPSG:4326</SRS>
+    </Layer>
+    <!-- Albania -->
+    <Layer name="1GG AGS 1M surface Geologic Unit">
+        <BBOX minx="19.264" miny="39.5829" maxx="21.06" maxy="42.6612"/>
+        <Scale min="50000" max="10000000"/>
+        <url>http://pektolit.geo-zs.si/cgi-bin/1gg-ags</url>
+        <layername>OGG_1M_surface_GeologicUnit</layername>
+        <SRS>EPSG:4326</SRS>
+    </Layer>
+    <!-- Bosnia Hercegovina -->
+    <Layer name="1GG GSBIH 1M surface Geologic Unit">
+        <BBOX minx="15.7287" miny="42.5563" maxx="19.6296" maxy="45.2765"/>
+        <Scale min="50000" max="10000000"/>
+        <url>http://pektolit.geo-zs.si/cgi-bin/1gg-gsbih?</url>
+        <layername>OGG_1M_surface_GeologicUnit</layername>
+        <SRS>EPSG:4326</SRS>
+    </Layer>
+    <!-- Italy -->
+    <!--Layer name="ITA_ISPRA/SGI_EN_500k_GeologicUnit">
+        <BBOX minx="6.539" miny="35.589" maxx="19.61" maxy="47.1366"/>
+        <Scale min="50000" max="10000000"/>
+        <url>http://sgi2.isprambiente.it:80/wmsconnector/com.esri.wms.Esrimap/oneg_eng?</url>
+        <layername>ITA_ISPRASGI_EN_500k_GeologicUnit</layername>
+        <SRS>EPSG:4326</SRS>
+    </Layer-->
+    <!-- Portugal doesn't work -->
+    <!-- Serbia -->
+    <Layer name="1GG MEMSPRS 1M surface Geologic Unit">
+        <BBOX minx="18.8408" miny="42.2322" maxx="23.0039" maxy="46.1872"/>
+        <Scale min="50000" max="10000000"/>
+        <url>http://pektolit.geo-zs.si/cgi-bin/1gg-memsprs</url>
+        <layername>OGG_1M_surface_GeologicUnit</layername>
+        <SRS>EPSG:4326</SRS>
+    </Layer>
+    <!-- Macedonia -->
+    <!--Layer name="MKD GSRM EN 1:500k Geological Formation">
+        <BBOX minx="40.85278" miny="40.852788" maxx="23.03632" maxy="42.3756"/>
+        <Scale min="50000" max="10000000"/>
+        <url>http://gis.geol.gov.mk:8080/geoserver/GSRM_EN_Geological_Formation/ows</url>
+        <layername>MKD_GSRM_EN_500k_SLT</layername>
+        <SRS>EPSG:4326</SRS>
+    </Layer-->
+    <!-- Slovenia -->
+    <Layer name="1GG GeoZS 1M surface Geologic Unit">
+        <BBOX minx="13.2753" miny="45.3218" maxx="16.7107" maxy="46.9767"/>
+        <Scale min="50000" max="10000000"/>
+        <url>http://pektolit.geo-zs.si/cgi-bin/1gg-geozs?</url>
+        <layername>OGG_1M_surface_GeologicUnit</layername>
+        <SRS>EPSG:4326</SRS>
+        <SRS>EPSG:3034</SRS>
+        <SRS>EPSG:4258</SRS>
+    </Layer>
+    <!-- Spain -->
+    <Layer name="ESP IGME EN 1:1M Age">
+        <BBOX minx="-21.2543" miny="27.470932" maxx="4.7926" maxy="43.8824"/>
+        <Scale min="50000" max="10000000"/>
+        <url>http://mapas.igme.es/gis/services/oneGeology/IGME_EN_Geology/MapServer/WMSServer</url>
+        <layername>0</layername>
+        <SRS>EPSG:4326</SRS>
+        <SRS>EPSG:4258</SRS>
+    </Layer>
+    <!-- Austria -->
+    <Layer name="AT GBA 1:1.5M Bedrock Lithology">
+        <BBOX minx="9.5316" miny="46.37" maxx="17.16" maxy="49.0207"/>
+        <Scale min="50000" max="10000000"/>
+        <url>http://gisgba.geologie.ac.at/ArcGIS/services/OneGeologyGBA/MapServer/WMSServer</url>
+        <layername>AT GBA 1:1.5M Bedrock Lithology</layername>
+        <SRS>EPSG:4326</SRS>
+    </Layer>
+    <!-- Belgium -->
+    <!-- name="1GE GSB 1:250.000 surface Geologic Unit">
+        <BBOX minx="2.54167" miny="49.50888" maxx="6.3982" maxy="51.50125"/>
+        <Scale min="50000" max="10000000"/>
+        <url>http://onegeology.naturalsciences.be/1GEconnector/</url>
+        <layername>OGE_1M_surface_GeologicUnit</layername>
+        <SRS>EPSG:4326</SRS>
+    </Layer-->
+    <!-- France -->
+    <Layer name="FR BRGM 1:1M Surface Geologic Units Age">
+        <BBOX minx="-5.500" miny="41.3121" maxx="11.0363" maxy="51.0874"/>
+        <Scale min="50000" max="10000000"/>
+        <url>http://mapsref.brgm.fr/wxs/1GG/BRGM_1M_INSPIRE_geolUnits_geolFaults?</url>
+        <layername>GE_GeologicUnit_BRGM_EN_1M_Surface_Age</layername>
+        <SRS>EPSG:4326</SRS>
+        <SRS>EPSG:3034</SRS>
+        <SRS>EPSG:4258</SRS>
+    </Layer>
+    <!-- Germany -->
+    <Layer name="DEU BGR 1:M Surface Age">
+        <BBOX minx="5" miny="46" maxx="15" maxy="55"/>
+        <Scale min="50000" max="10000000"/>
+        <url>https://services.bgr.de/wms/geologie/BGR_EN_Surface_Geology/?</url>
+        <layername>DEU_BGR_1M_Surface_Age</layername>
+        <SRS>EPSG:4326</SRS>
+        <SRS>EPSG:3034</SRS>
+        <SRS>EPSG:4258</SRS>
+    </Layer>
+    <!-- Ukraine  -->
+    <Layer name="UKR GIU EN 1:1M Bedrock Age">
+        <BBOX minx="21.706111" miny="43.947555" maxx="41.030733" maxy="52.559740"/>
+        <Scale min="50000" max="10000000"/>
+        <url>http://geogis.kiev.ua/arcgis/services/OneGeology/GIU_EN_Bedrock_Age/MapServer/WmsServer?</url>
+        <layername>UKR_GIU_EN_1M_Bedrock_Age</layername>
+        <SRS>EPSG:4326</SRS>
+    </Layer>
+    <!-- Lux doesn't work -->
+    <!-- Netherlands doesn't work -->
+
+    <!-- Latin America  DONE -->
+    <!-- Dominican Republic -->
+    <Layer name="DOM SGN 1:250k GeologicalUnits">
+        <BBOX minx="-72" miny="17.53" maxx="-68.317" maxy="19.94"/>
+        <Scale min="50000" max="10000000"/>
+        <url>http://mapas.igme.es/gis/services/PSysmin/IGME_SGN_EN_Geology/MapServer/WMSServer</url>
+        <layername>0</layername>
+        <SRS>EPSG:4326</SRS>
+    </Layer>
+    <!-- Jamaïca -->
+    <Layer name="Jamaica MGD 1:130,000 Bedrock Age">
+        <BBOX minx="-78.3703" miny="17.7029" maxx="-76.1825" maxy="18.5212"/>
+        <Scale min="50000" max="10000000"/>
+        <url>http://ogc.bgs.ac.uk/cgi-bin/BGS_MGD_Bedrock_Geology/ows?</url>
+        <layername>JAM_MGD_EN_130K_BA</layername>
+        <SRS>EPSG:4326</SRS>
+    </Layer>
+
+
+    <!-- Andes -->
+    <Layer name="Andes BRGM 1:2M Detailed Geology">
+        <BBOX minx="-84.75" miny="-57.96" maxx="-56.46" maxy="19.96"/>
+        <Scale min="50000" max="50000000"/>
+        <url>http://mapsref.brgm.fr/wxs/1GG/SIGAndes_BRGM?</url>
+        <layername>ANDES_SIGAndes_12M_DETAILED_GEOL</layername>
+        <SRS>EPSG:4326</SRS>
+    </Layer>
+    <!-- Argentina -->
+    <!--Layer name="ARG SEGEMAR 1:5M Superficial Geology">
+        <BBOX minx="-73.56" miny="-55.0629" maxx="-53.635" maxy="-21.777"/>
+        <Scale min="50000" max="50000000"/>
+        <url>http://www.onegeology-arg.com.ar:80/geoserver/wms?SERVICE=WMS&amp;</url>
+        <layername>GeoSciML:arg5m_geo</layername>
+        <SRS>EPSG:4326</SRS>
+    </Layer-->
+    <!-- Brazil -->
+    <Layer name="BRA CPRM 1:1M Bedrock">
+        <BBOX minx="-73.99" miny="-33.7515" maxx="-34.7897" maxy="5.28284"/>
+        <Scale min="50000" max="50000000"/>
+        <url>http://geoserver.cprm.gov.br/geoserver/CPRM_EN_Bedrock_and_Age/wms</url>
+        <layername>BRA_CPRM_1M_Bedrock</layername>
+        <SRS>EPSG:4326</SRS>
+    </Layer>
+    <!-- Chile -->
+    <!--Layer name="CHL SERNAGEOMIN 1M Bedrock Lithostratigraphy">
+        <BBOX minx="-75.69" miny="-56.5326" maxx="-66.4074" maxy="-17.4986"/>
+        <Scale min="50000" max="50000000"/>
+        <url>http://ogc.sernageomin.cl/cgi-bin/SNGM_Bedrock_Geology/wms.exe?</url>
+        <layername>CHL_SERNAGEOMIN_1M_BLS</layername>
+        <SRS>EPSG:4326</SRS>
+    </Layer-->
+    <!-- Falkland -->
+    <Layer name="FLK FIG 1:1M Solid Age">
+        <BBOX minx="-61.4512" miny="-52.1193" maxx="-57.6842" maxy="-51.0002"/>
+        <Scale min="50000" max="50000000"/>
+        <url>http://ogc.bgs.ac.uk/cgi-bin/BGS_FIG_Bedrock_and_Superficial_Geology/wms?</url>
+        <layername>FLK_FIG_SOLID_AGE</layername>
+        <SRS>EPSG:3031</SRS>
+        <SRS>EPSG:3857</SRS>
+        <SRS>EPSG:4326</SRS>
+        <SRS>EPSG:900913</SRS>
+    </Layer>
+    <!-- Peru ... WMS not responding -->
+    <!-- Suriname -->
+    <!--Layer name="SUR TNO 1M SLT">
+        <BBOX minx="-59.285" miny="1.183" maxx="-53.34" maxy="6.462"/>
+        <Scale min="50000" max="50000000"/>
+        <url>http://www.dinoservices.nl/wms/dinomap/M08M0006</url>
+        <layername>SUR%20TNO%201M%20SLT</layername>
+        <SRS>EPSG:4326</SRS>
+        <SRS>EPSG:4258</SRS>
+    </Layer-->
+
+
+    <!-- Oceania DONE -->
+    <!-- Australia -->
+    <!--Layer name="AUS GA 1:5M Geological Regions">
+        <BBOX minx="112" miny="-43" maxx="153" maxy="-10"/>
+        <Scale min="30000000" max="40000000"/>
+        <url>http://www.ga.gov.au/gis/services/earth_science/GA_Surface_Geology_of_Australia/MapServer/WMSServer</url>
+        <layername>AUS_GeoRegions_5M</layername>
+        <SRS>EPSG:4326</SRS>
+    </Layer>
+    <Layer name="AUS GA 1:2.5M Geological Unit Polygons - Lithology">
+        <BBOX minx="112" miny="-43" maxx="153" maxy="-10"/>
+        <Scale min="1000000" max="30000000"/>
+        <url>http://www.ga.gov.au/gis/services/earth_science/GA_Surface_Geology_of_Australia/MapServer/WMSServer</url>
+        <layername>AUS_GA_2500k_GUPoly_Lithology</layername>
+        <SRS>EPSG:4326</SRS>
+    </Layer>
+    <Layer name="AUS GA 1:1M Geological Unit Polygons - Lithology">
+        <BBOX minx="112" miny="-43" maxx="153" maxy="-10"/>
+        <Scale min="50000" max="1000000"/>
+        <url>http://www.ga.gov.au/gis/services/earth_science/GA_Surface_Geology_of_Australia/MapServer/WMSServer</url>
+        <layername>AUS_GA_1M_GUPoly_Lithology</layername>
+        <SRS>EPSG:4326</SRS>
+    </Layer-->
+
+    <Layer name="AUS GA 1:2.5M GUPoly Age">
+        <BBOX minx="112" miny="-43" maxx="153" maxy="-10"/>
+        <Scale min="500000" max="45000000"/>
+        <url>http://services.ga.gov.au/gis/services/GA_Surface_Geology/MapServer/WmsServer</url>
+        <layername>AUS_GA_2500k_GUPoly_Age</layername>
+        <SRS>EPSG:4326</SRS>
+        <SRS>EPSG:3857</SRS>
+    </Layer>
+
+    <!--
+       <Layer name="AUS GA 1:2.5M Geologic Unit - Age">
+            <BBOX minx="137.9" miny="-44" maxx="155" maxy="-8.9"/>
+            <Scale min="5000000" max="40000000"/>
+            <url><![CDATA[http://www.ga.gov.au/wms/getmap?dataset=geows&]]></url>
+            <layername>AUS_GA_2500k_BA</layername>
+            <SRS>EPSG:4326</SRS>
+        </Layer>
+       <Layer name="East AUS GA 1:1M Geologic Unit - Age">
+            <BBOX minx="137.9" miny="-44" maxx="155" maxy="-8.9"/>
+            <Scale min="50000" max="5000000"/>
+            <url><![CDATA[http://www.ga.gov.au/wms/getmap?dataset=geows&]]></url>
+            <layername>EastAUS_GA_1M_BA</layername>
+            <SRS>EPSG:4326</SRS>
+        </Layer>
+       <Layer name="Northern Territory AUS GA 1:1M Geologic Unit - Age">
+            <BBOX minx="129" miny="-26" maxx="138" maxy="-11"/>
+            <Scale min="50000" max="5000000"/>
+            <url><![CDATA[http://www.ga.gov.au/wms/getmap?dataset=geows&]]></url>
+            <layername>NT_AUS_GA_1M_BA</layername>
+            <SRS>EPSG:4326</SRS>
+        </Layer>
+        <Layer name="South AUS GA 1:1M Geologic Unit - Age">
+            <BBOX minx="129" miny="-39" maxx="141" maxy="-26"/>
+            <Scale min="50000" max="5000000"/>
+            <url><![CDATA[http://www.ga.gov.au/wms/getmap?dataset=geows&]]></url>
+            <layername>SA_AUS_GA_1M_BA</layername>
+            <SRS>EPSG:4326</SRS>
+        </Layer>
+        <Layer name="Western AUS GA 1:1M Geologic Unit - Age">
+            <BBOX minx="112.5" miny="-35.5" maxx="129" maxy="-13.5"/>
+            <Scale min="50000" max="5000000"/>
+            <url><![CDATA[http://www.ga.gov.au/wms/getmap?dataset=geows&]]></url>
+            <layername>WA_AUS_GA_1M_BA</layername>
+            <SRS>EPSG:4326</SRS>
+        </Layer>
+    -->
+
+
+    <!-- New Zealand -->
+    <Layer name="NZL GNS 1:1M Geological Units">
+        <BBOX minx="166.427" miny="-47.293" maxx="178.577" maxy="-34.145"/>
+        <Scale min="50000" max="40000000"/>
+        <url>http://maps.gns.cri.nz/GNS_Geology/ows</url>
+        <layername>gns:NZL_GNS_1M_Geological_Units</layername>
+        <SRS>EPSG:4326</SRS>
+    </Layer>
+</AutoLayerMembers>

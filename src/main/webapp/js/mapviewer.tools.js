@@ -1,5 +1,6 @@
 /**
  * Common tools for the portal
+ * @constructor
  */
 mapviewer.tools = {
 
@@ -18,14 +19,22 @@ mapviewer.tools = {
       wmsVersion = "1.3.0";
     }
     var defer = $.Deferred();
-    var format = new ol.format.WMSCapabilities({
-      version: wmsVersion
-    });
+    var format;
     if (!serviceType) {
       serviceType = "WMS";
     }
-    if (serviceType.toLowerCase() === "wfs") {
-      format = new ol.format.WFS();
+    switch (serviceType.toLowerCase()) {
+      case 'wms':
+        format = new ol.format.WMSCapabilities({
+          version: wmsVersion
+        });
+        break;
+      case 'wmts':
+        format = new ol.format.WMTSCapabilities()
+        break;
+      case 'wfs':
+        format = new ol.format.WFS();
+        break;
     }
 
     if (url.indexOf("?") === -1) {
@@ -76,10 +85,12 @@ mapviewer.tools = {
             }
           } else {
             capabilities = format.read(result);
-            if (!capabilities.Capability.Layer.Layer) {
-              capabilities.Capability.Layer.Layer = [Object.assign({}, capabilities.Capability.Layer)];
+            if (serviceType === "WMS") {
+              if (!capabilities.Capability.Layer.Layer) {
+                capabilities.Capability.Layer.Layer = [Object.assign({}, capabilities.Capability.Layer)];
+              }
+              mapviewer.tools.updateAllLayersTitles(capabilities.Capability.Layer.Layer);
             }
-            mapviewer.tools.updateAllLayersTitles(capabilities.Capability.Layer.Layer);
           }
         } catch (e) {
           defer.reject(e);
@@ -96,15 +107,15 @@ mapviewer.tools = {
               });
           } else if (serviceType === 'WMS') {
             mapviewer.tools.getCapabilities(url.split('?')[0], 'WFS')
-              .done(function(r) {
-                if(r && r.FeatureTypeList && r.FeatureTypeList.FeatureType && r.FeatureTypeList.FeatureType.length > 0) {
+              .done(function (r) {
+                if (r && r.FeatureTypeList && r.FeatureTypeList.FeatureType && r.FeatureTypeList.FeatureType.length > 0) {
                   capabilities.downloadFeatureUrl = url.split('?')[0] + '?request=GetCapabilities&service=WFS';
                 } else {
                   capabilities.downloadFeatureUrl = false;
                 }
                 defer.resolve(capabilities);
               })
-              .fail(function(e){
+              .fail(function (e) {
                 capabilities.downloadFeatureUrl = false;
                 defer.resolve(capabilities);
               });
@@ -376,6 +387,10 @@ mapviewer.tools = {
         if (stringKeywords.indexOf('geosciml_portrayal_age_or_litho_queryable') >= 0) {
           layer.Title += ' (GeoSciML Portrayal)'
         }
+      } else if (layer.Dimension && layer.Dimension.length > 0) {
+        if (layer.Dimension[0].name === 'time' || _.isDate(layer.Dimension[0].default)) {
+          layer.Title += ' (with time)';
+        }
       }
     });
   },
@@ -446,6 +461,22 @@ mapviewer.tools = {
       }
     }
     return attributes;
+  },
+
+  /**
+   * (recursive) Flattens the in-depth layer list from GetCapabilities
+   * @param {any[]} layerList layerList
+   * @returns {any[]} Flattened layer capabilities list
+   */
+  flattenLayerCapabilities: function (layerList) {
+    var finalList = [];
+    _.each(layerList, function (layer) {
+      finalList.push(layer);
+      if (layer.Layer) {
+        finalList = finalList.concat(mapviewer.tools.flattenLayerCapabilities(layer.Layer));
+      }
+    });
+    return finalList;
   },
 
   /**
@@ -779,5 +810,50 @@ mapviewer.tools = {
     lastList = _.sortBy(lastList, fieldName);
 
     return firstList.concat(secondList).concat(lastList);
+  },
+
+  /**
+   * Converts interval time code to milliseconds
+   * @param {string} code Interval time code
+   * @returns {number} milliseconds for the interval
+   */
+  getTimeStepFromStandard: function (code) {
+    // https://docs.microsoft.com/en-us/windows/win32/taskschd/taskschedulerschema-interval-restarttype-element
+    // P<days>DT<hours>H<minutes>M<seconds>S
+    var step = 0; // milliseconds
+    var times = code.match(/[0-9]+[DHMS]/);
+    if (times && times.length > 0) {
+      for (let i = 0; i < times.length; i++) {
+        if (times[i].indexOf('D') >= 0) {
+          step += parseInt(times[i].replace('D', ''), 10) * 24 * 3600000;
+        } else if (times[i].indexOf('H') >= 0) {
+          step += parseInt(times[i].replace('H', ''), 10) * 3600000;
+        } else if (times[i].indexOf('M') >= 0) {
+          step += parseInt(times[i].replace('M', ''), 10) * 60000;
+        } else if (times[i].indexOf('S') >= 0) {
+          step += parseInt(times[i].replace('S', ''), 10) * 1000;
+        }
+      }
+    }
+    return step;
+  },
+
+  /**
+   * Transforms a number from time unit to milliseconds
+   * @param {number} value Number to transform
+   * @param {string} unit Time unit
+   * @returns {number} Converted number to milliseconds
+   */
+  transformToTime(value, unit) {
+    var factor = 0;
+    switch (unit) {
+      case 'D': factor = 3600000 * 24;
+        break;
+      case 'H': factor = 3600000;
+        break;
+      case 'M': factor = 60000;
+        break;
+    }
+    return value * factor;
   }
 }

@@ -518,6 +518,18 @@
       top: calculateRem(-1px);
     }
   }
+  .layerTimeManagement {
+    .layer-time-form {
+      .btn {
+        .fa {
+          margin-right: 0.25rem;
+        }
+      }
+    }
+    .layer-time-stop-btn {
+      margin-left: 0.5rem;
+    }
+  }
 }
 
 .ui-sortable-helper {

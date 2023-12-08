@@ -1,5 +1,6 @@
 # One Geology
 
+[Technical Documentation](./documentation/technical/README.md)
 
 ## Dev information
 

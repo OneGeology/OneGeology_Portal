@@ -1,5 +1,6 @@
 /**
  * Export map context widget
+ * @constructor
  */
 var exportContext = {
   /**

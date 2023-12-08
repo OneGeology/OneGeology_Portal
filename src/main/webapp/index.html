@@ -20,7 +20,6 @@
   <link rel="stylesheet" type="text/css" href="lib/datatables/jquery.dataTables.min.css?1gg-no-cache" />
   <link rel="stylesheet" type="text/css" href="lib/toastr.min.css?1gg-no-cache" />
 
-
   <link rel="stylesheet" type="text/css" href="lib/openlayers/ol.css?1gg-no-cache" />
   <link rel="stylesheet" type="text/css" href="lib/ol-popup.min.css?1gg-no-cache" />
 
@@ -28,6 +27,8 @@
 
   <link rel="stylesheet" type="text/css" href="css/onegicons.css?1gg-no-cache" />
   <link rel="stylesheet" type="text/css" href="css/style.css">
+
+  <link rel="stylesheet" type="text/css" href="lib/jquery-ui/jquery-ui.min.css?1gg-no-cache" />
 </head>
 
 <body onload="mapviewer.init();">
@@ -304,33 +305,34 @@
     </div>
   </div>
 
-  <div class="gfi-panel">
-    <div class="panel-heading">
-      <div class="clearfix">
-        <h2 class="pull-left" data-i18n="gfi.gfiTitle">Get information</h2>
-        <div class="pull-right">
-          <button type="button" class="btn modal-btn expand-btn" title="View in modal box"
-            data-i18n="[title]gfi.viewInModalBtnTitle">
-            <i class="fas fa-window-restore"></i>
-          </button>
-          <button type="button" class="btn modal-btn close-btn">
-            <span>&times;</span>
-          </button>
+  <div class="gfi-panel fixed" id="dragable">
+      <div class="panel-heading">
+        <div class="clearfix" id="dragzone">
+          <h2 class="pull-left" data-i18n="gfi.gfiTitle">Get information</h2>
+          
+          <div class="pull-right">
+            <button type="button" class="btn modal-btn expand-btn" title="View in modal box"
+              data-i18n="[title]gfi.viewInModalBtnTitle">
+              <i class="fas fa-window-restore"></i>
+            </button>
+            <button type="button" class="btn modal-btn close-btn">
+              <span>&times;</span>
+            </button>
+          </div>
         </div>
+        <p class="coordinates clearfix">
+          <span></span>
+          <button class="far fa-copy copy-btn" title="Copy to clipboard"
+            data-i18n="[title]layerswitcher.copyBtn"></button>
+        </p>
       </div>
-      <p class="coordinates clearfix">
-        <span></span>
-        <button class="far fa-copy copy-btn" title="Copy to clipboard"
-          data-i18n="[title]layerswitcher.copyBtn"></button>
-      </p>
-    </div>
-    <div class="gfi-content">
-      <div class="text-center loader">
-        <img src="images/loading.gif" />
+      <div class="gfi-content">
+        <div class="text-center loader">
+          <img src="images/loading.gif" />
+        </div>
+        <div class="result"></div>
       </div>
-      <div class="result"></div>
-    </div>
-  </div>
+  </div>  
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.7/es5-shim.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/es6-shim/0.34.2/es6-shim.min.js"></script>
@@ -345,9 +347,11 @@
   <script src="lib/Cesium/Cesium.js?1gg-no-cache"></script>
 
   <script src="lib/ol-popup.min.js?1gg-no-cache"></script>
+  <script src="lib/ol3-wmc-parser.min.js?1gg-no-cache"></script>
 
-  <script src="lib/jquery-3.1.0.min.js?1gg-no-cache"></script>
-  <script src="lib/jquery-ui/jquery-ui.min.js?1gg-no-cache"></script>
+  <script src="lib/jquery-3.1.1.min.js?1gg-no-cache"></script>  
+
+  <script src="lib/jquery-ui/jquery-ui.min.js?1gg-no-cache"></script>  
   <script src="lib/jquery-ui/jquery-ui-touch.min.js?1gg-no-cache"></script>
 
   <script src="lib/bootstrap/bootstrap.min.js?1gg-no-cache"></script>
@@ -371,13 +375,8 @@
   <script src="js/mapviewer.widget.js?1gg-no-cache"></script>
   <script src="js/mapviewer.map.gfi.js?1gg-no-cache"></script>
   <script src="js/mapviewer.tools.js?1gg-no-cache"></script>
-  <script src="js/mapviewer.autolayers.js?1gg-no-cache"></script>
+  <script src="js/mapviewer.autolayers.js?1gg-no-cache"></script>  
 
-  <!-- Piwik -->
-  <noscript>
-    <p><img src="https://wwwstats.brgm-rec.fr/piwik.php?idsite=9" style="border:0;" alt="" /></p>
-  </noscript>
-  <!-- End Piwik Code -->
   <script>
     (function () {
       // Convert array to object

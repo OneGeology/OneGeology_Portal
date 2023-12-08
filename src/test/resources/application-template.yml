@@ -1,0 +1,90 @@
+#parameters for development only
+spring:
+  profiles: 
+    active: dev
+  h2:
+    # To See H2 Console in Browser:
+    # http://localhost:8080/mapClient/h2-console
+    # Enabling H2 Console
+    console:
+      enabled: true
+      settings:
+        web-allow-others: true
+  datasource:
+    url: jdbc:h2:mem:onegeology_servicedb
+    driverClassName: org.h2.Driver
+    username: changeit
+    password: changeit
+  jmx:
+    default-domain: fr.brgm.default
+    unique-names: true
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect
+
+application:
+  cesium-exception-url: http://egdi.geology.cz
+  zabbix:
+    proxy: ${proxy_url}
+    url: ${zabbix_url}
+    user: ${zabbix_username}
+    password: ${zabbix_password}
+    service-cluster: ${zabbix_service-cluster}
+    scenario-delay: 240m
+    scheduler:
+      second: 0
+      minute: 15
+      hour: 13
+      day-of-month: '?'
+      month: '*'
+      day-of-week: '*'
+      day-interval: 30
+  ogc-tools:
+    url: http://localhost:8083
+    get-wfs-url: ${application.ogc-tools.url}/api/wfs/
+    get-sld-url: ${application.ogc-tools.url}/api/sld/
+  vocabularies:
+    - name: litho
+      url: http://srvgeosciml.brgm.fr/eXist2010/rest/db/SKOS/CGI201202/SimpleLithology201202.rdf
+      mapping-url: http://onegeology.brgm.fr/eXist2010/rest/db/SKOS/1GG/CGI-to-INSPIRE-LithologyMappingsSkos.xml
+      is-default: true
+    - name: ages
+      url: http://srvgeosciml.brgm.fr/eXist2010/rest//db/SKOS/CGI201012uri/CGI2011TimeScale.rdf
+      mapping-url: http://onegeology.brgm.fr/eXist2010/rest/db/SKOS/1GG/CGI-to-INSPIRE-AgeMappingsSkos.xml
+    - name: ga_mineral-occurrence-type_v0-1
+    - name: ga_commodity-code_v0-2
+
+wms-validation:
+  child-layer-keywords:
+    mandatory:
+      - OneGeology
+    must-contain:
+      geographic-area:
+        conditional: false
+        name: geographicarea@
+      subarea:
+        conditional: true
+        name: subarea@
+      data-provider:
+        conditional: false
+        name: dataprovider@
+      service-provider:
+        conditional: false
+        name: serviceprovider@
+      date:
+        conditional: false
+        name: DS_DATE@
+      topic:
+        conditional: false
+        name: DS_TOPIC@
+        values:
+          - geoscientificinformation
+
+logging.level:
+  org.springframework.web: DEBUG
+  fr.brgm: DEBUG
+---

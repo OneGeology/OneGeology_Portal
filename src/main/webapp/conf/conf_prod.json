@@ -1,0 +1,288 @@
+{
+  "lang": "en",
+  "appName": "OneGeology Portal",
+  "logo": {
+    "imgUrl": null,
+    "imgAlt": "One Geology",
+    "url": null,
+    "linkTitle": "Go to OneGeology website",
+    "favicon": null
+  },
+  "piwik": {
+    "url": "wwwstats.brgm.fr",
+    "appId": 9
+  },
+  "monitoring": [],
+  "bgLayers": [
+    {
+      "name": "world1GG",
+      "label": "OneGeology",
+      "url": "http://mapsref.brgm.fr/wxs/1GG/monde1GG?",
+      "type": "WMS",
+      "visibleInSelector": true,
+      "params": {
+        "LAYERS": "MONDE_ONEGEOLOGY_PROJECT",
+        "VERSION": "1.1.1"
+      }
+    },
+    {
+      "name": "worldOSM",
+      "label": "OpenStreetMap",
+      "url": "//c.tile.openstreetmap.org/{z}/{x}/{y}.png",
+      "type": "OSM",
+      "visibleInSelector": true
+    },
+    {
+      "name": "topoOSM",
+      "label": "OpenTopoMap",
+      "url": "https://{a-c}.tile.opentopomap.org/{z}/{x}/{y}.png",
+      "attributions": "Kartendaten: © <a href=\"https://openstreetmap.org/copyright\">OpenStreetMap-Mitwirkende</a>, <a href=\"http://viewfinderpanoramas.org/\">SRTM</a>  | Kartendarstellung: © <a href=\"https://opentopomap.org\">OpenTopoMap</a> <a href=\"https://creativecommons.org/licenses/by-sa/3.0/\">(CC-BY-SA)</a>",
+      "type": "OSM",
+      "visibleInSelector": true
+    },
+    {
+      "name": "Arctic",
+      "label": "Arctic",
+      "url": "http://ogc2.bgs.ac.uk/geoserver/OneG/ows",
+      "type": "WMS",
+      "visibleInSelector": false,
+      "params": {
+        "LAYERS": "ARCTIC_NASA_BLUEMARBLE",
+        "FORMAT": "image/jpeg"
+      }
+    },
+    {
+      "name": "Antarctic",
+      "label": "Antarctic",
+      "url": "http://ogc.bgs.ac.uk/cgi-bin/LIMA/ows?",
+      "type": "WMS",
+      "visibleInSelector": false,
+      "params": {
+        "LAYERS": "ATA_USGS_LIMA",
+        "FORMAT": "image/jpeg"
+      }
+    },
+    {
+      "name": "Road",
+      "label": "Bing Road",
+      "type": "Bing",
+      "visibleInSelector": true,
+      "params": {
+        "key": "Aha1aqctIbO0jm2KogTUO-2dO-nbkIcCkjZifZqKx0dIP8fr6RwvhRk_m6e3HZad",
+        "imagerySet": "Road"
+      }
+    },
+    {
+      "name": "Aerial",
+      "label": "Bing Aerial",
+      "type": "Bing",
+      "visibleInSelector": true,
+      "params": {
+        "key": "Aha1aqctIbO0jm2KogTUO-2dO-nbkIcCkjZifZqKx0dIP8fr6RwvhRk_m6e3HZad",
+        "imagerySet": "Aerial"
+      }
+    }
+  ],
+  "catalog": {
+    "type": "geonetwork",
+    "enableTabs": true,
+    "url": "http://onegeology-geonetwork.brgm.fr/geonetwork3/srv/fre/csw",
+    "thematicSrcUrl": "http://onegeology-europe.brgm.fr/eXist/rest//db/1GG_client_registry/thematic_keywords_sauv.xml",
+    "content": []
+  },
+  "projections": [
+    {
+      "code": "EPSG:4326",
+      "label": "2D Latitude / Longitude (WGS84)",
+      "initialZoom": 2.59,
+      "defaultBgLayer": "Aerial",
+      "defaultBackgroundOverview": "worldOSM",
+      "extent": [
+        -179.37258490302906,
+        -66.62179801629921,
+        179.37258490302906,
+        82.62179801629921
+      ],
+      "homeExtent": [
+        -17.600098,
+        37.718590,
+        24.213867,
+        52.402419
+      ]
+    },
+    {
+      "code": "EPSG:4258",
+      "label": "2D Latitude / Longitude (ETRS89)",
+      "initialZoom": 1.75,
+      "defaultBgLayer": "Aerial",
+      "defaultBackgroundOverview": "worldOSM",
+      "proj4def": "+proj=longlat +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +no_defs",
+      "extent": [
+        -10.6700,
+        34.5000,
+        31.5500,
+        71.0500
+      ]
+    },
+    {
+      "code": "EPSG:3034",
+      "label": "Lambert Conformal Conic (ETRS89)",
+      "initialZoom": 1.5,
+      "flippedAxis": true,
+      "defaultBgLayer": "Aerial",
+      "defaultBackgroundOverview": "worldOSM",
+      "proj4def": "+proj=lcc +lat_1=35 +lat_2=65 +lat_0=52 +lon_0=10 +x_0=4000000 +y_0=2800000 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs",
+      "extent": [
+        2122254.2378,
+        1164627.9290,
+        5955457.4541,
+        5021872.0731
+      ],
+      "homeExtent": [
+        1648085.7705250452,
+        1374695.605490622,
+        5232216.667065121,
+        3178211.9380540447
+      ]
+    },
+    {
+      "code": "EPSG:3413",
+      "label": "NSIDC Sea Ice Polar Stereographic North (WGS84)",
+      "initialZoom": 2,
+      "defaultBgLayer": "Arctic",
+      "layersInProjExtent": true,
+      "proj4def": "+proj=stere +lat_0=90 +lat_ts=70 +lon_0=-45 +k=1 +x_0=0 +y_0=0 +datum=WGS84 +units=m +no_defs",
+      "extent": [
+        -4194304,
+        -4194304,
+        4194304,
+        4194304
+      ]
+    },
+    {
+      "code": "EPSG:3031",
+      "label": "Antarctic Polar Stereographic (WGS84)",
+      "initialZoom": 2,
+      "defaultBgLayer": "Antarctic",
+      "layersInProjExtent": true,
+      "proj4def": "+proj=stere +lat_0=-90 +lat_ts=-71 +lon_0=0 +k=1 +x_0=0 +y_0=0 +datum=WGS84 +units=m +no_defs",
+      "extent": [
+        -12400000,
+        -12400000,
+        12400000,
+        12400000
+      ]
+    },
+    {
+      "code": "EPSG:3857",
+      "label": "Web Mercator (WGS84)",
+      "initialZoom": 2.75,
+      "defaultBgLayer": "Aerial",
+      "defaultBackgroundOverview": "worldOSM",
+      "extent": [
+        -20037508.34,
+        -20037508.34,
+        20037508.34,
+        20037508.34
+      ]
+    }
+  ],
+  "defaultProjection": "EPSG:4326",
+  "initialExtent": null,
+  "gazetteer": {
+    "enableGeonames": true,
+    "geonamesRestrictions": null,
+    "apiIdentifier": "onegeology",
+    "enableAddLayer": true,
+    "enablePortrayable": true,
+    "enableThematics": true,
+    "enableSpecificLocations": false,
+    "specificLocations": null
+  },
+  "layersOptions": {
+    "thematic": false
+  },
+  "tools": {
+    "wfsLayers": {
+      "enable": true
+    },
+    "advancedSearch": {
+      "enable": true
+    },
+    "autolayers": {
+      "enable": true,
+      "url": "http://onegeology-europe.brgm.fr/eXist/rest//db//1GG_client_registry/AutoLayer.xml"
+    },
+    "measure": {
+      "enable": true
+    },
+    "saveView": {
+      "enable": true
+    },
+    "catalogLink": {
+      "enable": true,
+      "url": "http://onegeology-geonetwork.brgm.fr/geonetwork3/srv/eng/catalog.search#/home"
+    },
+    "globeView": {
+      "enable": true
+    },
+    "legendPanel": {
+      "enable": true
+    },
+    "export": {
+      "enable": true
+    },
+    "urlGenerator": {
+      "enable": true
+    },
+    "scalesZoom": {
+      "enable": false,
+      "scales": []
+    },
+    "selectTheme": {
+      "enable": true
+    },
+    "autocompleteKeyword": {
+      "enable": false
+    },
+    "hideSearchButton": {
+      "enable": false
+    },
+    "showMenuByDefault": {
+      "enable": false
+    },
+    "help": {
+      "enable": true,
+      "quickHelp": true,
+      "wmsValidator": false,
+      "contact": {
+        "mail": "onegeology@bgs.ac.uk"
+      },
+      "survey": {
+        "enable": true,
+        "text": "Please take a moment to complete a short survey about the OneGeology Portal:",
+        "alertText": "Your opinion matters to us, give us your feedback!",
+        "url": "https://docs.google.com/forms/d/e/1FAIpQLSdMmYDJLgpCpILz4POrmGDHuRNKuQo3I-rJMTNdpshDLJ7MuQ/viewform"
+      },
+      "links": [
+        {
+          "url": "https://github.com/OneGeology/OneGeology_Portal/wiki/Changelogs",
+          "label": "Portal v2022.1.0 - see changelog"
+        },
+        {
+          "url": "http://www.geoportal.org",
+          "label": "GEOSS Discovery and Access Broker"
+        },
+        {
+          "url": "http://www.onegeology.org",
+          "label": "OneGeology website"
+        },
+        {
+          "url": "https://onegeology.github.io/documentation/portal.html",
+          "label": "Go to documentation",
+          "type": "button"
+        }
+      ]
+    }
+  }
+}

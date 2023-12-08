@@ -11,6 +11,10 @@ $Id: ProxyRedirect.java,v 1.1 2009/09/16 14:53:31 mauclerc Exp $
 package fr.brgm.mapClient.proxy;
 
 import fr.brgm.mapClient.config.properties.ApplicationProperties;
+import org.apache.commons.httpclient.Header;
+import org.apache.commons.httpclient.HttpClient;
+import org.apache.commons.httpclient.HttpStatus;
+import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +34,7 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 
 @WebServlet(urlPatterns = "/proxycesium", loadOnStartup = 1)
 public class ProxyCesium extends HttpServlet {
@@ -69,27 +74,35 @@ public class ProxyCesium extends HttpServlet {
 		String callup = "";
 
 		// Read URL
-		callup = URLDecoder.decode((req.getParameter("url") == null ? "" : "" + req.getParameter("url")), charenc);
+		callup = URLDecoder.decode((req.getParameter("url") == null ? "" : "" + req.getParameter("url")), charenc).replace(" ", "%20");		
+
 
 		// Call URL
 		URL url = new URL(callup);
+		String urlString = req.getParameter("url");
+		urlString = URLDecoder.decode(urlString, StandardCharsets.UTF_8.name());
 
-		// Test for redirect on unknown servers
-		HttpURLConnection con = (HttpURLConnection) url.openConnection();
-		con.setRequestMethod("GET");
-		con.connect();
-		if (con.getResponseCode() == 302 && con.getHeaderField("Location") != null) {
-			// Redirect found!
-			url = new URL(con.getHeaderField("Location"));
+		if (urlString.startsWith("http://") || urlString.startsWith("https://")) {
+			// Test for redirect on unknown servers
+			HttpURLConnection con = (HttpURLConnection) url.openConnection();
+			con.setRequestMethod("GET");
+			con.connect();
+			if (con.getResponseCode() == 302 && con.getHeaderField("Location") != null) {				
+				// Redirect found!				
+				url = new URL(con.getHeaderField("Location"));
+			}
+
+			// Connect
+			HttpURLConnection httpConnection = (HttpURLConnection)url.openConnection();
+			BufferedImage img = ImageIO.read(httpConnection.getInputStream());
+			resp.setContentType("image/png");
+			OutputStream outStream = resp.getOutputStream();
+			ImageIO.write(img, "png", outStream);
+			outStream.flush();
+			outStream.close();
 		}
-
-		// Connect
-		HttpURLConnection httpConnection = (HttpURLConnection)url.openConnection();
-		BufferedImage img = ImageIO.read(httpConnection.getInputStream());
-		resp.setContentType("image/png");
-		OutputStream outStream = resp.getOutputStream();
-		ImageIO.write(img, "png", outStream);
-		outStream.flush();
-		outStream.close();
+		else {
+			throw new ServletException("only HTTP(S) protocol supported");
+		}
 	}
 }

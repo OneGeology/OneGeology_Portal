@@ -1,5 +1,6 @@
 /**
  * Openlayers map service
+ * @constructor
  */
 mapviewer.csMap = {
   /**

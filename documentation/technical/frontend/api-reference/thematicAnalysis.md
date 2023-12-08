@@ -1,0 +1,202 @@
+ JSDoc: Class: thematicAnalysis 
+
+Class: thematicAnalysis
+=======================
+
+thematicAnalysis()
+------------------
+
+## new thematicAnalysis()
+
+thematic analysis widget
+
+Source:
+
+* [script.js](../../../../src/main/webapp/widget/thematicAnalysis/script.js), [line 5](../../../../src/main/webapp/widget/thematicAnalysis/script.js#L5)
+
+# Members
+
+## (static) $container :jQuery
+
+Thematic container of the currently displayed layer
+
+### Type:
+
+* jQuery
+
+Source:
+
+* [script.js](../../../../src/main/webapp/widget/thematicAnalysis/script.js), [line 16](../../../../src/main/webapp/widget/thematicAnalysis/script.js#L16)
+
+## (static) lithoToolsTable :string
+
+?
+
+### Type:
+
+* string
+
+Source:
+
+* [script.js](../../../../src/main/webapp/widget/thematicAnalysis/script.js), [line 34](../../../../src/main/webapp/widget/thematicAnalysis/script.js#L34)
+
+## (static) queryableThematic :string
+
+? erml or geosciml
+
+### Type:
+
+* string
+
+Source:
+
+* [script.js](../../../../src/main/webapp/widget/thematicAnalysis/script.js), [line 40](../../../../src/main/webapp/widget/thematicAnalysis/script.js#L40)
+
+## (static) statsTable :Object
+
+Statistics table object
+
+### Type:
+
+* Object
+
+Source:
+
+* [script.js](../../../../src/main/webapp/widget/thematicAnalysis/script.js), [line 22](../../../../src/main/webapp/widget/thematicAnalysis/script.js#L22)
+
+## (static) thematicLayerId :number
+
+Id of the currently displayed layer
+
+### Type:
+
+* number
+
+Source:
+
+* [script.js](../../../../src/main/webapp/widget/thematicAnalysis/script.js), [line 10](../../../../src/main/webapp/widget/thematicAnalysis/script.js#L10)
+
+## (static) thematicsLoaded :Promise
+
+Is thematics lists loading ?
+
+### Type:
+
+* Promise
+
+Source:
+
+* [script.js](../../../../src/main/webapp/widget/thematicAnalysis/script.js), [line 46](../../../../src/main/webapp/widget/thematicAnalysis/script.js#L46)
+
+## (static) wfstoolsTable :string
+
+?
+
+### Type:
+
+* string
+
+Source:
+
+* [script.js](../../../../src/main/webapp/widget/thematicAnalysis/script.js), [line 28](../../../../src/main/webapp/widget/thematicAnalysis/script.js#L28)
+
+# Methods
+
+## (static) addListeners()
+
+Creates widget listeners
+
+Source:
+
+* [script.js](../../../../src/main/webapp/widget/thematicAnalysis/script.js), [line 91](../../../../src/main/webapp/widget/thematicAnalysis/script.js#L91)
+
+## (static) chooseColor()
+
+Handle color change
+
+Source:
+
+* [script.js](../../../../src/main/webapp/widget/thematicAnalysis/script.js), [line 133](../../../../src/main/webapp/widget/thematicAnalysis/script.js#L133)
+
+## (static) constructColorChoices()
+
+Renders colors dropdown
+
+Source:
+
+* [script.js](../../../../src/main/webapp/widget/thematicAnalysis/script.js), [line 104](../../../../src/main/webapp/widget/thematicAnalysis/script.js#L104)
+
+## (static) init()
+
+Initialize widget
+
+Source:
+
+* [script.js](../../../../src/main/webapp/widget/thematicAnalysis/script.js), [line 51](../../../../src/main/webapp/widget/thematicAnalysis/script.js#L51)
+
+## (static) initializeTree(vocab, tag)
+
+Build vocabularies tree at tag position
+
+### Parameters:
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `vocab` |     | =\> type of vocabulary (ages or litho) |
+| `tag` |     | =\> where to build the tree |
+
+Source:
+
+* [script.js](../../../../src/main/webapp/widget/thematicAnalysis/script.js), [line 190](../../../../src/main/webapp/widget/thematicAnalysis/script.js#L190)
+
+## (static) loadThematics()
+
+Loads all thematics for analysis
+
+Source:
+
+* [script.js](../../../../src/main/webapp/widget/thematicAnalysis/script.js), [line 67](../../../../src/main/webapp/widget/thematicAnalysis/script.js#L67)
+
+## (static) openThematicAnalysis(layerId)
+
+Activate thematic analysis for current layer
+
+### Parameters:
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `layerId` | number | current layer id |
+
+Source:
+
+* [script.js](../../../../src/main/webapp/widget/thematicAnalysis/script.js), [line 155](../../../../src/main/webapp/widget/thematicAnalysis/script.js#L155)
+
+[Return to files structure](../files-structure.md)
+------------------
+
+# Classes
+
+- Main files
+  - [mapviewer](mapviewer.md)
+  - [mapviewer.map](mapviewer.map.md)
+  - [mapviewer.csMap](mapviewer.csMap.md)
+  - [mapviewer.olMap](mapviewer.olMap.md)
+  - [mapviewer.map.gfi](mapviewer.map.gfi.md)
+  - [mapviewer.autolayers](mapviewer.autolayers.md)
+  - [mapviewer.monitoring](mapviewer.monitoring.md)
+  - [mapviewer.tools](mapviewer.tools.md)
+  - [mapviewer.widget](mapviewer.widget.md)
+- Widgets
+  - [exportContext](exportContext.md)
+  - [externalOGC](externalOGC.md)
+  - [generateUrl](generateUrl.md)
+  - [gazetteer](gazetteer.md)
+  - [help](help.md)
+  - [layerOneGeology](layerOneGeology.md)
+  - [layerswitcher](layerswitcher.md)
+  - [measurement](measurement.md)
+  - [thematicAnalysis](thematicAnalysis.md)
+
+Documentation generated by [JSDoc 3.6.7](https://github.com/jsdoc/jsdoc) on Thu Dec 23 2021 15:54:08 GMT+0100 (heure normale d’Europe centrale)
+
+Converted from HTML by [convert-simple.com](https://www.convertsimple.com/convert-html-to-markdown/)

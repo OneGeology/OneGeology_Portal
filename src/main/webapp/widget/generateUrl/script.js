@@ -1,6 +1,7 @@
 
 /**
  * Generate url page
+ * @constructor
  */
 var generateUrl = {
   /**
@@ -17,7 +18,7 @@ var generateUrl = {
 
   /**
    * Current selected extent
-   * @type {[number, number, number, number]|Null}
+   * @type {number[]|Null}
    */
   selectedExtent: null,
 
@@ -306,7 +307,7 @@ var generateUrl = {
     $('#generate-url-service-url').val(data.serviceUrl);
     $('#generate-url-layername').val(data.layername);
 
-    if (['WMS', 'WFS'].indexOf(data.serviceType) >= 0) {
+    if (['WMS', 'WFS', 'WMTS'].indexOf(data.serviceType) >= 0) {
       $('#generate-url-service-type').val(data.serviceType);
     } else {
       $('#generate-url-service-type').val('WMS');
