@@ -14,7 +14,7 @@ mapviewer = {
    * Configuration file path
    * @type {string}
    */
-  CONFIG_FILE: "conf/conf_geothermie_perspective.json",
+  CONFIG_FILE: "conf/conf.json",
   // CONFIG_FILE: "conf/conf_geothermie_perspective_recette.json",
 
   /**
