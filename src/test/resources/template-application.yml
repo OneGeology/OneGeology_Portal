@@ -1,6 +1,6 @@
 #parameters for development only
 spring:
-  profiles: 
+  profiles:
     active: dev
   h2:
     # To See H2 Console in Browser:
@@ -88,3 +88,4 @@ logging.level:
   org.springframework.web: DEBUG
   fr.brgm: DEBUG
 ---
+
