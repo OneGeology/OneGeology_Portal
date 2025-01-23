@@ -7,7 +7,7 @@
 ### LOCAL RUN :
 Use maven goal : `clean install spring-boot:run`
 
-The maven must run in **Java 8**.
+The maven must run in **Java 17 or later**.
 
 ### DOCKER RUN
 In the project root folder : `docker-compose up -d`
