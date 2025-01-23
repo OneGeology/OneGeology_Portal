@@ -193,20 +193,14 @@
                 <version>3.7.1</version>
                 <executions>
                     <execution>
-                        <phase>prepare-package</phase>
                         <goals>
                             <goal>update-stylesheets</goal>
                         </goals>
                     </execution>
                 </executions>
-                <configuration>
-                    <buildDirectory>${project.build.directory}/mapClient</buildDirectory>
-                    <sassSourceDirectory>${basedir}/src/main/webapp/scss</sassSourceDirectory>
-                    <includes>
-                        <include>scss/style.scss</include>
-                        <include>scss/onegicons.scss</include>
-                    </includes>
-                </configuration>
+		<configuration>
+		  <destination>${project.build.directory}/classes/public/css</destination>
+		</configuration>
             </plugin>
 
             <plugin>
