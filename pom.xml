@@ -25,7 +25,7 @@
     <properties>
         <maven.build.timestamp.format>yyyyMMddHHmmss</maven.build.timestamp.format>
         <project.build.resourceEncoding>UTF-8</project.build.resourceEncoding>
-        <dependency.mapstruct.version>1.5.5.Final</dependency.mapstruct.version>
+        <dependency.mapstruct.version>1.6.3</dependency.mapstruct.version>
     </properties>
 
     <dependencies>
