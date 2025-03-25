@@ -1,5 +1,6 @@
+.approval_tests_temp/
+.vscode/
 /cache/
 target/
-.approval_tests_temp/
 /src/main/resources/application*.yml
 /src/test/resources/application*.yml

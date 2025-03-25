@@ -193,9 +193,9 @@
                         </goals>
                     </execution>
                 </executions>
-		<configuration>
-		  <destination>${project.build.directory}/classes/public/css</destination>
-		</configuration>
+                <configuration>
+                    <destination>${project.build.directory}/classes/public/css</destination>
+                </configuration>
             </plugin>
 
             <plugin>
